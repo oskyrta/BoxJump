@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Game Interface">
+      <UniqueIdentifier>{7099e523-0f91-4a9f-a117-c74f14b9245c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Object">
+      <UniqueIdentifier>{f5d240f0-9f24-4749-9ecd-d9ae3e6111a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Interface">
+      <UniqueIdentifier>{4898fcc2-3e6b-420d-a918-c5646df4c153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Object">
+      <UniqueIdentifier>{f4c613cc-fb9a-4493-b9e2-e4729a83c60a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vec2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="interfaceWindow.cpp">
+      <Filter>Source Files\Game Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="interface.cpp">
+      <Filter>Source Files\Game Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>Source Files\Game Object</Filter>
+    </ClCompile>
+    <ClCompile Include="hero.cpp">
+      <Filter>Source Files\Game Object</Filter>
+    </ClCompile>
+    <ClCompile Include="platform.cpp">
+      <Filter>Source Files\Game Object</Filter>
+    </ClCompile>
+    <ClCompile Include="guiText.cpp">
+      <Filter>Source Files\Game Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="guiButton.cpp">
+      <Filter>Source Files\Game Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="eventController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="settingsManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="guiObject.cpp">
+      <Filter>Source Files\Game Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="physicsController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vec2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="levelSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="eventController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="interface.h">
+      <Filter>Header Files\Game Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="interfaceWindow.h">
+      <Filter>Header Files\Game Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject.h">
+      <Filter>Header Files\Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObjectType.h">
+      <Filter>Header Files\Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="hero.h">
+      <Filter>Header Files\Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="platform.h">
+      <Filter>Header Files\Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="guiObject.h">
+      <Filter>Header Files\Game Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="guiText.h">
+      <Filter>Header Files\Game Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="guiButton.h">
+      <Filter>Header Files\Game Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="settingsManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="physicsController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
