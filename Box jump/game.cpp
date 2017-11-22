@@ -87,6 +87,8 @@ Game::~Game()
 
 	if (g_font)
 		g_font = 0;
+
+	updateStatistic();
 }
 
 void Game::setupSystem()
@@ -149,7 +151,7 @@ void Game::updateStatistic()
 {
 	settingsManager.p_statistic->put("MaxScore", m_maxScore);
 	settingsManager.p_statistic->put("TimeInGame", m_timeInGame);
-	settingsManager.writeData(SettingsFile_Staistic);
+	settingsManager.writeData(SettingsFile_Statistic);
 }
 
 bool Game::frame()

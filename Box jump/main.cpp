@@ -1,3 +1,7 @@
+#ifndef _DEBUG
+#	pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
+#endif // !_DEBUG
+
 ////////////////////////////////////////////////
 // Include
 #include "game.h"
@@ -7,10 +11,8 @@
 #include <iostream>
 #include "settingsManager.h"
 
-#ifndef _DEBUG
-#	pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
-#endif // !_DEBUG
-
+////////////////////////////////////////////////
+// Global
 SettingsManager settingsManager;
 
 ////////////////////////////////////////////////

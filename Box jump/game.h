@@ -47,7 +47,7 @@ public:
 	const int* getPointerToFPS() { return &m_fps; };
 	const int* getPointerToScore() { return &m_score; };
 	const int* getPointerToMaxScore() { return &m_maxScore; };
-	const double* getPointerToTimeIngame() { return &m_timeInGame; };
+	const double* getPointerToTimeInGame() { return &m_timeInGame; };
 	GameObject** getObjects() { return m_objects; };
 
 	void setRequiredCameraPos(float yPos) { if(yPos < m_requiredCameraYPosition) m_requiredCameraYPosition = yPos; };

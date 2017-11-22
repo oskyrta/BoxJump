@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{E7C864EA-A027-4326-BC2F-AFC4575C185D}</ProjectGuid>
-    <RootNamespace>Doodlejump</RootNamespace>
+    <RootNamespace>Boxjump</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
     <ProjectName>Box jump</ProjectName>
   </PropertyGroup>

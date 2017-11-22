@@ -87,8 +87,13 @@ void Interface::initialize()
 	// Initislize statistic window
 	window = createWindow(StatisticWindow);
 	window->addText("Statistic", Vec2(20, 20), "StW_Title");
+
 	txt = window->addText("Hight score: ^ points", Vec2(20, 20), "Stw_HS");
 	txt->setIntChangedValue(m_game->getPointerToMaxScore());
+
+	txt = window->addText("Time in game: ^s", Vec2(20, 20), "Stw_TimeInGame");
+	txt->setDoubleChangedValue(m_game->getPointerToTimeInGame());
+
 	window->addButton("Main menu", Vec2(100, 8), "StW_Main", GameEvent_MainMenuButtonDown);
 }
 

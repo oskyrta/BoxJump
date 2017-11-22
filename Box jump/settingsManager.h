@@ -13,7 +13,7 @@ enum SettingsFile
 	SettingsFile_WindowSettings,
 	SettingsFile_ObjectsSettings,
 	SettingsFile_InterfaceSettings,
-	SettingsFile_Staistic
+	SettingsFile_Statistic
 };
 
 /////////////////////////////////////////////////

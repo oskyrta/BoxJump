@@ -16,7 +16,7 @@ SettingsManager::~SettingsManager()
 {
 	// Save new interface settings before exit
 	writeData(SettingsFile_InterfaceSettings);
-	writeData(SettingsFile_Staistic);
+	writeData(SettingsFile_Statistic);
 }
 
 void SettingsManager::writeData(SettingsFile fileName)
@@ -32,10 +32,10 @@ void SettingsManager::writeData(SettingsFile fileName)
 		break;
 
 	case SettingsFile_InterfaceSettings:
-		boost::property_tree::info_parser::write_info(m_rep + "m_interfaceSettings.info", m_interfaceSettings);
+		boost::property_tree::info_parser::write_info(m_rep + "interface.info", m_interfaceSettings);
 		break;
 
-	case SettingsFile_Staistic:
+	case SettingsFile_Statistic:
 		boost::property_tree::info_parser::write_info(m_rep + "statistic.info", m_statistic);
 		break;
 	}
