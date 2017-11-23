@@ -1,2 +1,2 @@
 # BoxJump
-It is my first on C++
+It is my first game on C++
