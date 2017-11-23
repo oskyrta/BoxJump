@@ -15,8 +15,8 @@ public:
 	virtual void render();
 	virtual void update();
 
-	void setIntChangedValue(const int* changedValue) { m_intChangedValue = changedValue; };
-	void setDoubleChangedValue(const double* changedValue) { m_doubleChangedValue = changedValue; };
+	void setChangedValue(const int* changedValue) { m_intChangedValue = changedValue; };
+	void setChangedValue(const double* changedValue) { m_doubleChangedValue = changedValue; };
 	sf::Vector2f getTextPosition();
 
 	void initialize(std::string string, Vec2 position, Vec2 halfSize, sf::Font* font, int characterSize, sf::Color color = sf::Color(45, 45, 45));

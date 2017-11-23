@@ -76,7 +76,7 @@ void Hero::physicsUpdate(float dt)
 
 void Hero::intersect(Collision* collision)
 {
-	if (collision->getNormal().y >= 0 || (collision->getState() == CollisionState_Stay && collision->getEnterDirection().y >= 0))
+	if (collision->getNormal().y >= 0 || (collision->getState() == CollisionState_Stay && collision->getEnterDirection().y >= 0) && m_velocity.y <=0)
 	{
 		collision->m_needToResolve = false;
 		return;

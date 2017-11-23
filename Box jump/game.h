@@ -44,10 +44,10 @@ public:
 	void setCamera(Camera* camera) { m_mainCamera = camera; };
 	Camera* getCamera() { return m_mainCamera; };
 
-	const int* getPointerToFPS() { return &m_fps; };
+	const double* getPointerToFPS() { return &m_fps; };
 	const int* getPointerToScore() { return &m_score; };
 	const int* getPointerToMaxScore() { return &m_maxScore; };
-	const double* getPointerToTimeInGame() { return &m_timeInGame; };
+	const int* getPointerToTimeInGame() { return &m_minutesInGame; };
 	GameObject** getObjects() { return m_objects; };
 
 	void setRequiredCameraPos(float yPos) { if(yPos < m_requiredCameraYPosition) m_requiredCameraYPosition = yPos; };
@@ -67,12 +67,13 @@ private:
 	EventController* m_eventController;
 	PhysicsController* m_physicsController;
 
-	int m_fps;
+	double m_fps;
 	clock_t m_lastClock;
 
 	int m_score;
 	int m_maxScore;
 	double m_timeInGame;
+	int m_minutesInGame;
 
 	Camera* m_mainCamera;
 	float m_requiredCameraYPosition;

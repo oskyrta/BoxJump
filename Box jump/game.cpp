@@ -119,6 +119,7 @@ void Game::setupSystem()
 	if (fpsLock != 0) fpsLock = 1.0 / fpsLock;
 
 	m_timeInGame = settingsManager.p_statistic->get<double>("TimeInGame", 0);
+	m_minutesInGame = m_timeInGame / 60;
 	m_maxScore = settingsManager.p_statistic->get<int>("MaxScore", 0);
 }
 
@@ -129,7 +130,7 @@ void Game::initialize()
 
 	m_score = 0;
 	distance = 0;
-	lastYpos = 0;
+	lastYpos = -100;
 
 	m_mainCamera->setPosition(Vec2());
 	m_requiredCameraYPosition = 0;
@@ -172,14 +173,16 @@ bool Game::frame()
 	t += deltaTime;
 	frames++;
 
-	if (t >= 1.0)
+	if (t >= 0.5)
 	{
-		t -= 1.0;
-		m_fps = frames;
+		m_fps = std::floor( (frames / t)*10.0 + 0.5f) / 10;
+		t -= 0.5;
 		frames = 0;
 	}
 
+	// Update time in game
 	m_timeInGame += deltaTime;
+	m_minutesInGame = m_timeInGame / 60;
 
 	// Check events
 	if (m_eventController)
@@ -284,6 +287,7 @@ void Game::update(float dt)
 	}
 	m_controller->update(dt);
 
+	// Camera move
 	if (m_mainCamera->getPosition().y < m_requiredCameraYPosition)
 	{
 		m_mainCamera->setPosition(Vec2(0, m_requiredCameraYPosition));

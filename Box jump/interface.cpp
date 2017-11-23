@@ -61,10 +61,10 @@ void Interface::initialize()
 	// Initialize in-game menu
 	window = createWindow(InGameMenu);
 	txt = window->addText("^", Vec2(20, 20), "GM_FPS");
-	txt->setIntChangedValue(m_game->getPointerToFPS());
+	txt->setChangedValue(m_game->getPointerToFPS());
 
 	txt = window->addText("Score: ^", Vec2(20, 20), "GM_Score");
-	txt->setIntChangedValue(m_game->getPointerToScore());
+	txt->setChangedValue(m_game->getPointerToScore());
 
 	btn = window->addButton("", Vec2(7, 7), "GM_Pause", GameEvent_PauseButtonDown);
 	btn->setRect(kPauseButtonImage);
@@ -75,12 +75,12 @@ void Interface::initialize()
 	window->addButton("Main menu", Vec2(100, 8), "PM_Main", GameEvent_MainMenuButtonDown);
 
 	txt = window->addText("Your score: ^", Vec2(20, 20), "PM_Score");
-	txt->setIntChangedValue(m_game->getPointerToScore());
+	txt->setChangedValue(m_game->getPointerToScore());
 
 	// Initialize score menu
 	window = createWindow(ScoreMenu);
 	txt = window->addText("Your score: ^", Vec2(20, 20), "SM_Score", 32);
-	txt->setIntChangedValue(m_game->getPointerToScore());
+	txt->setChangedValue(m_game->getPointerToScore());
 	window->addButton("Try again", Vec2(100, 8), "SM_Restart", GameEvent_RestartButtonDown);
 	window->addButton("Main menu", Vec2(100, 8), "SM_Main", GameEvent_MainMenuButtonDown);
 
@@ -89,10 +89,10 @@ void Interface::initialize()
 	window->addText("Statistic", Vec2(20, 20), "StW_Title");
 
 	txt = window->addText("Hight score: ^ points", Vec2(20, 20), "Stw_HS");
-	txt->setIntChangedValue(m_game->getPointerToMaxScore());
+	txt->setChangedValue(m_game->getPointerToMaxScore());
 
-	txt = window->addText("Time in game: ^s", Vec2(20, 20), "Stw_TimeInGame");
-	txt->setDoubleChangedValue(m_game->getPointerToTimeInGame());
+	txt = window->addText("Time in game: ^ minuts", Vec2(20, 20), "Stw_TimeInGame");
+	txt->setChangedValue(m_game->getPointerToTimeInGame());
 
 	window->addButton("Main menu", Vec2(100, 8), "StW_Main", GameEvent_MainMenuButtonDown);
 }
