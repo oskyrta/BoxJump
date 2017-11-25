@@ -6,6 +6,7 @@
 ////////////////////////////////////////////////
 // Forvard declaration
 class GameObject;
+enum GameObjectType;
 
 ////////////////////////////////////////////////
 // Enum
@@ -48,6 +49,8 @@ public:
 
 	void setState(CollisionState state) { m_state = state; };
 	CollisionState getState() { return m_state; };
+
+	bool collisionWith(GameObjectType type);
 
 	bool m_needToResolve;
 

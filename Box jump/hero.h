@@ -24,7 +24,7 @@ public:
 private:
 	int m_leftKey;
 	int m_rightKey;
-	int m_fireKey;
+	int m_jumpKey;
 
 	bool m_isJump;
 

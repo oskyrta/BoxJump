@@ -42,7 +42,7 @@ int main()
 
 	// Initialize game
 	gameInterface.initialize();
-	game.initialize();
+	game.initialize(GameMode_OnePlayer);
 	std::cout << "Game initialize complited\n";
 
 

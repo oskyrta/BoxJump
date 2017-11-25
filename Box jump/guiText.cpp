@@ -54,7 +54,9 @@ void GUIText::render()
 	if (m_intChangedValue) 
 		m_text.setString(s_start + std::to_string(*m_intChangedValue) + s_end);
 	if (m_doubleChangedValue)
+	{
 		m_text.setString(s_start + std::to_string(*m_doubleChangedValue) + s_end);
+	}
 
 	sf::Vector2f position = getTextPosition();
 	m_text.setPosition(position);

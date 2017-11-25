@@ -52,7 +52,8 @@ void Interface::initialize()
 
 	// Initialize Main menu window
 	window = createWindow(MainMenu);
-	window->addButton("Start game", Vec2(100, 8), "MM_Start", GameEvent_StartButtonDown);
+	window->addButton("Start game", Vec2(100, 8), "MM_Start", GameEvent_Start1pGameButtonDown);
+	window->addButton("Start 2P game", Vec2(100, 8), "MM_2pStart", GameEvent_Start2pGameButtonDown);
 	window->addButton("Exit to desktop", Vec2(100, 8), "MM_Exit", GameEvent_ExitButtonDown);
 	window->addButton("Statistic", Vec2(100, 8), "MM_Statistic", GameEvent_StatisticButtonDown);
 	txt = window->addText("Box jump", Vec2(20, 20), "MM_Title", 32);
@@ -113,6 +114,7 @@ void Interface::update()
 		m_eventController->startEvent(GameEvent_GameEnd);
 
 	if (m_eventController->getEventState(GameEvent_StartButtonDown)) changeWindow(InGameMenu);
+	if (m_eventController->getEventState(GameEvent_Start2pGameButtonDown) || m_eventController->getEventState(GameEvent_Start1pGameButtonDown)) changeWindow(InGameMenu);
 	if (m_eventController->getEventState(GameEvent_PauseButtonDown)) changeWindow(PauseMenu);
 	if (m_eventController->getEventState(GameEvent_MainMenuButtonDown)) changeWindow(MainMenu);
 	if (m_eventController->getEventState(GameEvent_GameEnd)) changeWindow(ScoreMenu);

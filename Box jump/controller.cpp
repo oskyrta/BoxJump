@@ -2,6 +2,7 @@
 // Include
 #include "controller.h"
 #include "pool.h"
+#include "game.h"
 #include "utils.h"
 #include "platform.h"
 #include <iostream>
@@ -14,11 +15,11 @@ int maxYobjectNum = 0;
 // Class Controller
 Controller::Controller()
 {
-	m_hero = 0;
+	m_game = 0;
 	m_pool = 0;
 }
 
-void Controller::initialize(Pool* pool, Camera* camera)
+void Controller::initialize(Game* game, Pool* pool, Camera* camera)
 {
 	for (int i = 0; i < kMaxObjectsCount; i++)
 	{
@@ -28,15 +29,30 @@ void Controller::initialize(Pool* pool, Camera* camera)
 	maxYobjectNum = 0;
 
 	m_pool = pool;
+	m_game = game;
 	m_camera = camera;
 	loadLevel();
 }
 
 void Controller::loadLevel()
 {
-	m_platformList[0] = (Platform*)m_pool->getNewObject();
-	m_platformList[0]->setPosition(Vec2(0, 175));
-	m_platformList[0]->setActive(true);
+	if(m_game->getGameMode() == GameMode_OnePlayer)
+	{
+		m_platformList[0] = (Platform*)m_pool->getNewObject();
+		m_platformList[0]->setPosition(Vec2(0, 175));
+		m_platformList[0]->setActive(true);
+	}
+
+	if (m_game->getGameMode() == GameMode_TwoPlayers)
+	{
+		m_platformList[0] = (Platform*)m_pool->getNewObject();
+		m_platformList[0]->setPosition(Vec2(-100, 175));
+		m_platformList[0]->setActive(true);
+
+		m_platformList[1] = (Platform*)m_pool->getNewObject();
+		m_platformList[1]->setPosition(Vec2(100, 175));
+		m_platformList[1]->setActive(true);
+	}
 }
 
 void Controller::update(float dt)
@@ -59,7 +75,6 @@ void Controller::update(float dt)
 
 	if (abs(m_platformList[maxYobjectNum]->getPosition().y - m_camera->getPosition().y) < kPixlelsInColumn * 2)
 	{
-		//std::cout << "i";
 		createNextPlatforms(m_platformList[maxYobjectNum]->getPosition());
 	}
 }

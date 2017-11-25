@@ -68,7 +68,8 @@ Game::Game()
 	{
 		m_objects[i] = 0;
 	}
-	m_hero = 0;
+	m_player1 = 0;
+	m_player2 = 0;
 	m_platformPool = 0;
 	m_controller = 0;
 	m_physicsController = 0;
@@ -93,7 +94,7 @@ Game::~Game()
 
 void Game::setupSystem()
 {
-	// Set seed
+	// Set seed to random generator
 	srand(time(0));
 
 	// Set start clock
@@ -123,10 +124,12 @@ void Game::setupSystem()
 	m_maxScore = settingsManager.p_statistic->get<int>("MaxScore", 0);
 }
 
-void Game::initialize()
+void Game::initialize(GameMode mode)
 {
 	// Clear objects list
 	shutdown();
+
+	m_mode = mode;
 
 	m_score = 0;
 	distance = 0;
@@ -138,14 +141,30 @@ void Game::initialize()
 	m_physicsController->initialize(this);
 
 	// Create Hero
-	m_hero = (Hero*)createGameObject(GameObjectType_Hero, 0, -100, kBoxImage);
-	m_hero->setKeys(VK_LEFT, VK_RIGHT, VK_UP);
-	m_hero->setVelocity(Vec2(0, 0));
-	m_hero->setUseGravity(true);
+	if (m_mode == GameMode_OnePlayer)
+	{
+		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 0, -100, kBoxImage);
+		m_player1->setKeys(VK_LEFT, VK_RIGHT, VK_UP);
+		m_player1->setVelocity(Vec2(0, 0));
+		m_player1->setUseGravity(true);
+	}
+	
+	if (m_mode == GameMode_TwoPlayers)
+	{
+		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 100, 159, kBoxImage);
+		m_player1->setKeys(VK_LEFT, VK_RIGHT, VK_UP);
+		m_player1->setVelocity(Vec2(0, 0));
+		m_player1->setUseGravity(true);
+	
+		m_player2 = (Hero*)createGameObject(GameObjectType_Hero, -100, 159, kBoxImage);
+		m_player2->setKeys('A', 'D', 'W');
+		m_player2->setVelocity(Vec2(0, 0));
+		m_player2->setUseGravity(true);
+	}
 
 	m_platformPool->setup(this, GameObjectType_Platform, 10);
 
-	m_controller->initialize(m_platformPool, m_mainCamera);
+	m_controller->initialize(this, m_platformPool, m_mainCamera);
 }
 
 void Game::updateStatistic()
@@ -175,7 +194,7 @@ bool Game::frame()
 
 	if (t >= 0.5)
 	{
-		m_fps = std::floor( (frames / t)*10.0 + 0.5f) / 10;
+		m_fps = std::floor( (frames / t) + 0.5);
 		t -= 0.5;
 		frames = 0;
 	}
@@ -187,6 +206,20 @@ bool Game::frame()
 	// Check events
 	if (m_eventController)
 	{
+		if (!m_gameState && m_eventController->getEventState(GameEvent_Start1pGameButtonDown))
+		{
+			initialize(GameMode_OnePlayer);
+			startGame();
+			std::cout << "Game started\n";
+		}
+
+		if (!m_gameState && m_eventController->getEventState(GameEvent_Start2pGameButtonDown))
+		{
+			initialize(GameMode_TwoPlayers);
+			startGame();
+			std::cout << "Game started\n";
+		}
+
 		if (!m_gameState && m_eventController->getEventState(GameEvent_StartButtonDown))
 		{
 			startGame();
@@ -202,7 +235,6 @@ bool Game::frame()
 		if (m_eventController->getEventState(GameEvent_MainMenuButtonDown))
 		{
 			m_gameEnded = false;
-			initialize();
 		}
 
 		if (m_eventController->getEventState(GameEvent_GameEnd))
@@ -215,7 +247,7 @@ bool Game::frame()
 
 		if (m_eventController->getEventState(GameEvent_RestartButtonDown))
 		{
-			initialize();
+			initialize(m_mode);
 			startGame();
 			m_gameEnded = false;
 		}
@@ -298,16 +330,22 @@ void Game::update(float dt)
 	}
 
 	// Calculate traveled distance
-	if (m_hero->getPosition().y < lastYpos)
+	if (m_player1->getPosition().y < lastYpos)
 	{
-		distance += abs(m_hero->getPosition().y - lastYpos);
-		lastYpos = m_hero->getPosition().y;
+		distance += abs(m_player1->getPosition().y - lastYpos);
+		lastYpos = m_player1->getPosition().y;
+	}
+
+	if (m_player2->getPosition().y < lastYpos)
+	{
+		distance += abs(m_player2->getPosition().y - lastYpos);
+		lastYpos = m_player2->getPosition().y;
 	}
 
 	m_score = (int)distance / 16;
 
 	// Restart game
-	if (m_hero->getPosition().y > m_mainCamera->getPosition().y + kPixlelsInRow / 2 + 16)
+	if (m_player1->getPosition().y > m_mainCamera->getPosition().y + kPixlelsInRow / 2 + 16)
 	{
 		m_gameEnded = true;
 	}

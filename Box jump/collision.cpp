@@ -1,6 +1,7 @@
 ////////////////////////////////////////////////
 // Include
 #include "collision.h"
+#include "gameObject.h"
 
 ////////////////////////////////////////////////
 // Class Collision
@@ -29,4 +30,9 @@ void Collision::clear()
 	m_depth = 0;
 
 	m_needToResolve = true;
+}
+
+bool Collision::collisionWith(GameObjectType type) 
+{ 
+	return (m_objects.object1->getType() == type || m_objects.object2->getType() == type); 
 }

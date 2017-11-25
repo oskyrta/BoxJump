@@ -5,7 +5,7 @@
 
 ///////////////////////////////////////////////////
 // Forvard declaration
-class Hero;
+class Game;
 class Camera;
 class Pool;
 class Platform;
@@ -17,14 +17,14 @@ class Controller
 public:
 	Controller();
 
-	void initialize(Pool* platformPool, Camera* camera);
+	void initialize(Game* game, Pool* platformPool, Camera* camera);
 	void loadLevel();
 	void update(float dt);
 
 	void createNextPlatforms(Vec2 currentPlatformPos);
 private:
 	Platform* m_platformList[kMaxObjectsCount];
-	Hero* m_hero;
+	Game* m_game;
 	Pool* m_pool;
 	Camera* m_camera;
 };

@@ -5,6 +5,8 @@ enum GameEvents
 {
 	GameEvent_None,
 	GameEvent_StartButtonDown,
+	GameEvent_Start1pGameButtonDown,
+	GameEvent_Start2pGameButtonDown,
 	GameEvent_PauseButtonDown,
 	GameEvent_MainMenuButtonDown,
 	GameEvent_ExitButtonDown,

@@ -26,7 +26,7 @@ Hero::Hero()
 
 	m_leftKey = 0;
 	m_rightKey = 0;
-	m_fireKey = 0;
+	m_jumpKey = 0;
 
 	m_material.density = settingsManager.p_objectsSettings->get<float>("Wood.Density");
 	m_material.restitution = settingsManager.p_objectsSettings->get<float>("Wood.Restitution");
@@ -76,7 +76,7 @@ void Hero::physicsUpdate(float dt)
 
 void Hero::intersect(Collision* collision)
 {
-	if (collision->getNormal().y >= 0 || (collision->getState() == CollisionState_Stay && collision->getEnterDirection().y >= 0) && m_velocity.y <=0)
+	if (collision->collisionWith(GameObjectType_Platform) && (collision->getNormal().y >= 0 || (collision->getState() == CollisionState_Stay && collision->getEnterDirection().y >= 0) && m_velocity.y <=0))
 	{
 		collision->m_needToResolve = false;
 		return;
@@ -84,13 +84,13 @@ void Hero::intersect(Collision* collision)
 	
 	if(( (collision->getState() == CollisionState_Stay && !jump_key_pressed_in_last_frame) || collision->getState() == CollisionState_Start )
 		&&
-		(collision->getObjects().object1->getType() == GameObjectType_Platform || collision->getObjects().object2->getType() == GameObjectType_Platform)
+		(collision->collisionWith(GameObjectType_Platform) || collision->collisionWith(GameObjectType_Hero))
 		&& 
 		collision->getNormal().y < 0 
 		)
 	{
 		m_game->setRequiredCameraPos( collision->getObjects().object2->getPosition().y - 175 );
-		if (!m_isJump && IsKeyDown(VK_SPACE))
+		if (!m_isJump && IsKeyDown(m_jumpKey))
 		{
 			m_isJump = true;
 			m_forse.y += -m_heroJumpForse * 10000;
@@ -128,5 +128,5 @@ void Hero::setKeys(int leftKey, int rightKey, int fireKey)
 {
 	m_leftKey = leftKey;
 	m_rightKey = rightKey;
-	m_fireKey = fireKey;
+	m_jumpKey = fireKey;
 }

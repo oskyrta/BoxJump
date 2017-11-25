@@ -20,6 +20,14 @@ class EventController;
 class PhysicsController;
 
 /////////////////////////////////////////////////
+// Enum
+enum GameMode
+{
+	GameMode_OnePlayer,
+	GameMode_TwoPlayers
+};
+
+/////////////////////////////////////////////////
 // Class Game
 class Game
 {
@@ -28,7 +36,7 @@ public:
 	~Game();
 
 	void setupSystem();
-	void initialize();
+	void initialize(GameMode mode);
 	bool frame();
 	void shutdown();
 
@@ -44,7 +52,9 @@ public:
 	void setCamera(Camera* camera) { m_mainCamera = camera; };
 	Camera* getCamera() { return m_mainCamera; };
 
-	const double* getPointerToFPS() { return &m_fps; };
+	GameMode getGameMode() { return m_mode; };
+
+	const int* getPointerToFPS() { return &m_fps; };
 	const int* getPointerToScore() { return &m_score; };
 	const int* getPointerToMaxScore() { return &m_maxScore; };
 	const int* getPointerToTimeInGame() { return &m_minutesInGame; };
@@ -63,11 +73,12 @@ private:
 	bool m_isGameActive;
 	bool m_gameEnded;
 	bool m_gameState;
+	GameMode m_mode;
 
 	EventController* m_eventController;
 	PhysicsController* m_physicsController;
 
-	double m_fps;
+	int m_fps;
 	clock_t m_lastClock;
 
 	int m_score;
@@ -84,5 +95,6 @@ private:
 	Controller* m_controller;
 
 	GameObject* m_objects[kMaxObjectsCount];
-	Hero* m_hero;
+	Hero* m_player1;
+	Hero* m_player2;
 };
