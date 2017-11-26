@@ -4,16 +4,22 @@
 enum GameEvents
 {
 	GameEvent_None,
+
 	GameEvent_StartButtonDown,
+	GameEvent_PauseButtonDown,
 	GameEvent_Start1pGameButtonDown,
 	GameEvent_Start2pGameButtonDown,
-	GameEvent_PauseButtonDown,
 	GameEvent_MainMenuButtonDown,
 	GameEvent_ExitButtonDown,
 	GameEvent_StatisticButtonDown,
+	GameEvent_RestartButtonDown,
+
+	GameEvent_FirstPlayerWin,
+	GameEvent_SecondPlayerWin,
+
 	GameEvent_LeftButtonDown,
 	GameEvent_LeftButtonStay,
-	GameEvent_RestartButtonDown,
+
 	GameEvent_GameEnd
 };
 

@@ -67,7 +67,9 @@ void GameObject::render(float alpha)
 	if (!m_isActive)
 		return;
 
+	// Interpolate position between physics update
 	Vec2 pos = m_newPosition * alpha + m_position * (1.0 - alpha);
+	// Don't interpolate if object teleported
 	if (abs(m_newPosition.x - pos.x) > 16 || abs(m_newPosition.y - pos.y) > 16)
 		pos = m_newPosition;
 

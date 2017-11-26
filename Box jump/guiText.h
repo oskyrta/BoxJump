@@ -17,6 +17,7 @@ public:
 
 	void setChangedValue(const int* changedValue) { m_intChangedValue = changedValue; };
 	void setChangedValue(const double* changedValue) { m_doubleChangedValue = changedValue; };
+	void setString(std::string string) { m_text.setString(string);  };
 	sf::Vector2f getTextPosition();
 
 	void initialize(std::string string, Vec2 position, Vec2 halfSize, sf::Font* font, int characterSize, sf::Color color = sf::Color(45, 45, 45));

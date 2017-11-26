@@ -1,0 +1,20 @@
+Wood
+{
+	Density 0.3  
+	Restitution 0.2
+	StaticFriction 0.17
+	DynamicFriction 0.1
+}
+Platform
+{
+	Density 0.0  
+	Restitution 0.4
+	StaticFriction 0.2
+	DynamicFriction 0.12
+}
+Hero
+{
+	JumpForse 2500.0
+	MoveForse 150000.0
+	MaxSpeed 200.0
+}

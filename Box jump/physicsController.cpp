@@ -318,7 +318,7 @@ void PhysicsController::checkCollisions()
 					m_collisionList[collisionsCount]->setObjects(m_objects[obj1], m_objects[obj2]);
 					m_collisionList[collisionsCount]->setNormal(axis);
 					m_collisionList[collisionsCount]->setDepth(minDepth);
-					m_collisionList[collisionsCount]->setEnterDiretction(exitDirection);
+					m_collisionList[collisionsCount]->setEnterDiretction(axis);
 					collisionsCount++;
 				}
 			}

@@ -11,9 +11,11 @@
 
 /////////////////////////////////////////////////
 // Variables
-int activeWindowIndex = MainMenu;
+static int activeWindowIndex = MainMenu;
+GUIText* winnerCongratulation = 0;
 
-
+/////////////////////////////////////////////////
+// Extern
 extern SettingsManager settingsManager;
 
 /////////////////////////////////////////////////
@@ -82,6 +84,8 @@ void Interface::initialize()
 	window = createWindow(ScoreMenu);
 	txt = window->addText("Your score: ^", Vec2(20, 20), "SM_Score", 32);
 	txt->setChangedValue(m_game->getPointerToScore());
+	winnerCongratulation = window->addText("123", Vec2(20, 20), "SM_WinnCong", 32);
+
 	window->addButton("Try again", Vec2(100, 8), "SM_Restart", GameEvent_RestartButtonDown);
 	window->addButton("Main menu", Vec2(100, 8), "SM_Main", GameEvent_MainMenuButtonDown);
 
@@ -113,13 +117,23 @@ void Interface::update()
 	if(m_game->getGameEnded() && activeWindowIndex == InGameMenu)
 		m_eventController->startEvent(GameEvent_GameEnd);
 
-	if (m_eventController->getEventState(GameEvent_StartButtonDown)) changeWindow(InGameMenu);
-	if (m_eventController->getEventState(GameEvent_Start2pGameButtonDown) || m_eventController->getEventState(GameEvent_Start1pGameButtonDown)) changeWindow(InGameMenu);
-	if (m_eventController->getEventState(GameEvent_PauseButtonDown)) changeWindow(PauseMenu);
-	if (m_eventController->getEventState(GameEvent_MainMenuButtonDown)) changeWindow(MainMenu);
-	if (m_eventController->getEventState(GameEvent_GameEnd)) changeWindow(ScoreMenu);
-	if (m_eventController->getEventState(GameEvent_RestartButtonDown)) changeWindow(InGameMenu);
-	if (m_eventController->getEventState(GameEvent_StatisticButtonDown)) changeWindow(StatisticWindow);
+	if (m_eventController->getEventState(GameEvent_Start2pGameButtonDown)
+		||
+		m_eventController->getEventState(GameEvent_Start1pGameButtonDown))
+	{
+		changeWindow(InGameMenu);
+		winnerCongratulation->setString("");
+	}
+
+	//if (m_eventController->getEventState(GameEvent_FirstPlayerWin))		winnerCongratulation->setString("First player won");
+	//if (m_eventController->getEventState(GameEvent_SecondPlayerWin))		winnerCongratulation->setString("Second player won");
+
+	if (m_eventController->getEventState(GameEvent_StartButtonDown))		changeWindow(InGameMenu);
+	if (m_eventController->getEventState(GameEvent_PauseButtonDown))		changeWindow(PauseMenu);
+	if (m_eventController->getEventState(GameEvent_MainMenuButtonDown))		changeWindow(MainMenu);
+	if (m_eventController->getEventState(GameEvent_GameEnd))				changeWindow(ScoreMenu);
+	if (m_eventController->getEventState(GameEvent_RestartButtonDown))		changeWindow(InGameMenu);
+	if (m_eventController->getEventState(GameEvent_StatisticButtonDown))	changeWindow(StatisticWindow);
 }
 
 void Interface::render()

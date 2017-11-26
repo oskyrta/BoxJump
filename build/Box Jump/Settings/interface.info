@@ -1,0 +1,95 @@
+MM_Start
+{
+    x -83
+    y -30
+}
+MM_Title
+{
+    x -180
+    y -74
+}
+GM_FPS
+{
+    x -280
+    y -191
+}
+GM_Score
+{
+    x 203
+    y -191
+}
+GM_Pause
+{
+    x -310
+    y -190
+}
+PM_Continue
+{
+    x -87
+    y -64
+}
+PM_Main
+{
+    x -87
+    y -43
+}
+PM_Score
+{
+    x -183
+    y -92
+}
+SM_Score
+{
+    x -175
+    y -68
+}
+SM_Restart
+{
+    x -63
+    y -23
+}
+SM_Main
+{
+    x -64
+    y 1
+}
+MM_Exit
+{
+    x -83
+    y 26
+}
+MM_Statistic
+{
+    x -83
+    y 8
+}
+StW_Title
+{
+    x -12
+    y -172
+}
+Stw_HS
+{
+    x -249
+    y -143
+}
+StW_Main
+{
+    x -172
+    y 169
+}
+Stw_TimeInGame
+{
+    x -249
+    y -120
+}
+MM_2pStart
+{
+    x -83
+    y -11
+}
+SM_WinnCong
+{
+    x -176
+    y -117
+}

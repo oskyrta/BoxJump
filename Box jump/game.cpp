@@ -23,6 +23,8 @@
 #include "settingsManager.h"
 #include "physicsController.h"
 
+#include "guiText.h"
+
 #include "hero.h"
 #include "platform.h"
 
@@ -33,6 +35,7 @@ sf::Font* g_font = 0;
 Vec2 zeroVec = Vec2();
 
 extern SettingsManager settingsManager;
+extern GUIText* winnerCongratulation;
 
 ////////////////////////////////////////////////
 // Function declaration
@@ -55,6 +58,7 @@ static double fpsLock = 0;
 Game::Game()
 {
 	m_isGameActive = true;
+	
 	m_gameState = false;
 
 	m_lastClock = 0;
@@ -147,6 +151,8 @@ void Game::initialize(GameMode mode)
 		m_player1->setKeys(VK_LEFT, VK_RIGHT, VK_UP);
 		m_player1->setVelocity(Vec2(0, 0));
 		m_player1->setUseGravity(true);
+
+		m_player2 = 0;
 	}
 	
 	if (m_mode == GameMode_TwoPlayers)
@@ -336,7 +342,7 @@ void Game::update(float dt)
 		lastYpos = m_player1->getPosition().y;
 	}
 
-	if (m_player2->getPosition().y < lastYpos)
+	if (m_player2 && m_player2->getPosition().y < lastYpos)
 	{
 		distance += abs(m_player2->getPosition().y - lastYpos);
 		lastYpos = m_player2->getPosition().y;
@@ -347,6 +353,18 @@ void Game::update(float dt)
 	// Restart game
 	if (m_player1->getPosition().y > m_mainCamera->getPosition().y + kPixlelsInRow / 2 + 16)
 	{
+		if (m_mode == GameMode_TwoPlayers)
+		{
+			m_eventController->startEvent(GameEvent_SecondPlayerWin);
+			winnerCongratulation->setString("First player won");
+		}
+		m_gameEnded = true;
+	}
+
+	if (m_player2 && m_player2->getPosition().y > m_mainCamera->getPosition().y + kPixlelsInRow / 2 + 16)
+	{
+		m_eventController->startEvent(GameEvent_FirstPlayerWin);
+		winnerCongratulation->setString("Second player won");
 		m_gameEnded = true;
 	}
 }

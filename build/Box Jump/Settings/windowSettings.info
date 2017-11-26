@@ -1,0 +1,18 @@
+MainCamera
+{
+	size
+	{
+		x 640
+		y 400
+	}
+	name "Box Jump"
+	pixelSize 2
+	
+	bgColor
+	{
+		r 245
+		g 245
+		b 245
+	}
+}
+FPSLock 400 ; set zero to not use
