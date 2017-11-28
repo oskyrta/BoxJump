@@ -2,11 +2,12 @@
 /////////////////////////////////////////////////
 // Include
 #include "gameObject.h"
+#include "eventListener.h"
 
 /////////////////////////////////////////////////
 // Class Hero
 
-class Hero : public GameObject
+class Hero : public GameObject, public EventListener
 {
 public:
 	Hero();

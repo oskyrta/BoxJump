@@ -126,6 +126,7 @@
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="eventController.cpp" />
+    <ClCompile Include="eventListener.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="guiButton.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="collision.h" />
     <ClInclude Include="controller.h" />
     <ClInclude Include="eventController.h" />
+    <ClInclude Include="eventListener.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gameObjectType.h" />

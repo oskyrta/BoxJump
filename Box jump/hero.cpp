@@ -78,7 +78,7 @@ void Hero::intersect(Collision* collision)
 {
 	if (collision->collisionWith(GameObjectType_Platform)
 		&& 
-		(collision->getNormal().y >= 0 || ( collision->getState() == CollisionState_Stay && collision->getEnterDirection().y >= 0 && m_velocity.y <= 0) )
+		(collision->getNormal().y >= 0 || ( collision->getState() == CollisionState_Stay && collision->getEnterDirection().y >= 0) )
 	)
 	{
 		collision->m_needToResolve = false;
@@ -92,6 +92,7 @@ void Hero::intersect(Collision* collision)
 	{
 		// Move camera
 		m_game->setRequiredCameraPos( collision->getObjects().object2->getPosition().y - 175 );
+		
 		// Check condition for jump
 		if	(
 			((collision->getState() == CollisionState_Stay && !jump_key_pressed_in_last_frame) || collision->getState() == CollisionState_Start)

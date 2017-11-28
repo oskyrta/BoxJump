@@ -247,7 +247,7 @@ void PhysicsController::checkCollisions()
 				continue;
 
 			
-			// Go to next object if object isn't nearby
+			// Go to next object if object is far
 			if (abs(m_objects[obj1]->getPosition().x - m_objects[obj2]->getPosition().x) > kCellSize
 				||
 				abs(m_objects[obj1]->getPosition().y - m_objects[obj2]->getPosition().y) > kCellSize)

@@ -2,6 +2,7 @@
 /////////////////////////////////////////////////
 // Include
 #include "vec2.h"
+#include "eventListener.h"
 #include <iostream>
 
 /////////////////////////////////////////////////
@@ -10,7 +11,7 @@ class Camera;
 
 /////////////////////////////////////////////////
 // Class GUIObject
-class GUIObject
+class GUIObject: public EventListener
 {
 public:
 	//GUIObject();
