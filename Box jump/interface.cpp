@@ -11,7 +11,7 @@
 
 /////////////////////////////////////////////////
 // Variables
-static int activeWindowIndex = MainMenu;
+static WindowsType activeWindowIndex = MainMenu;
 GUIText* winnerCongratulation = 0;
 
 /////////////////////////////////////////////////
@@ -42,7 +42,38 @@ Interface::~Interface()
 
 void Interface::setupInterface()
 {
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_Start1pGameButtonDown);
+	m_functions[GameEvent_Start1pGameButtonDown] = [](const EventListener* listener) { activeWindowIndex = InGameMenu; winnerCongratulation->setString(""); };
 
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_Start2pGameButtonDown);
+	m_functions[GameEvent_Start2pGameButtonDown] = [](const EventListener* listener) { activeWindowIndex = InGameMenu; winnerCongratulation->setString(""); };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_StartButtonDown);
+	m_functions[GameEvent_StartButtonDown] = [](const EventListener* listener) { activeWindowIndex = InGameMenu; };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_PauseButtonDown);
+	m_functions[GameEvent_PauseButtonDown] = [](const EventListener* listener) { activeWindowIndex = PauseMenu; };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_MainMenuButtonDown);
+	m_functions[GameEvent_MainMenuButtonDown] = [](const EventListener* listener) { activeWindowIndex = MainMenu; };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_GameEnd);
+	m_functions[GameEvent_GameEnd] = [](const EventListener* listener) { activeWindowIndex = ScoreMenu; };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_RestartButtonDown);
+	m_functions[GameEvent_RestartButtonDown] = [](const EventListener* listener) { activeWindowIndex = InGameMenu; };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_StatisticButtonDown);
+	m_functions[GameEvent_StatisticButtonDown] = [](const EventListener* listener) { activeWindowIndex = StatisticWindow; };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_StatisticButtonDown);
+	m_functions[GameEvent_StatisticButtonDown] = [](const EventListener* listener) { activeWindowIndex = StatisticWindow; };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_FirstPlayerWin);
+	m_functions[GameEvent_FirstPlayerWin] = [](const EventListener* listener) { winnerCongratulation->setString("First player won"); };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_SecondPlayerWin);
+	m_functions[GameEvent_SecondPlayerWin] = [](const EventListener* listener) { winnerCongratulation->setString("First player won"); };
 }
 
 void Interface::initialize()
@@ -111,12 +142,12 @@ void Interface::changeWindow(WindowsType windowType)
 
 void Interface::update()
 {
+	changeWindow(activeWindowIndex);
+
 	if (m_windowsList[activeWindowIndex]->getActive()) 
 		m_windowsList[activeWindowIndex]->update();
 
-	if(m_game->getGameEnded() && activeWindowIndex == InGameMenu)
-		m_eventController->startEvent(GameEvent_GameEnd);
-
+	/*
 	if (m_eventController->getEventState(GameEvent_Start2pGameButtonDown)
 		||
 		m_eventController->getEventState(GameEvent_Start1pGameButtonDown))
@@ -125,15 +156,13 @@ void Interface::update()
 		winnerCongratulation->setString("");
 	}
 
-	//if (m_eventController->getEventState(GameEvent_FirstPlayerWin))		winnerCongratulation->setString("First player won");
-	//if (m_eventController->getEventState(GameEvent_SecondPlayerWin))		winnerCongratulation->setString("Second player won");
-
 	if (m_eventController->getEventState(GameEvent_StartButtonDown))		changeWindow(InGameMenu);
 	if (m_eventController->getEventState(GameEvent_PauseButtonDown))		changeWindow(PauseMenu);
 	if (m_eventController->getEventState(GameEvent_MainMenuButtonDown))		changeWindow(MainMenu);
 	if (m_eventController->getEventState(GameEvent_GameEnd))				changeWindow(ScoreMenu);
 	if (m_eventController->getEventState(GameEvent_RestartButtonDown))		changeWindow(InGameMenu);
 	if (m_eventController->getEventState(GameEvent_StatisticButtonDown))	changeWindow(StatisticWindow);
+	// */
 }
 
 void Interface::render()

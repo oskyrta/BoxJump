@@ -22,6 +22,7 @@
 #include "eventController.h"
 #include "settingsManager.h"
 #include "physicsController.h"
+#include "eventListener.h"
 
 #include "guiText.h"
 
@@ -126,6 +127,27 @@ void Game::setupSystem()
 	m_timeInGame = settingsManager.p_statistic->get<double>("TimeInGame", 0);
 	m_minutesInGame = m_timeInGame / 60;
 	m_maxScore = settingsManager.p_statistic->get<int>("MaxScore", 0);
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_Start1pGameButtonDown);
+	m_functions[GameEvent_Start1pGameButtonDown] = [](const EventListener* listener) { ((Game*)listener)->startNew1PGame(); };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_Start2pGameButtonDown);
+	m_functions[GameEvent_Start2pGameButtonDown] = [](const EventListener* listener) { ((Game*)listener)->startNew2PGame(); };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_StartButtonDown);
+	m_functions[GameEvent_StartButtonDown] = [](const EventListener* listener) { ((Game*)listener)->startGame(); };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_PauseButtonDown);
+	m_functions[GameEvent_PauseButtonDown] = [](const EventListener* listener) { ((Game*)listener)->pauseGame(); };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_GameEnd);
+	Game::m_functions[GameEvent_GameEnd] = [](const EventListener* listener) { ((Game*)listener)->pauseGame(); };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_RestartButtonDown);
+	m_functions[GameEvent_RestartButtonDown] = [](const EventListener* listener) { ((Game*)listener)->restartGame(); };
+
+	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_ExitButtonDown);
+	m_functions[GameEvent_ExitButtonDown] = [](const EventListener* listener) { ((Game*)listener)->exitGame(); };
 }
 
 void Game::initialize(GameMode mode)
@@ -133,7 +155,14 @@ void Game::initialize(GameMode mode)
 	// Clear objects list
 	shutdown();
 
-	m_mode = mode;
+	needToInit = false;
+
+	m_currentGameMode = mode;
+	m_gameEnded = false;
+
+	if (m_score > m_maxScore)
+		m_maxScore = m_score;
+	updateStatistic();
 
 	m_score = 0;
 	distance = 0;
@@ -145,7 +174,7 @@ void Game::initialize(GameMode mode)
 	m_physicsController->initialize(this);
 
 	// Create Hero
-	if (m_mode == GameMode_OnePlayer)
+	if (m_currentGameMode == GameMode_OnePlayer)
 	{
 		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 0, -100, kBoxImage);
 		m_player1->setKeys(VK_LEFT, VK_RIGHT, VK_UP);
@@ -155,7 +184,7 @@ void Game::initialize(GameMode mode)
 		m_player2 = 0;
 	}
 	
-	if (m_mode == GameMode_TwoPlayers)
+	if (m_currentGameMode == GameMode_TwoPlayers)
 	{
 		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 100, 159, kBoxImage);
 		m_player1->setKeys(VK_LEFT, VK_RIGHT, VK_UP);
@@ -209,60 +238,8 @@ bool Game::frame()
 	m_timeInGame += deltaTime;
 	m_minutesInGame = m_timeInGame / 60;
 
-	// Check events
-	if (m_eventController)
-	{
-		if (!m_gameState && m_eventController->getEventState(GameEvent_Start1pGameButtonDown))
-		{
-			initialize(GameMode_OnePlayer);
-			startGame();
-			std::cout << "Game started\n";
-		}
-
-		if (!m_gameState && m_eventController->getEventState(GameEvent_Start2pGameButtonDown))
-		{
-			initialize(GameMode_TwoPlayers);
-			startGame();
-			std::cout << "Game started\n";
-		}
-
-		if (!m_gameState && m_eventController->getEventState(GameEvent_StartButtonDown))
-		{
-			startGame();
-			std::cout << "Game started\n";
-		}
-
-		if (m_gameState && m_eventController->getEventState(GameEvent_PauseButtonDown))
-		{
-			pauseGame();
-			std::cout << "Game paused\n";
-		}
-
-		if (m_eventController->getEventState(GameEvent_MainMenuButtonDown))
-		{
-			m_gameEnded = false;
-		}
-
-		if (m_eventController->getEventState(GameEvent_GameEnd))
-		{
-			pauseGame();
-			if (m_score > m_maxScore)
-				m_maxScore = m_score;
-			updateStatistic();
-		}
-
-		if (m_eventController->getEventState(GameEvent_RestartButtonDown))
-		{
-			initialize(m_mode);
-			startGame();
-			m_gameEnded = false;
-		}
-
-		if (m_eventController->getEventState(GameEvent_ExitButtonDown))
-		{
-			return false;
-		}
-	}
+	if (needToInit)
+		initialize(m_currentGameMode);
 
 	if (m_gameState)
 	{
@@ -307,9 +284,7 @@ void Game::render(float alpha)
 	for (int i = 0; i < kMaxObjectsCount; i++)
 	{
 		if (m_objects[i])
-		{
 			m_objects[i]->render(alpha);
-		}
 	}
 }
 
@@ -319,9 +294,7 @@ void Game::update(float dt)
 	for (int i = 0; i < kMaxObjectsCount; i++)
 	{
 		if (m_objects[i] != 0)
-		{
 			m_objects[i]->update(dt);
-		}
 	}
 	m_controller->update(dt);
 
@@ -353,18 +326,18 @@ void Game::update(float dt)
 	// Restart game
 	if (m_player1->getPosition().y > m_mainCamera->getPosition().y + kPixlelsInRow / 2 + 16)
 	{
-		if (m_mode == GameMode_TwoPlayers)
+		if (m_currentGameMode == GameMode_TwoPlayers)
 		{
 			m_eventController->startEvent(GameEvent_SecondPlayerWin);
-			winnerCongratulation->setString("First player won");
 		}
+		m_eventController->startEvent(GameEvent_GameEnd);
 		m_gameEnded = true;
 	}
 
 	if (m_player2 && m_player2->getPosition().y > m_mainCamera->getPosition().y + kPixlelsInRow / 2 + 16)
 	{
 		m_eventController->startEvent(GameEvent_FirstPlayerWin);
-		winnerCongratulation->setString("Second player won");
+		m_eventController->startEvent(GameEvent_GameEnd);
 		m_gameEnded = true;
 	}
 }

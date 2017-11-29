@@ -1,6 +1,7 @@
 #pragma once
 ////////////////////////////////////////////////
 // Include
+#include "eventListener.h"
 
 ////////////////////////////////////////////////
 // Forvard declaration
@@ -23,7 +24,7 @@ enum WindowsType
 
 ////////////////////////////////////////////////
 // Class Interface
-class Interface
+class Interface: public EventListener
 {
 public:
 	Interface();

@@ -13,8 +13,8 @@ public:
 	EventListener();
 	~EventListener();
 
-	void doOnEvent(GameEvents gameEvent) { if(m_functions[gameEvent]) m_functions[gameEvent](); }
+	void doOnEvent(GameEvents gameEvent) { if(m_functions[gameEvent]) m_functions[gameEvent](this); }
 
 protected:
-	std::function<void()> m_functions[GameEvent_Count];
+	std::function<void(const EventListener*)> m_functions[GameEvent_Count];
 };

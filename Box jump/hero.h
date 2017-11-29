@@ -7,7 +7,7 @@
 /////////////////////////////////////////////////
 // Class Hero
 
-class Hero : public GameObject, public EventListener
+class Hero : public GameObject
 {
 public:
 	Hero();

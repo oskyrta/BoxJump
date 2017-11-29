@@ -29,16 +29,16 @@ int main()
 	// Initialize camera
 	camera.createWindow("MainCamera");
 
-	// Setup game
-	gameInterface.setupInterface();
-	game.setupSystem();
-	std::cout << "System setup complited\n";
-
 	// Send pointers
 	gameInterface.setEventController(&eventController);
 	gameInterface.setGame(&game);
 	game.setEventController(&eventController);
 	game.setCamera(&camera);
+
+	// Setup game
+	gameInterface.setupInterface();
+	game.setupSystem();
+	std::cout << "System setup complited\n";
 
 	// Initialize game
 	gameInterface.initialize();

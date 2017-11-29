@@ -8,6 +8,9 @@
 #include "gameObjectType.h"
 #include "levelSettings.h"
 #include "collision.h"
+#include "eventListener.h"
+
+#include <functional>
 
 
 /////////////////////////////////////////////////
@@ -29,7 +32,7 @@ enum GameMode
 
 /////////////////////////////////////////////////
 // Class Game
-class Game
+class Game: public EventListener
 {
 public:
 	Game();
@@ -40,19 +43,22 @@ public:
 	bool frame();
 	void shutdown();
 
-	//bool intersects(GameObject* object, Collision* coll[]);
-
 	void setEventController(EventController* ec) { m_eventController = ec; };
 
 	bool getGameState() { return m_gameState; };
 	bool getGameEnded() { return m_gameEnded; };
+
 	void startGame() { m_gameState = true; m_gameEnded = false; };
+	void restartGame() { needToInit = true; startGame(); }
 	void pauseGame() { m_gameState = false; };
+	void startNew1PGame() { needToInit = true; m_currentGameMode = GameMode_OnePlayer; startGame(); }
+	void startNew2PGame() { needToInit = true; m_currentGameMode = GameMode_TwoPlayers; startGame(); }
+	void exitGame() { m_isGameActive = false; }
 
 	void setCamera(Camera* camera) { m_mainCamera = camera; };
 	Camera* getCamera() { return m_mainCamera; };
 
-	GameMode getGameMode() { return m_mode; };
+	GameMode getGameMode() { return m_currentGameMode; };
 
 	const int* getPointerToFPS() { return &m_fps; };
 	const int* getPointerToScore() { return &m_score; };
@@ -73,7 +79,8 @@ private:
 	bool m_isGameActive;
 	bool m_gameEnded;
 	bool m_gameState;
-	GameMode m_mode;
+	GameMode m_currentGameMode;
+	bool needToInit;
 
 	EventController* m_eventController;
 	PhysicsController* m_physicsController;

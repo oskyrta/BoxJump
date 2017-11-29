@@ -45,7 +45,7 @@ void Platform::initialize()
 
 	m_platformSpeed = 10;
 	m_apmlitude = 100;
-	m_f = GetRandomFloat(0, 3.1417);
+	m_f = GetRandomFloat(0, 3.1417f);
 
 	m_velocity = Vec2();
 

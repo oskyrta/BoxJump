@@ -11,7 +11,7 @@ class Camera;
 
 /////////////////////////////////////////////////
 // Class GUIObject
-class GUIObject: public EventListener
+class GUIObject//: public EventListener
 {
 public:
 	//GUIObject();

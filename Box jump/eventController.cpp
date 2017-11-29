@@ -8,6 +8,22 @@
 // Variable
 bool LB_DownInLastFrame = false;
 
+////////////////////////////////////////////////////
+// Struct ListenerListObject
+ListenerListObject::ListenerListObject()
+{
+	previousListener = 0;
+	nextListener = 0;
+	listener = 0;
+}
+
+void ListenerListObject::deleteList()
+{
+	if (previousListener != 0)
+		previousListener->deleteList();
+	delete this;
+}
+
 ////////////////////////////////////////////////
 // Class EventController
 EventController::EventController()

@@ -33,7 +33,7 @@ enum GameEvents
 };
 
 ////////////////////////////////////////////////////
-// struct ListenerListObject
+// Struct ListenerListObject
 struct ListenerListObject
 {
 	ListenerListObject();
@@ -43,20 +43,6 @@ struct ListenerListObject
 	ListenerListObject* nextListener;
 	EventListener* listener;
 };
-
-ListenerListObject::ListenerListObject()
-{
-	previousListener = 0;
-	nextListener = 0;
-	listener = 0;
-}
-
-void ListenerListObject::deleteList()
-{
-	if (previousListener != 0)
-		previousListener->deleteList();
-	delete this;
-}
 
 ////////////////////////////////////////////////
 // Class EventController
