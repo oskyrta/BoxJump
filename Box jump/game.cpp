@@ -51,8 +51,6 @@ int frames = 0;
 float distance = 0;
 float lastYpos = 0;
 
-static double fpsLock = 0;
-
 ////////////////////////////////////////////////
 // Class Game
 
@@ -120,9 +118,6 @@ void Game::setupSystem()
 	// Load font
 	g_font = new sf::Font();
 	g_font->loadFromFile("stan0753.ttf");
-
-	fpsLock = settingsManager.p_windowSettings->get<int>("FPSLock");
-	if (fpsLock != 0) fpsLock = 1.0 / fpsLock;
 
 	m_timeInGame = settingsManager.p_statistic->get<double>("TimeInGame", 0);
 	m_minutesInGame = m_timeInGame / 60;
@@ -255,19 +250,6 @@ bool Game::frame()
 		update(deltaTime);
 	}
 
-	if (fpsLock > 0)
-	{
-		clockNow = clock();
-		deltaClock = clockNow - m_lastClock;
-		double deltaTime = (double)deltaClock / CLOCKS_PER_SEC;
-
-		if (deltaTime < fpsLock)
-		{
-			std::chrono::nanoseconds duration(static_cast<long>((fpsLock - deltaTime) * 10000000));
-			std::this_thread::sleep_for(duration);
-		}
-	}
-
 	return m_isGameActive;
 }
 
@@ -305,11 +287,12 @@ void Game::update(float dt)
 	m_controller->update(dt);
 
 	// Move camera 
-	if (m_mainCamera->getPosition().y < m_requiredCameraYPosition)
+	/*if (m_mainCamera->getPosition().y < m_requiredCameraYPosition)
 	{
 		m_mainCamera->setPosition(Vec2(0, m_requiredCameraYPosition));
 	}
-	else if(m_mainCamera->getPosition().y > m_requiredCameraYPosition)
+	else */
+	if(m_mainCamera->getPosition().y > m_requiredCameraYPosition)
 	{
 		m_mainCamera->setPosition(Vec2(m_mainCamera->getPosition() + Vec2(0, kCameraSpeed * dt) ));
 	}

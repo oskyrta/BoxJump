@@ -21,7 +21,7 @@ PhysicsController::PhysicsController()
 {
 	m_game = 0;
 
-	m_ups = 200;
+	m_ups = 100;
 	m_deltatime = 1.0f / m_ups;
 	m_accumulator = 0;
 }
@@ -83,7 +83,7 @@ void PhysicsController::resolveCollisions()
 
 void PositionalCorrection(Collision* coll)
 {
-	float persent = 0.2f;
+	float persent = 0.1f;
 	float slop = 0.01f;
 	Vec2 correction;
 

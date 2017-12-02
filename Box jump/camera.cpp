@@ -61,6 +61,15 @@ void Camera::createWindow(std::string camera)
 
 	setPosition(Vec2());
 
+	int framerateLimit = settingsManager.p_windowSettings->get<int>("Framerate");
+
+	if (framerateLimit)
+	{
+		if (framerateLimit < 120) framerateLimit = 120;
+
+			m_renderWindow->setFramerateLimit(framerateLimit);
+	}
+
 	m_backgoundColor = getBgBolor(camera);
 }
 
@@ -86,7 +95,9 @@ void Camera::clearWindow()
 
 void Camera::setPosition(Vec2 position)
 {
-	m_view.move( sf::Vector2f(position.x - m_position.x, position.y - m_position.y) );
+	position.x = lround(position.x);
+	position.y = lround(position.y);
+	m_view.move( sf::Vector2f(lround(position.x - m_position.x), lround(position.y - m_position.y)) );
 	m_renderWindow->setView(m_view);
 	m_position = position;
 }

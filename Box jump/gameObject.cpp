@@ -83,7 +83,7 @@ void GameObject::render(float alpha)
 	//x -= (int)x % m_camera->getPixelSize();
 	//y -= (int)y % m_camera->getPixelSize();
 
-	m_sprite->setPosition(roundf(pos.x), roundf(pos.y));
+	m_sprite->setPosition(lroundf(pos.x), lroundf(pos.y));
 
 	m_camera->getRenderWindow()->draw(*m_sprite);
 

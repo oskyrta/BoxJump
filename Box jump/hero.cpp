@@ -38,7 +38,7 @@ Hero::Hero()
 	m_material.staticFriction = settingsManager.p_objectsSettings->get<float>("Wood.StaticFriction");
 	m_material.dynamicFriction = settingsManager.p_objectsSettings->get<float>("Wood.DynamicFriction");
 
-	m_heroJumpForse = settingsManager.p_objectsSettings->get<float>("Hero.JumpForse");// *0.3;
+	m_heroJumpForse = settingsManager.p_objectsSettings->get<float>("Hero.JumpForse") *0.5;
 	m_heroMoveForse = settingsManager.p_objectsSettings->get<float>("Hero.MoveForse");
 	m_heroMaxSpeed = settingsManager.p_objectsSettings->get<float>("Hero.MaxSpeed");
 
@@ -92,6 +92,8 @@ void Hero::spriteUpdate()
 
 void Hero::physicsUpdate(float dt)
 {
+	if ((m_position - m_camera->getPosition()).y < 175) m_game->setRequiredCameraPos(m_position.y + 175);
+
 	if (IsKeyDown(m_jumpKey))
 		m_jump_key_pressed_in_last_frame = true;
 
