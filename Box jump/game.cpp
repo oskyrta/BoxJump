@@ -141,7 +141,7 @@ void Game::setupSystem()
 	m_functions[GameEvent_PauseButtonDown] = [](const EventListener* listener) { ((Game*)listener)->pauseGame(); };
 
 	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_GameEnd);
-	Game::m_functions[GameEvent_GameEnd] = [](const EventListener* listener) { ((Game*)listener)->pauseGame(); };
+	m_functions[GameEvent_GameEnd] = [](const EventListener* listener) { ((Game*)listener)->pauseGame(); ((Game*)listener)->updateStatistic(); };
 
 	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_RestartButtonDown);
 	m_functions[GameEvent_RestartButtonDown] = [](const EventListener* listener) { ((Game*)listener)->restartGame(); };
@@ -160,8 +160,6 @@ void Game::initialize(GameMode mode)
 	m_currentGameMode = mode;
 	m_gameEnded = false;
 
-	if (m_score > m_maxScore)
-		m_maxScore = m_score;
 	updateStatistic();
 
 	m_score = 0;
@@ -181,6 +179,8 @@ void Game::initialize(GameMode mode)
 		m_player1->setVelocity(Vec2(0, 0));
 		m_player1->setUseGravity(true);
 
+		m_player1->setName("Player 1");
+
 		m_player2 = 0;
 	}
 	
@@ -195,6 +195,9 @@ void Game::initialize(GameMode mode)
 		m_player2->setKeys('A', 'D', 'W');
 		m_player2->setVelocity(Vec2(0, 0));
 		m_player2->setUseGravity(true);
+
+		m_player1->setName("Player 1");
+		m_player2->setName("Player 2");
 	}
 
 	m_platformPool->setup(this, GameObjectType_Platform, 10);
@@ -204,6 +207,9 @@ void Game::initialize(GameMode mode)
 
 void Game::updateStatistic()
 {
+	if (m_score > m_maxScore)
+		m_maxScore = m_score;
+
 	settingsManager.p_statistic->put("MaxScore", m_maxScore);
 	settingsManager.p_statistic->put("TimeInGame", m_timeInGame);
 	settingsManager.writeData(SettingsFile_Statistic);
@@ -257,7 +263,7 @@ bool Game::frame()
 
 		if (deltaTime < fpsLock)
 		{
-			std::chrono::nanoseconds duration(static_cast<long>((fpsLock - deltaTime) * 1000000));
+			std::chrono::nanoseconds duration(static_cast<long>((fpsLock - deltaTime) * 10000000));
 			std::this_thread::sleep_for(duration);
 		}
 	}
@@ -298,7 +304,7 @@ void Game::update(float dt)
 	}
 	m_controller->update(dt);
 
-	// Camera move
+	// Move camera 
 	if (m_mainCamera->getPosition().y < m_requiredCameraYPosition)
 	{
 		m_mainCamera->setPosition(Vec2(0, m_requiredCameraYPosition));

@@ -84,9 +84,7 @@ void Platform::physicsUpdate(float dt)
 
 void Platform::intersect(Collision* coll)
 {
-	if (coll->getObjects().object1->getType() == GameObjectType_Platform
-		&&
-		coll->getObjects().object2->getType() == GameObjectType_Platform)
+	if (coll->collisionWith(GameObjectType_Platform, GameObjectType_Platform))
 		coll->m_needToResolve = false;
 
 	GameObject::intersect(coll);

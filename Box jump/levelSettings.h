@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////
 // Const
 
-const sf::IntRect kBoxImage = sf::IntRect(0, 0, 16, 16);
+const sf::IntRect kBoxImage = sf::IntRect(0, 21, 16, 19);
 const sf::IntRect kPlatformImage = sf::IntRect(16, 0, 32, 8);
 const sf::IntRect kBrokenPlatformImage = sf::IntRect(16, 8, 32, 8);
 const sf::IntRect kPauseButtonImage = sf::IntRect(48, 0, 14, 14);

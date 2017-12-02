@@ -73,7 +73,7 @@ void Interface::setupInterface()
 	m_functions[GameEvent_FirstPlayerWin] = [](const EventListener* listener) { winnerCongratulation->setString("First player won"); };
 
 	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_SecondPlayerWin);
-	m_functions[GameEvent_SecondPlayerWin] = [](const EventListener* listener) { winnerCongratulation->setString("First player won"); };
+	m_functions[GameEvent_SecondPlayerWin] = [](const EventListener* listener) { winnerCongratulation->setString("Second player won"); };
 }
 
 void Interface::initialize()

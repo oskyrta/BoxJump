@@ -50,7 +50,9 @@ public:
 	void setState(CollisionState state) { m_state = state; };
 	CollisionState getState() { return m_state; };
 
-	bool collisionWith(GameObjectType type);
+	void sendToObjects();
+
+	bool collisionWith(GameObjectType type1, GameObjectType type2);
 
 	bool m_needToResolve;
 

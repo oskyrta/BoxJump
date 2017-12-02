@@ -118,7 +118,6 @@ void PhysicsController::resolveCollision(Collision* coll)
 	// Find velocity along collision normal
 	float velAlongNormal = Vec2Dot(rv, coll->getNormal());
 
-
 	// Don't resolve collision if object move in opposite directions
 	if (velAlongNormal <= 0)
 		return;
@@ -261,7 +260,7 @@ void PhysicsController::checkCollisions()
 			exitDirection = (m_objects[obj1]->getPosition() - m_objects[obj2]->getPosition());
 			minDepth = 10000;
 
-			// Check first object normal
+			// Check first object normals
 			for (int i = 0; i < m_objects[obj1]->getPolygon()->vertexCount; i++)
 			{
 				if (ObjectsIntersectedOnNormal(m_objects[obj1]->getPolygon(), m_objects[obj2]->getPolygon(), m_objects[obj1]->getNormal(i), depth))
@@ -387,8 +386,7 @@ void PhysicsController::sendCollisionsToObjects()
 				m_collisionList[i]->setState(CollisionState_Stay);
 				m_lastUpdateCollisionList[j]->setState(CollisionState_Stay);
 
-				m_collisionList[i]->getObjects().object1->collisionStay(m_collisionList[i]);
-				m_collisionList[i]->getObjects().object2->collisionStay(m_collisionList[i]);
+				m_collisionList[i]->sendToObjects();
 
 				isCollisionStay = true;
 				break;
@@ -397,8 +395,7 @@ void PhysicsController::sendCollisionsToObjects()
 		if (!isCollisionStay) 
 		{
 			m_collisionList[i]->setState(CollisionState_Start);
-			m_collisionList[i]->getObjects().object1->collisionEnter(m_collisionList[i]);
-			m_collisionList[i]->getObjects().object2->collisionEnter(m_collisionList[i]);
+			m_collisionList[i]->sendToObjects();
 		}
 	};
 
@@ -409,8 +406,7 @@ void PhysicsController::sendCollisionsToObjects()
 
 		if (m_lastUpdateCollisionList[i]->getState() == CollisionState_Exit)
 		{
-			m_lastUpdateCollisionList[i]->getObjects().object1->collisionExit(m_lastUpdateCollisionList[i]);
-			m_lastUpdateCollisionList[i]->getObjects().object2->collisionExit(m_lastUpdateCollisionList[i]);
+			m_lastUpdateCollisionList[i]->sendToObjects();
 		}
 
 		delete m_lastUpdateCollisionList[i];

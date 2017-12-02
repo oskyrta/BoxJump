@@ -32,7 +32,33 @@ void Collision::clear()
 	m_needToResolve = true;
 }
 
-bool Collision::collisionWith(GameObjectType type) 
+void Collision::sendToObjects()
+{
+	switch (m_state)
+	{
+		case CollisionState_Start: m_objects.object1->collisionEnter(this);
+		case CollisionState_Stay: m_objects.object1->collisionStay(this);
+		case CollisionState_Exit: m_objects.object1->collisionExit(this);
+	}
+
+	Collision c_tmp;
+	c_tmp.setObjects(m_objects.object2, m_objects.object1);
+	c_tmp.setNormal(m_normal * -1);
+	c_tmp.setDepth(m_depth);
+	c_tmp.setEnterDiretction(m_enterDirection * -1);
+	c_tmp.setState(m_state);
+
+	switch (m_state)
+	{
+		case CollisionState_Start: m_objects.object2->collisionEnter(&c_tmp);
+		case CollisionState_Stay: m_objects.object2->collisionStay(&c_tmp);
+		case CollisionState_Exit: m_objects.object2->collisionExit(&c_tmp);
+	}
+}
+
+bool Collision::collisionWith(GameObjectType type1, GameObjectType type2)
 { 
-	return (m_objects.object1->getType() == type || m_objects.object2->getType() == type); 
+	if (m_objects.object1->getType() == type1 && m_objects.object2->getType() == type2) return true;
+	if (m_objects.object1->getType() == type2 && m_objects.object2->getType() == type1) return true;
+	return false;
 }
