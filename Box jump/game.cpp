@@ -150,7 +150,7 @@ void Game::initialize(GameMode mode)
 	// Clear objects list
 	shutdown();
 
-	needToInit = false;
+	m_needToInit = false;
 
 	m_currentGameMode = mode;
 	m_gameEnded = false;
@@ -239,7 +239,7 @@ bool Game::frame()
 	m_timeInGame += deltaTime;
 	m_minutesInGame = m_timeInGame / 60;
 
-	if (needToInit)
+	if (m_needToInit)
 		initialize(m_currentGameMode);
 
 	if (m_gameState)

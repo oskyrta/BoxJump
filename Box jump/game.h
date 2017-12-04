@@ -10,8 +10,6 @@
 #include "collision.h"
 #include "eventListener.h"
 
-#include <functional>
-
 
 /////////////////////////////////////////////////
 // Forward declaration
@@ -49,17 +47,18 @@ public:
 	bool getGameEnded() { return m_gameEnded; };
 
 	void startGame() { m_gameState = true; m_gameEnded = false; };
-	void restartGame() { needToInit = true; startGame(); }
+	void restartGame() { m_needToInit = true; startGame(); }
 	void pauseGame() { m_gameState = false; };
-	void startNew1PGame() { needToInit = true; m_currentGameMode = GameMode_OnePlayer; startGame(); }
-	void startNew2PGame() { needToInit = true; m_currentGameMode = GameMode_TwoPlayers; startGame(); }
+	void startNew1PGame() { m_needToInit = true; m_currentGameMode = GameMode_OnePlayer; startGame(); }
+	void startNew2PGame() { m_needToInit = true; m_currentGameMode = GameMode_TwoPlayers; startGame(); }
 	void exitGame() { m_isGameActive = false; }
 
 	void setCamera(Camera* camera) { m_mainCamera = camera; };
 	Camera* getCamera() { return m_mainCamera; };
 
-	GameMode getGameMode() { return m_currentGameMode; };
+	void sortGameObjectsBeforeRender() { m_needToStortGameObjects = true; };
 
+	GameMode getGameMode() { return m_currentGameMode; };
 	const int* getPointerToFPS() { return &m_fps; };
 	const int* getPointerToScore() { return &m_score; };
 	const int* getPointerToMaxScore() { return &m_maxScore; };
@@ -74,13 +73,15 @@ private:
 	void render(float alpha);
 
 	void updateStatistic();
+	void sortGameObjectByDepth();
 
 private:
 	bool m_isGameActive;
 	bool m_gameEnded;
 	bool m_gameState;
 	GameMode m_currentGameMode;
-	bool needToInit;
+	bool m_needToInit;
+	bool m_needToStortGameObjects;
 
 	EventController* m_eventController;
 	PhysicsController* m_physicsController;
