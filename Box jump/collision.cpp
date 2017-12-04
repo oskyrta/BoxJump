@@ -41,19 +41,22 @@ void Collision::sendToObjects()
 		case CollisionState_Exit: m_objects.object1->collisionExit(this);
 	}
 
-	Collision c_tmp;
-	c_tmp.setObjects(m_objects.object2, m_objects.object1);
-	c_tmp.setNormal(m_normal * -1);
-	c_tmp.setDepth(m_depth);
-	c_tmp.setEnterDiretction(m_enterDirection * -1);
-	c_tmp.setState(m_state);
+	Collision reversedColl;
+	reversedColl.setObjects(m_objects.object2, m_objects.object1);
+	reversedColl.setNormal(m_normal * -1);
+	reversedColl.setDepth(m_depth);
+	reversedColl.setEnterDiretction(m_enterDirection * -1);
+	reversedColl.setState(m_state);
 
 	switch (m_state)
 	{
-		case CollisionState_Start: m_objects.object2->collisionEnter(&c_tmp);
-		case CollisionState_Stay: m_objects.object2->collisionStay(&c_tmp);
-		case CollisionState_Exit: m_objects.object2->collisionExit(&c_tmp);
+		case CollisionState_Start: m_objects.object2->collisionEnter(&reversedColl);
+		case CollisionState_Stay: m_objects.object2->collisionStay(&reversedColl);
+		case CollisionState_Exit: m_objects.object2->collisionExit(&reversedColl);
 	}
+
+	if (!reversedColl.m_needToResolve) 
+		m_needToResolve = reversedColl.m_needToResolve;
 }
 
 bool Collision::collisionWith(GameObjectType type1, GameObjectType type2)

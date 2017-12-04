@@ -169,7 +169,7 @@ void Game::initialize(GameMode mode)
 	// Create Hero
 	if (m_currentGameMode == GameMode_OnePlayer)
 	{
-		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 0, -100, kBoxImage);
+		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 0, -100, 0, kBoxImage);
 		m_player1->setKeys(VK_LEFT, VK_RIGHT, VK_UP);
 		m_player1->setVelocity(Vec2(0, 0));
 		m_player1->setUseGravity(true);
@@ -181,12 +181,12 @@ void Game::initialize(GameMode mode)
 	
 	if (m_currentGameMode == GameMode_TwoPlayers)
 	{
-		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 100, 159, kBoxImage);
+		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 100, 159, 0, kBoxImage);
 		m_player1->setKeys(VK_LEFT, VK_RIGHT, VK_UP);
 		m_player1->setVelocity(Vec2(0, 0));
 		m_player1->setUseGravity(true);
 	
-		m_player2 = (Hero*)createGameObject(GameObjectType_Hero, -100, 159, kBoxImage);
+		m_player2 = (Hero*)createGameObject(GameObjectType_Hero, -100, 159, 0, kBoxImage);
 		m_player2->setKeys('A', 'D', 'W');
 		m_player2->setVelocity(Vec2(0, 0));
 		m_player2->setUseGravity(true);
@@ -268,6 +268,10 @@ void Game::shutdown()
 
 void Game::render(float alpha)
 {
+	// Sort GameObjects, if some objects change depth;
+	if (m_needToSortGameObjects)
+		sortGameObjectByDepth();
+
 	// Draw frame
 	for (int i = 0; i < kMaxObjectsCount; i++)
 	{
@@ -294,7 +298,7 @@ void Game::update(float dt)
 	else */
 	if(m_mainCamera->getPosition().y > m_requiredCameraYPosition)
 	{
-		m_mainCamera->setPosition(Vec2(m_mainCamera->getPosition() + Vec2(0, kCameraSpeed * dt) ));
+		m_mainCamera->setPosition( m_mainCamera->getRealPosition() + Vec2(0, kCameraSpeed * dt ));
 	}
 
 	// Calculate traveled distance
@@ -331,7 +335,53 @@ void Game::update(float dt)
 	}
 }
 
-GameObject* Game::createGameObject(GameObjectType type, float x, float y, sf::IntRect rect)
+void sortGameObjects(GameObject** objects, int count)
+{
+	int i = 0, j = count;
+	GameObject* temp;
+	float p;
+	p = objects[count >> 1]->getDepth();
+
+	do
+	{
+		while (p < objects[i]->getDepth()) i++;
+		while (p > objects[j]->getDepth()) j--;
+
+		if (i <= j)
+		{
+			temp = objects[i]; objects[i] = objects[j]; objects[j] = temp;
+			i++;
+			j--;
+		}
+	} 
+	while (i <= j);
+
+	if (j > 0) sortGameObjects(objects, j);
+	if (count > i) sortGameObjects(objects + i, count - i);
+}
+
+void Game::sortGameObjectByDepth()
+{
+	int t = 0;
+	for (int i = 0; i < kMaxObjectsCount; i++)
+	{
+		if (m_objects[i])
+		{
+			if (i != t)
+			{
+				m_objects[t] = m_objects[i];
+				m_objects[i] = 0;
+			}
+			t++;
+		}
+	}
+
+	sortGameObjects(m_objects, t - 1);
+
+	m_needToSortGameObjects = false;
+}
+
+GameObject* Game::createGameObject(GameObjectType type, float x, float y, float z, sf::IntRect rect)
 {
 	for (int i = 0; i < kMaxObjectsCount; i++)
 	{
@@ -352,6 +402,7 @@ GameObject* Game::createGameObject(GameObjectType type, float x, float y, sf::In
 			object->setGame(this);
 			object->setCamera(m_mainCamera);
 			object->setPosition(Vec2(x, y));
+			object->setDepth(z);
 			object->setScale((float)m_mainCamera->getPixelSize());
 
 			if (rect.height == 0 && rect.width == 0) rect = getObjectRectByType(type);

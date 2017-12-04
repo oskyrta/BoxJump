@@ -56,7 +56,7 @@ public:
 	void setCamera(Camera* camera) { m_mainCamera = camera; };
 	Camera* getCamera() { return m_mainCamera; };
 
-	void sortGameObjectsBeforeRender() { m_needToStortGameObjects = true; };
+	void sortGameObjectsBeforeRender() { m_needToSortGameObjects = true; };
 
 	GameMode getGameMode() { return m_currentGameMode; };
 	const int* getPointerToFPS() { return &m_fps; };
@@ -67,7 +67,7 @@ public:
 
 	void setRequiredCameraPos(float yPos) { if(yPos < m_requiredCameraYPosition) m_requiredCameraYPosition = yPos; };
 
-	GameObject* createGameObject(GameObjectType type, float x, float y, sf::IntRect rect = sf::IntRect(0, 0, 0, 0));
+	GameObject* createGameObject(GameObjectType type, float x, float y, float z = 0,  sf::IntRect rect = sf::IntRect(0, 0, 0, 0));
 private:
 	void update(float dt);
 	void render(float alpha);
@@ -81,7 +81,7 @@ private:
 	bool m_gameState;
 	GameMode m_currentGameMode;
 	bool m_needToInit;
-	bool m_needToStortGameObjects;
+	bool m_needToSortGameObjects;
 
 	EventController* m_eventController;
 	PhysicsController* m_physicsController;

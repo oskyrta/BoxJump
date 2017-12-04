@@ -28,3 +28,11 @@ float getSign(float num)
 {
 	return (num < 0) ? -1 : 1;
 }
+
+template<class T>
+void swap(T &A, T &B)
+{
+	T tmp = A;
+	A = B;
+	B = tmp;
+}

@@ -9,9 +9,9 @@ extern SettingsManager settingsManager;
 // Class Camera
 Camera::Camera()
 {
-	m_position = Vec2(0, 0);
-
-	m_size = Vec2(0, 0);
+	m_position = Vec2();
+	m_realPosition = Vec2();
+	m_size = Vec2();
 
 	m_pixelSize = 1;
 
@@ -67,7 +67,7 @@ void Camera::createWindow(std::string camera)
 	{
 		if (framerateLimit < 120) framerateLimit = 120;
 
-			m_renderWindow->setFramerateLimit(framerateLimit);
+		m_renderWindow->setFramerateLimit(framerateLimit);
 	}
 
 	m_backgoundColor = getBgBolor(camera);
@@ -95,6 +95,7 @@ void Camera::clearWindow()
 
 void Camera::setPosition(Vec2 position)
 {
+	m_realPosition = position;
 	position.x = lround(position.x);
 	position.y = lround(position.y);
 	m_view.move( sf::Vector2f(lround(position.x - m_position.x), lround(position.y - m_position.y)) );

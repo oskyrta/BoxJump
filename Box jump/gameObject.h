@@ -99,10 +99,10 @@ public:
 	void setRigid(bool rigid) { m_isRigid = rigid; };
 	bool getRigid() { return m_isRigid; };
 
-	void setDepth(float depth) { m_depth = depth; };
+	void setDepth(float depth) { m_depth = depth; m_game->sortGameObjectsBeforeRender(); };
+	float getDepth() { return m_depth;};
 
 	bool objectUseGravity() { return m_useGravity; };
-	float getDepth() { return m_depth; };
 
 	void addForse(Vec2 forse) { m_forse += forse; };
 	void addVelocity(Vec2 velocity) { m_velocity += velocity * m_massData.inv_mass; };

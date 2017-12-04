@@ -108,6 +108,7 @@ void Controller::createNextPlatforms(Vec2 currentPlatformPos)
 
 		m_platformList[i] = (Platform*) m_pool->getNewObject();
 		m_platformList[i]->setPosition(newPosition);
+		if (m_platformList[i]->getDepth() != 1) m_platformList[i]->setDepth(1);
 		m_platformList[i]->initialize();
 
 		if (newPosition.y < maxPosition.y) maxPosition = newPosition;
