@@ -99,7 +99,10 @@ public:
 	void setRigid(bool rigid) { m_isRigid = rigid; };
 	bool getRigid() { return m_isRigid; };
 
+	void setDepth(float depth) { m_depth = depth; };
+
 	bool objectUseGravity() { return m_useGravity; };
+	float getDepth() { return m_depth; };
 
 	void addForse(Vec2 forse) { m_forse += forse; };
 	void addVelocity(Vec2 velocity) { m_velocity += velocity * m_massData.inv_mass; };
@@ -118,6 +121,7 @@ protected:
 
 	Vec2 m_position;
 	Vec2 m_newPosition;
+	float m_depth;
 
 	Vec2 m_velocity;
 	Vec2 m_forse;
