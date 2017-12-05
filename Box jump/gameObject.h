@@ -83,7 +83,7 @@ public:
 
 	void setUseGravity(bool useGravity) { m_useGravity = useGravity; };
 
-	void setColliderVertex(int count, Vec2 vertexs[]);
+	void setColliderVertex(int count, Vec2* vertexs);
 	ObjectPolygon* getPolygon() { return &m_polygon; };
 	void calculateVertexAutomatically();
 
@@ -111,7 +111,6 @@ public:
 	void calculateMass() { setMass(m_size.x * m_size.y * m_material.density); };
 
 protected:
-	void EscapeFromCollision(Collision* collision);
 
 protected:
 	GameObjectType m_type;

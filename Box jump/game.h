@@ -67,7 +67,7 @@ public:
 
 	void setRequiredCameraPos(float yPos) { if(yPos < m_requiredCameraYPosition) m_requiredCameraYPosition = yPos; };
 
-	GameObject* createGameObject(GameObjectType type, float x, float y, float z = 0,  sf::IntRect rect = sf::IntRect(0, 0, 0, 0));
+	GameObject* createGameObject(GameObjectType type, float x, float y, float z = 0, std::string spriteName = "");
 private:
 	void update(float dt);
 	void render(float alpha);

@@ -21,6 +21,7 @@ public:
 	virtual void update();
 
 	void setPosition(Vec2 pos) { m_pos = pos; };
+	void setPosition(float x, float y) { m_pos = Vec2(x, y); }
 	void setHalfSize(Vec2 halfSize) { m_halfSize = halfSize; };
 	void setCamera(Camera* camera) { m_camera = camera; };
 	void setTag(std::string tag) { m_tag = tag; };

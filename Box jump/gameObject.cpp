@@ -75,9 +75,6 @@ void GameObject::render(float alpha)
 
 	// Calculation top left point
 	pos = pos - m_size / 2;
-	//float x = (m_position.x - m_size.x / 2 );
-	//float y = (m_position.y - m_size.y / 2 );
-
 
 	// Snap to pixels grid
 	//x -= (int)x % m_camera->getPixelSize();
@@ -96,6 +93,8 @@ void GameObject::render(float alpha)
 			sf::Vertex(sf::Vector2f((m_polygon.vertex[i] + m_position).x, (m_polygon.vertex[i] + m_position).y)),
 			sf::Vertex(sf::Vector2f((m_polygon.vertex[(i + 1) % m_polygon.vertexCount] + m_position).x, (m_polygon.vertex[(i + 1) % m_polygon.vertexCount] + m_position).y))
 		};
+		line->color = sf::Color::Red;
+		(line+1)->color = sf::Color::Red;
 		m_camera->getRenderWindow()->draw(line, 2, sf::Lines);
 	}
 	// */
@@ -136,11 +135,6 @@ void GameObject::intersect(Collision* collision)
 	
 }
 
-void GameObject::EscapeFromCollision(Collision* collision)
-{
-
-}
-
 void GameObject::collisionEnter(Collision* collision)
 {
 	//std::cout << "Enter ";
@@ -161,29 +155,25 @@ void GameObject::move()
 	
 }
 
-void GameObject::setColliderVertex(int count, Vec2 vertexes[])
+void GameObject::setColliderVertex(int count, Vec2* vertexes)
 {
 	m_polygon.vertexCount = count;
 	for (int i = 0; i < count; i++)
 	{
-		m_polygon.vertex[i] = vertexes[i] * (float)m_camera->getPixelSize();
+		m_polygon.vertex[i] = vertexes[i];
 	}
 
 	for (int i = 0; i < count; i++)
 	{
-		m_normals[i] = Vec2((m_polygon.vertex[(i + 1) % count].y - m_polygon.vertex[i].y), -(m_polygon.vertex[(i + 1) % count].x - m_polygon.vertex[i].x));// .normalize();
+		m_normals[i] = Vec2((m_polygon.vertex[(i + 1) % count].y - m_polygon.vertex[i].y), -(m_polygon.vertex[(i + 1) % count].x - m_polygon.vertex[i].x));
 	}
 }
 
 void GameObject::calculateVertexAutomatically()
 {
-	Vec2 ver[4];
-	float halfWidth = m_size.x / (2 * m_camera->getPixelSize());
-	float halfHeight = m_size.y / (2 * m_camera->getPixelSize());
-	ver[0] = Vec2(-halfWidth, -halfHeight);
-	ver[1] = Vec2( halfWidth, -halfHeight);
-	ver[2] = Vec2( halfWidth,  halfHeight);
-	ver[3] = Vec2(-halfWidth,  halfHeight);
+	float halfWidth = m_size.x / (2);
+	float halfHeight = m_size.y / (2);
+	Vec2 ver[4] = { Vec2(-halfWidth, -halfHeight), Vec2(halfWidth, -halfHeight), Vec2(halfWidth,  halfHeight), Vec2(-halfWidth,  halfHeight)};
 
 	setColliderVertex(4, ver);
 }

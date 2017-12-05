@@ -96,6 +96,7 @@ GUIText* InterfaceWindow::addText(std::string name, Vec2 halfSize, std::string t
 void InterfaceWindow::update()
 {
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(*m_camera->getRenderWindow());
+	sf::Vector2f worldPosition = m_camera->getRenderWindow()->mapPixelToCoords(mousePosition);
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -109,9 +110,8 @@ void InterfaceWindow::update()
 		{
 			if (m_objectsList[i] != 0 && m_objectsList[i]->getMouseOnObject() && m_eventController->getEventState(GameEvent_LeftButtonStay) )
 			{
-				Vec2 mp = Vec2(mousePosition.x, mousePosition.y);
 				// Calculate cursor position on window
-				Vec2 windowCursorPosition = mp - m_camera->getSize() / 2;
+				Vec2 windowCursorPosition = Vec2(worldPosition.x, worldPosition.y) - m_camera->getPosition();
 				m_objectsList[i]->setPosition(windowCursorPosition);
 
 				break;

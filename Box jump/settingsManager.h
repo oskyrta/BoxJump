@@ -13,7 +13,8 @@ enum SettingsFile
 	SettingsFile_WindowSettings,
 	SettingsFile_ObjectsSettings,
 	SettingsFile_InterfaceSettings,
-	SettingsFile_Statistic
+	SettingsFile_Statistic,
+	SettingsFile_Sprite
 };
 
 /////////////////////////////////////////////////
@@ -30,12 +31,14 @@ public:
 	boost::property_tree::ptree* p_objectsSettings;
 	boost::property_tree::ptree* p_interfaceSettings;
 	boost::property_tree::ptree* p_statistic;
+	boost::property_tree::ptree* p_spriteParameters;
 
 private:
 	boost::property_tree::ptree m_windowSettings;
 	boost::property_tree::ptree m_objectsSettings;
 	boost::property_tree::ptree m_interfaceSettings;
 	boost::property_tree::ptree m_statistic;
+	boost::property_tree::ptree m_spriteParameters;
 
 	std::string m_rep;
 };

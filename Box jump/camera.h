@@ -18,9 +18,6 @@ public:
 
 	void setBackgroundColor(sf::Color color) { m_backgoundColor = color; };
 	sf::Color getBackgoundColor() { return m_backgoundColor; }
-	
-	void setPixelSize(int size) { m_pixelSize = size; };
-	int getPixelSize() { return m_pixelSize; };
 
 	Vec2 getSize() { return m_size; };
 

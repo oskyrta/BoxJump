@@ -41,7 +41,7 @@ extern GUIText* winnerCongratulation;
 ////////////////////////////////////////////////
 // Function declaration
 void GetInterval(ObjectPolygon* a, Vec2 axis, float& min0, float& max0);
-sf::IntRect getObjectRectByType(GameObjectType type);
+std::string getSpriteNameByType(GameObjectType type);
 float Vec2Dot(Vec2 a, Vec2 axis);
 
 ////////////////////////////////////////////////
@@ -166,30 +166,36 @@ void Game::initialize(GameMode mode)
 
 	m_physicsController->initialize(this);
 
+	Vec2 ver[4] = { Vec2(-16, -12),Vec2(16, -12), Vec2(16, 18), Vec2(-16, 18) };
+
 	// Create Hero
 	if (m_currentGameMode == GameMode_OnePlayer)
 	{
-		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 0, -100, 0, kBoxImage);
+		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 0, -100, 0, "ChestSprite");
 		m_player1->setKeys(VK_LEFT, VK_RIGHT, VK_UP);
 		m_player1->setVelocity(Vec2(0, 0));
 		m_player1->setUseGravity(true);
 
 		m_player1->setName("Player 1");
 
+		m_player1->setColliderVertex(4, ver);
+
 		m_player2 = 0;
 	}
 	
 	if (m_currentGameMode == GameMode_TwoPlayers)
 	{
-		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 100, 159, 0, kBoxImage);
+		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 100, 140, 0, "ChestSprite");
 		m_player1->setKeys(VK_LEFT, VK_RIGHT, VK_UP);
 		m_player1->setVelocity(Vec2(0, 0));
 		m_player1->setUseGravity(true);
+		m_player1->setColliderVertex(4, ver);
 	
-		m_player2 = (Hero*)createGameObject(GameObjectType_Hero, -100, 159, 0, kBoxImage);
+		m_player2 = (Hero*)createGameObject(GameObjectType_Hero, -100, 140, 0, "ChestSprite");
 		m_player2->setKeys('A', 'D', 'W');
 		m_player2->setVelocity(Vec2(0, 0));
 		m_player2->setUseGravity(true);
+		m_player2->setColliderVertex(4, ver);
 
 		m_player1->setName("Player 1");
 		m_player2->setName("Player 2");
@@ -381,7 +387,7 @@ void Game::sortGameObjectByDepth()
 	m_needToSortGameObjects = false;
 }
 
-GameObject* Game::createGameObject(GameObjectType type, float x, float y, float z, sf::IntRect rect)
+GameObject* Game::createGameObject(GameObjectType type, float x, float y, float z, std::string spriteName)
 {
 	for (int i = 0; i < kMaxObjectsCount; i++)
 	{
@@ -399,17 +405,25 @@ GameObject* Game::createGameObject(GameObjectType type, float x, float y, float 
 			if (object == 0)
 				return 0;
 
+			if (spriteName == "") spriteName = getSpriteNameByType(type);
+
+			int spriteSize = settingsManager.p_spriteParameters->get<int>(spriteName + ".size");
+
 			object->setGame(this);
 			object->setCamera(m_mainCamera);
 			object->setPosition(Vec2(x, y));
 			object->setDepth(z);
-			object->setScale((float)m_mainCamera->getPixelSize());
+			object->setScale(spriteSize);
 
-			if (rect.height == 0 && rect.width == 0) rect = getObjectRectByType(type);
+			sf::IntRect rect;
+			rect.left = settingsManager.p_spriteParameters->get<int>(spriteName + ".x");
+			rect.top = settingsManager.p_spriteParameters->get<int>(spriteName + ".y");
+			rect.width = settingsManager.p_spriteParameters->get<int>(spriteName + ".width");
+			rect.height = settingsManager.p_spriteParameters->get<int>(spriteName + ".height");
 
 			object->setTextureRect(rect);
 
-			Vec2 tmpSize = Vec2((float) rect.width * m_mainCamera->getPixelSize(), (float) rect.height * m_mainCamera->getPixelSize());
+			Vec2 tmpSize = Vec2((float) rect.width * spriteSize, (float) rect.height * spriteSize);
 			object->setSize(tmpSize);
 
 			object->calculateMass();
@@ -425,13 +439,13 @@ GameObject* Game::createGameObject(GameObjectType type, float x, float y, float 
 	return 0;
 }
 
-sf::IntRect getObjectRectByType(GameObjectType type)
+std::string getSpriteNameByType(GameObjectType type)
 {
 	switch (type)
 	{
-	case GameObjectType_Hero:		return kBoxImage;
-	case GameObjectType_Platform:	return kPlatformImage;
+	case GameObjectType_Hero:		return "ChestSprite";
+	case GameObjectType_Platform:	return "PlatformSprite";
 	}
 
-	return sf::IntRect(0, 0, 0, 0);
+	return "None";
 }

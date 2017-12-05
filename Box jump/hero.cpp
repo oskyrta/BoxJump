@@ -69,7 +69,6 @@ void Hero::update(float dt)
 
 void Hero::spriteUpdate()
 {
-
 	if (m_velocity.y < minSpeed / 4 * 3) m_sprite->setTextureRect(sf::IntRect(16, 21 + 24 * m_heroSkin, 16, 19));
 	else if (m_velocity.y < 20) m_sprite->setTextureRect(sf::IntRect(0, 21 + 24 * m_heroSkin, 16, 19));
 	else if (m_velocity.y < maxSpeed / 10) m_sprite->setTextureRect(sf::IntRect(32, 21 + 24 * m_heroSkin, 16, 19));

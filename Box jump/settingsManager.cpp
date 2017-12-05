@@ -7,7 +7,6 @@
 #include <boost\property_tree\ptree.hpp>
 #include <boost\property_tree\info_parser.hpp>
 #include <iostream>
-#include <fstream>
 #include <Windows.h>
 
 /////////////////////////////////////////////////
@@ -28,7 +27,7 @@ void SettingsManager::writeData(SettingsFile fileName)
 		break;
 
 	case SettingsFile_ObjectsSettings:
-		boost::property_tree::info_parser::write_info(m_rep + "objectsParams.info", m_objectsSettings);
+		boost::property_tree::info_parser::write_info(m_rep + "objectsParameters.info", m_objectsSettings);
 		break;
 
 	case SettingsFile_InterfaceSettings:
@@ -37,6 +36,10 @@ void SettingsManager::writeData(SettingsFile fileName)
 
 	case SettingsFile_Statistic:
 		boost::property_tree::info_parser::write_info(m_rep + "statistic.info", m_statistic);
+		break;
+
+	case SettingsFile_Sprite:
+		boost::property_tree::info_parser::write_info(m_rep + "spriteParameters.info", m_statistic);
 		break;
 	}
 }
@@ -53,7 +56,7 @@ void SettingsManager::initialize()
 	p_windowSettings = &m_windowSettings;
 	in.close();
 
-	in.open(m_rep + "objectsParams.info");
+	in.open(m_rep + "objectsParameters.info");
 	boost::property_tree::info_parser::read_info(in, m_objectsSettings);
 	p_objectsSettings = &m_objectsSettings;
 	in.close();
@@ -66,5 +69,10 @@ void SettingsManager::initialize()
 	in.open(m_rep + "statistic.info");
 	boost::property_tree::info_parser::read_info(in, m_statistic);
 	p_statistic = &m_statistic;
+	in.close();
+
+	in.open(m_rep + "spriteParameters.info");
+	boost::property_tree::info_parser::read_info(in, m_spriteParameters);
+	p_spriteParameters = &m_spriteParameters;
 	in.close();
 }

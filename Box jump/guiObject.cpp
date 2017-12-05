@@ -23,10 +23,11 @@ void GUIObject::update()
 	m_mouseOnObject = false;
 
 	sf::Vector2i mp = sf::Mouse::getPosition(*m_camera->getRenderWindow());
-	Vec2 mousePosition = Vec2(mp.x, mp.y);
+	sf::Vector2f worldPosition = m_camera->getRenderWindow()->mapPixelToCoords(mp);
+	Vec2 mousePosition = Vec2(worldPosition.x, worldPosition.y) - m_camera->getPosition();
 
 	// Calculate cursor position on window
-	Vec2 windowCursorPosition = mousePosition - m_camera->getSize() / 2;
+	Vec2 windowCursorPosition = mousePosition;// -m_camera->getSize() / 2;
 	// Check intersect with mouse
-	if (abs(windowCursorPosition.x - m_pos.x) <= m_halfSize.x && abs(windowCursorPosition.y - m_pos.y) <= m_halfSize.y) m_mouseOnObject = true;
+	if (abs(mousePosition.x - m_pos.x) <= m_halfSize.x && abs(mousePosition.y - m_pos.y) <= m_halfSize.y) m_mouseOnObject = true;
 }
