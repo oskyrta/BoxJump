@@ -42,37 +42,40 @@ Interface::~Interface()
 
 void Interface::setupInterface()
 {
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_Start1pGameButtonDown);
+	m_eventController->addListenerToEvent(this, GameEvent_Start1pGameButtonDown);
 	m_functions[GameEvent_Start1pGameButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; winnerCongratulation->setString(""); };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_Start2pGameButtonDown);
+	m_eventController->addListenerToEvent(this, GameEvent_Start2pGameButtonDown);
 	m_functions[GameEvent_Start2pGameButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; winnerCongratulation->setString(""); };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_StartButtonDown);
+	m_eventController->addListenerToEvent(this, GameEvent_StartButtonDown);
 	m_functions[GameEvent_StartButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_PauseButtonDown);
+	m_eventController->addListenerToEvent(this, GameEvent_PauseButtonDown);
 	m_functions[GameEvent_PauseButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_PauseMenu; };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_MainMenuButtonDown);
+	m_eventController->addListenerToEvent(this, GameEvent_MainMenuButtonDown);
 	m_functions[GameEvent_MainMenuButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_MainMenu; };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_GameEnd);
+	m_eventController->addListenerToEvent(this, GameEvent_CustomizeButtonDown);
+	m_functions[GameEvent_CustomizeButtonDown] = [](const EventListener* listener) {activeWindowIndex = MenuType_CustomizeMenu; };
+
+	m_eventController->addListenerToEvent(this, GameEvent_GameEnd);
 	m_functions[GameEvent_GameEnd] = [](const EventListener* listener) { activeWindowIndex = MenuType_ScoreMenu; };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_RestartButtonDown);
+	m_eventController->addListenerToEvent(this, GameEvent_RestartButtonDown);
 	m_functions[GameEvent_RestartButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_StatisticButtonDown);
+	m_eventController->addListenerToEvent(this, GameEvent_StatisticButtonDown);
 	m_functions[GameEvent_StatisticButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_StatisticWindow; };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_StatisticButtonDown);
+	m_eventController->addListenerToEvent(this, GameEvent_StatisticButtonDown);
 	m_functions[GameEvent_StatisticButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_StatisticWindow; };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_FirstPlayerWin);
+	m_eventController->addListenerToEvent(this, GameEvent_FirstPlayerWin);
 	m_functions[GameEvent_FirstPlayerWin] = [](const EventListener* listener) { winnerCongratulation->setString("First player won"); };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_SecondPlayerWin);
+	m_eventController->addListenerToEvent(this, GameEvent_SecondPlayerWin);
 	m_functions[GameEvent_SecondPlayerWin] = [](const EventListener* listener) { winnerCongratulation->setString("Second player won"); };
 }
 

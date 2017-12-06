@@ -39,7 +39,7 @@ void SettingsManager::writeData(SettingsFile fileName)
 		break;
 
 	case SettingsFile_Sprite:
-		boost::property_tree::info_parser::write_info(m_rep + "spriteParameters.info", m_statistic);
+		boost::property_tree::info_parser::write_info(m_rep + "spriteParameters.info", m_spriteParameters);
 		break;
 	}
 }

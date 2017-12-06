@@ -123,25 +123,25 @@ void Game::setupSystem()
 	m_minutesInGame = m_timeInGame / 60;
 	m_maxScore = settingsManager.p_statistic->get<int>("MaxScore", 0);
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_Start1pGameButtonDown);
+	m_eventController->addListenerToEvent(this, GameEvent_Start1pGameButtonDown);
 	m_functions[GameEvent_Start1pGameButtonDown] = [](const EventListener* listener) { ((Game*)listener)->startNew1PGame(); };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_Start2pGameButtonDown);
+	m_eventController->addListenerToEvent(this, GameEvent_Start2pGameButtonDown);
 	m_functions[GameEvent_Start2pGameButtonDown] = [](const EventListener* listener) { ((Game*)listener)->startNew2PGame(); };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_StartButtonDown);
+	m_eventController->addListenerToEvent(this, GameEvent_StartButtonDown);
 	m_functions[GameEvent_StartButtonDown] = [](const EventListener* listener) { ((Game*)listener)->startGame(); };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_PauseButtonDown);
+	m_eventController->addListenerToEvent(this, GameEvent_PauseButtonDown);
 	m_functions[GameEvent_PauseButtonDown] = [](const EventListener* listener) { ((Game*)listener)->pauseGame(); };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_GameEnd);
+	m_eventController->addListenerToEvent(this, GameEvent_GameEnd);
 	m_functions[GameEvent_GameEnd] = [](const EventListener* listener) { ((Game*)listener)->pauseGame(); ((Game*)listener)->updateStatistic(); };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_RestartButtonDown);
+	m_eventController->addListenerToEvent(this, GameEvent_RestartButtonDown);
 	m_functions[GameEvent_RestartButtonDown] = [](const EventListener* listener) { ((Game*)listener)->restartGame(); };
 
-	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_ExitButtonDown);
+	m_eventController->addListenerToEvent(this, GameEvent_ExitButtonDown);
 	m_functions[GameEvent_ExitButtonDown] = [](const EventListener* listener) { ((Game*)listener)->exitGame(); };
 }
 
