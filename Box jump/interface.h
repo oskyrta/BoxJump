@@ -11,13 +11,14 @@ class Game;
 
 ////////////////////////////////////////////////
 // Enum
-enum WindowsType
+enum MenuType
 {
-	MainMenu,
-	InGameMenu,
-	PauseMenu,
-	ScoreMenu,
-	StatisticWindow,
+	MenuType_MainMenu,
+	MenuType_InGameMenu,
+	MenuType_PauseMenu,
+	MenuType_ScoreMenu,
+	MenuType_StatisticWindow,
+	MenuType_CustomizeMenu,
 
 	WindowsTypeCount
 };
@@ -39,8 +40,8 @@ public:
 	void setEventController(EventController* ec) { m_eventController = ec; };
 
 private:
-	InterfaceWindow* createWindow(WindowsType type);
-	void changeWindow(WindowsType windowType);
+	InterfaceWindow* createWindow(MenuType type);
+	void changeWindow(MenuType windowType);
 
 	InterfaceWindow* m_windowsList[10];
 
