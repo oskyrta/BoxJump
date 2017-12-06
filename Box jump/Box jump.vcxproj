@@ -131,6 +131,7 @@
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="guiButton.cpp" />
     <ClCompile Include="guiObject.cpp" />
+    <ClCompile Include="guiSprite.cpp" />
     <ClCompile Include="guiText.cpp" />
     <ClCompile Include="hero.cpp" />
     <ClCompile Include="interface.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="gameObjectType.h" />
     <ClInclude Include="guiButton.h" />
     <ClInclude Include="guiObject.h" />
+    <ClInclude Include="guiSprite.h" />
     <ClInclude Include="guiText.h" />
     <ClInclude Include="hero.h" />
     <ClInclude Include="interface.h" />

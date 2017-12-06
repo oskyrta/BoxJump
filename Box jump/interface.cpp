@@ -105,9 +105,10 @@ void Interface::initialize()
 
 	// Initialize customize menu
 	window = createWindow(MenuType_CustomizeMenu);
+	window->addButton("Main menu", Vec2(100, 8), "CM_Main", GameEvent_MainMenuButtonDown);
 
 	// Initialize pause menu
-	window = createWindow(PauseMenu);
+	window = createWindow(MenuType_PauseMenu);
 	window->addButton("Continue", Vec2(100, 8), "PM_Continue", GameEvent_StartButtonDown);
 	window->addButton("Main menu", Vec2(100, 8), "PM_Main", GameEvent_MainMenuButtonDown);
 

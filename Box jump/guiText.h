@@ -7,13 +7,12 @@
 
 /////////////////////////////////////////////////
 // Class GUIText
-class GUIText : public GUIObject
+class GUIText : public virtual GUIObject
 {
 public:
 	GUIText();
 
 	virtual void render();
-	virtual void update();
 
 	void setChangedValue(const int* changedValue) { m_intChangedValue = changedValue; };
 	void setChangedValue(const double* changedValue) { m_doubleChangedValue = changedValue; };

@@ -64,11 +64,6 @@ void GUIText::render()
 	m_camera->getRenderWindow()->draw(m_text);
 }
 
-void GUIText::update()
-{
-	GUIObject::update();
-}
-
 
 sf::Vector2f GUIText::getTextPosition()
 { 

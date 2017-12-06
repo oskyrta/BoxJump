@@ -4,6 +4,7 @@
 #include "camera.h"
 #include "guiButton.h"
 #include "guiText.h"
+#include "guiObject.h"
 #include "eventController.h"
 #include "settingsManager.h"
 #include "utils.h"
@@ -22,7 +23,7 @@ InterfaceWindow::InterfaceWindow()
 {
 	m_isActive = false;
 
-	// First clear buttons ans text lists
+	// Clear buttons ans text lists
 	for (int i = 0; i < 30; i++)
 	{
 		m_objectsList[i] = 0;
@@ -31,7 +32,7 @@ InterfaceWindow::InterfaceWindow()
 
 InterfaceWindow::~InterfaceWindow()
 {
-	// Delete buttons and text
+	// Delete interface objects
 	for (int i = 0; i < 30; i++)
 	{
 		if (m_objectsList[i] != 0)
@@ -50,8 +51,8 @@ GUIButton* InterfaceWindow::addButton(std::string name, Vec2 halfSize, std::stri
 	{
 		if (m_objectsList[i] == 0)
 		{
-			m_objectsList[i] = new GUIButton();
-			button = (GUIButton*)m_objectsList[i];
+			button = new GUIButton();
+			m_objectsList[i] = button;
 			break;
 		}
 	}
@@ -77,8 +78,8 @@ GUIText* InterfaceWindow::addText(std::string name, Vec2 halfSize, std::string t
 	{
 		if (m_objectsList[i] == 0)
 		{
-			m_objectsList[i] = new GUIText();
-			text = (GUIText*)m_objectsList[i];
+			text = new GUIText();
+			m_objectsList[i] = text;
 			break;
 		}
 	}

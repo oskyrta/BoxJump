@@ -28,6 +28,7 @@ void GUIObject::update()
 
 	// Calculate cursor position on window
 	Vec2 windowCursorPosition = mousePosition;// -m_camera->getSize() / 2;
+
 	// Check intersect with mouse
 	if (abs(mousePosition.x - m_pos.x) <= m_halfSize.x && abs(mousePosition.y - m_pos.y) <= m_halfSize.y) m_mouseOnObject = true;
 }

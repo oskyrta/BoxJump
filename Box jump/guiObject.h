@@ -11,13 +11,12 @@ class Camera;
 
 /////////////////////////////////////////////////
 // Class GUIObject
-class GUIObject//: public EventListener
+class GUIObject
 {
 public:
-	//GUIObject();
-	~GUIObject();
+	virtual ~GUIObject() ;
 
-	virtual void render() {};
+	virtual void render() = 0;
 	virtual void update();
 
 	void setPosition(Vec2 pos) { m_pos = pos; };
