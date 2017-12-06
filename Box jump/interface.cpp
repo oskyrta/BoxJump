@@ -11,7 +11,7 @@
 
 /////////////////////////////////////////////////
 // Variables
-static WindowsType activeWindowIndex = MainMenu;
+static MenuType activeWindowIndex = MenuType_MainMenu;
 GUIText* winnerCongratulation = 0;
 
 /////////////////////////////////////////////////
@@ -22,7 +22,7 @@ extern SettingsManager settingsManager;
 // Class Interface
 Interface::Interface()
 {
-	for (int i = 0; i < WindowsTypeCount; i++)
+	for (int i = 0; i < MenuTypeCount; i++)
 	{
 		m_windowsList[i] = 0;
 	}
@@ -30,7 +30,7 @@ Interface::Interface()
 
 Interface::~Interface()
 {
-	for (int i = 0; i < WindowsTypeCount; i++)
+	for (int i = 0; i < MenuTypeCount; i++)
 	{
 		if (m_windowsList[i] != 0)
 		{
@@ -43,31 +43,31 @@ Interface::~Interface()
 void Interface::setupInterface()
 {
 	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_Start1pGameButtonDown);
-	m_functions[GameEvent_Start1pGameButtonDown] = [](const EventListener* listener) { activeWindowIndex = InGameMenu; winnerCongratulation->setString(""); };
+	m_functions[GameEvent_Start1pGameButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; winnerCongratulation->setString(""); };
 
 	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_Start2pGameButtonDown);
-	m_functions[GameEvent_Start2pGameButtonDown] = [](const EventListener* listener) { activeWindowIndex = InGameMenu; winnerCongratulation->setString(""); };
+	m_functions[GameEvent_Start2pGameButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; winnerCongratulation->setString(""); };
 
 	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_StartButtonDown);
-	m_functions[GameEvent_StartButtonDown] = [](const EventListener* listener) { activeWindowIndex = InGameMenu; };
+	m_functions[GameEvent_StartButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; };
 
 	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_PauseButtonDown);
-	m_functions[GameEvent_PauseButtonDown] = [](const EventListener* listener) { activeWindowIndex = PauseMenu; };
+	m_functions[GameEvent_PauseButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_PauseMenu; };
 
 	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_MainMenuButtonDown);
-	m_functions[GameEvent_MainMenuButtonDown] = [](const EventListener* listener) { activeWindowIndex = MainMenu; };
+	m_functions[GameEvent_MainMenuButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_MainMenu; };
 
 	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_GameEnd);
-	m_functions[GameEvent_GameEnd] = [](const EventListener* listener) { activeWindowIndex = ScoreMenu; };
+	m_functions[GameEvent_GameEnd] = [](const EventListener* listener) { activeWindowIndex = MenuType_ScoreMenu; };
 
 	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_RestartButtonDown);
-	m_functions[GameEvent_RestartButtonDown] = [](const EventListener* listener) { activeWindowIndex = InGameMenu; };
+	m_functions[GameEvent_RestartButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; };
 
 	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_StatisticButtonDown);
-	m_functions[GameEvent_StatisticButtonDown] = [](const EventListener* listener) { activeWindowIndex = StatisticWindow; };
+	m_functions[GameEvent_StatisticButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_StatisticWindow; };
 
 	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_StatisticButtonDown);
-	m_functions[GameEvent_StatisticButtonDown] = [](const EventListener* listener) { activeWindowIndex = StatisticWindow; };
+	m_functions[GameEvent_StatisticButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_StatisticWindow; };
 
 	m_eventController->addListenerToEvent((EventListener*)this, GameEvent_FirstPlayerWin);
 	m_functions[GameEvent_FirstPlayerWin] = [](const EventListener* listener) { winnerCongratulation->setString("First player won"); };
@@ -84,16 +84,16 @@ void Interface::initialize()
 	InterfaceWindow* window;
 
 	// Initialize Main menu window
-	window = createWindow(MainMenu);
+	window = createWindow(MenuType_MainMenu);
 	window->addButton("Start game", Vec2(100, 8), "MM_Start", GameEvent_Start1pGameButtonDown);
 	window->addButton("Start 2P game", Vec2(100, 8), "MM_2pStart", GameEvent_Start2pGameButtonDown);
 	window->addButton("Exit to desktop", Vec2(100, 8), "MM_Exit", GameEvent_ExitButtonDown);
 	window->addButton("Statistic", Vec2(100, 8), "MM_Statistic", GameEvent_StatisticButtonDown);
+	window->addButton("Customize", Vec2(100, 8), "MM_Customize", GameEvent_CustomizeButtonDown);
 	txt = window->addText("Box jump", Vec2(20, 20), "MM_Title", 32);
 
-
 	// Initialize in-game menu
-	window = createWindow(InGameMenu);
+	window = createWindow(MenuType_InGameMenu);
 	txt = window->addText("^", Vec2(20, 20), "GM_FPS");
 	txt->setChangedValue(m_game->getPointerToFPS());
 
@@ -102,6 +102,9 @@ void Interface::initialize()
 
 	btn = window->addButton("", Vec2(7, 7), "GM_Pause", GameEvent_PauseButtonDown);
 	btn->setRect(kPauseButtonImage);
+
+	// Initialize customize menu
+	window = createWindow(MenuType_CustomizeMenu);
 
 	// Initialize pause menu
 	window = createWindow(PauseMenu);
@@ -112,7 +115,7 @@ void Interface::initialize()
 	txt->setChangedValue(m_game->getPointerToScore());
 
 	// Initialize score menu
-	window = createWindow(ScoreMenu);
+	window = createWindow(MenuType_ScoreMenu);
 	txt = window->addText("Your score: ^", Vec2(20, 20), "SM_Score", 32);
 	txt->setChangedValue(m_game->getPointerToScore());
 	winnerCongratulation = window->addText("123", Vec2(20, 20), "SM_WinnCong", 32);
@@ -121,7 +124,7 @@ void Interface::initialize()
 	window->addButton("Main menu", Vec2(100, 8), "SM_Main", GameEvent_MainMenuButtonDown);
 
 	// Initislize statistic window
-	window = createWindow(StatisticWindow);
+	window = createWindow(MenuType_StatisticWindow);
 	window->addText("Statistic", Vec2(20, 20), "StW_Title");
 
 	txt = window->addText("Hight score: ^ points", Vec2(20, 20), "Stw_HS");
@@ -133,7 +136,7 @@ void Interface::initialize()
 	window->addButton("Main menu", Vec2(100, 8), "StW_Main", GameEvent_MainMenuButtonDown);
 }
 
-void Interface::changeWindow(WindowsType windowType)
+void Interface::changeWindow(MenuType windowType)
 {
 	m_windowsList[activeWindowIndex]->setActive(false);
 	activeWindowIndex = windowType;
@@ -171,7 +174,7 @@ void Interface::render()
 		m_windowsList[activeWindowIndex]->render();
 }
 
-InterfaceWindow* Interface::createWindow(WindowsType type)
+InterfaceWindow* Interface::createWindow(MenuType type)
 {
 	m_windowsList[type] = new InterfaceWindow();
 	m_windowsList[type]->setActive(true);

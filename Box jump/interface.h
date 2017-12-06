@@ -20,7 +20,7 @@ enum MenuType
 	MenuType_StatisticWindow,
 	MenuType_CustomizeMenu,
 
-	WindowsTypeCount
+	MenuTypeCount
 };
 
 ////////////////////////////////////////////////
