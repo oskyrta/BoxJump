@@ -2,15 +2,15 @@ Wood
 {
 	Density 0.3  
 	Restitution 0.2
-	StaticFriction 0.17
-	DynamicFriction 0.1
+	StaticFriction 0.22
+	DynamicFriction 0.15
 }
 Platform
 {
 	Density 0.0  
 	Restitution 0.4
-	StaticFriction 0.2
-	DynamicFriction 0.12
+	StaticFriction 0.25
+	DynamicFriction 0.17
 }
 Hero
 {

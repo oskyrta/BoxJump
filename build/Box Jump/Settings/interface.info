@@ -45,8 +45,8 @@ SM_Score
 }
 SM_Restart
 {
-    x -63
-    y -23
+    x -64
+    y -20
 }
 SM_Main
 {
@@ -56,12 +56,12 @@ SM_Main
 MM_Exit
 {
     x -83
-    y 26
+    y 29
 }
 MM_Statistic
 {
     x -83
-    y 8
+    y 10
 }
 StW_Title
 {
@@ -75,8 +75,8 @@ Stw_HS
 }
 StW_Main
 {
-    x -172
-    y 169
+    x 0
+    y 0
 }
 Stw_TimeInGame
 {
@@ -86,7 +86,7 @@ Stw_TimeInGame
 MM_2pStart
 {
     x -83
-    y -11
+    y -10
 }
 SM_WinnCong
 {

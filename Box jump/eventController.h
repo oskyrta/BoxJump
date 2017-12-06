@@ -20,6 +20,7 @@ enum GameEvents
 	GameEvent_ExitButtonDown,
 	GameEvent_StatisticButtonDown,
 	GameEvent_RestartButtonDown,
+	GameEvent_CustomizeButtonDown,
 
 	GameEvent_FirstPlayerWin,
 	GameEvent_SecondPlayerWin,

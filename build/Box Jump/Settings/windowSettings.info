@@ -15,4 +15,4 @@ MainCamera
 		b 245
 	}
 }
-FPSLock 400 ; set zero to not use
+Framerate 120 ; set zero to not use
