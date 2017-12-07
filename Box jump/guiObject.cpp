@@ -4,6 +4,7 @@
 #include <SFML\Graphics.hpp>
 #include "camera.h"
 #include "settingsManager.h"
+#include "utils.h"
 
 //////////////////////////////////////////////
 // Extern 
@@ -21,7 +22,10 @@ GUIObject::GUIObject()
 
 GUIObject::GUIObject(std::string tag, Vec2 halfSize, Camera* camera)
 {
-
+	m_pos = GetPositionByTag(tag);
+	m_halfSize = halfSize;
+	m_camera = camera;
+	m_tag = tag;
 }
 
 GUIObject::~GUIObject()

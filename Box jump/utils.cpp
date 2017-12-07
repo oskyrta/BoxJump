@@ -1,13 +1,16 @@
 ////////////////////////////////////////////
 // Include
-
 #include "utils.h"
+#include "vec2.h"
+#include "settingsManager.h"
 #include <Windows.h>
 
+////////////////////////////////////////////
+// Extern declaration
+extern SettingsManager settingsManager;
 
 ////////////////////////////////////////////
 // Funtions
-
 bool IsKeyDown(int virtualKeyCode)
 {
 	short keyState = GetAsyncKeyState(virtualKeyCode);
@@ -27,6 +30,11 @@ float GetRandomFloat(float min, float max)
 float getSign(float num)
 {
 	return (num < 0) ? -1 : 1;
+}
+
+Vec2 GetPositionByTag(std::string tag)
+{
+	return Vec2(settingsManager.p_interfaceSettings->get<int>(tag + ".x", 0), settingsManager.p_interfaceSettings->get<int>(tag + ".y", 0));
 }
 
 template<class T>

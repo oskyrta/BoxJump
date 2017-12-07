@@ -18,7 +18,7 @@ public:
 	GUIObject(std::string tag, Vec2 halfSize, Camera* camera);
 	virtual ~GUIObject() ;
 
-	virtual void render() = 0;
+	virtual void render() {};
 	virtual void update();
 
 	virtual void initialize() {};

@@ -11,6 +11,7 @@ GUIText::GUIText()
 {
 	m_font = 0;
 	m_intChangedValue = 0;
+	m_doubleChangedValue = 0;
 	m_characterSize = 8;
 
 	m_changedValuePosition = 0;
@@ -18,19 +19,29 @@ GUIText::GUIText()
 	m_text = sf::Text();
 }
 
-void GUIText::initialize(std::string string, Vec2 position, Vec2 halfSize, sf::Font* font, int characterSize, sf::Color color)
+GUIText::GUIText(std::string tag, Vec2 halfSize, Camera* camera)
+{
+	m_font = 0;
+	m_intChangedValue = 0;
+	m_doubleChangedValue = 0;
+	m_characterSize = 8;
+
+	m_changedValuePosition = 0;
+
+	m_text = sf::Text();
+}
+
+void GUIText::initialize(std::string string, sf::Font* font, int characterSize, sf::Color color)
 {
 	// Initialize text variable
 	m_text.setFont(*font);
-	m_text.setPosition(position.x + halfSize.x, position.y - characterSize/2);
+	m_text.setPosition(m_pos.x + m_halfSize.x, m_pos.y - characterSize/2);
 	m_text.setCharacterSize(characterSize);
 	m_text.setString(string);
 	m_text.setFillColor(color);
 
 	// Initialize
 	m_string = string;
-	m_halfSize = halfSize;
-	m_pos = position;
 	m_characterSize = characterSize;
 
 	int i = 0;

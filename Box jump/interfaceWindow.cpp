@@ -16,8 +16,6 @@
 extern sf::Font* g_font;
 extern SettingsManager settingsManager;
 
-Vec2 getPositionFromData(std::string tag);
-
 ////////////////////////////////////////////////
 // Class InterfaceWindow
 InterfaceWindow::InterfaceWindow()
@@ -165,9 +163,4 @@ void InterfaceWindow::render()
 			m_objectsList[i]->render();
 		}
 	}
-}
-
-Vec2 getPositionFromData(std::string tag)
-{
-	return Vec2(settingsManager.p_interfaceSettings->get<int>(tag + ".x", 0), settingsManager.p_interfaceSettings->get<int>(tag + ".y", 0));
 }

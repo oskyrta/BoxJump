@@ -11,6 +11,7 @@ class GUIText : public virtual GUIObject
 {
 public:
 	GUIText();
+	GUIText(std::string tag, Vec2 halfSize, Camera* camera) : GUIObject(tag, halfSize, camera){};
 
 	virtual void render();
 
@@ -19,7 +20,7 @@ public:
 	void setString(std::string string) { m_text.setString(string);  };
 	sf::Vector2f getTextPosition();
 
-	void initialize(std::string string, Vec2 position, Vec2 halfSize, sf::Font* font, int characterSize, sf::Color color = sf::Color(45, 45, 45));
+	void initialize(std::string string, sf::Font* font, int characterSize, sf::Color color = sf::Color(45, 45, 45));
 
 protected:
 	std::string m_string;

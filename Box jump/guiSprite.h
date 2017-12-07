@@ -10,9 +10,10 @@ class GUISprite : public virtual GUIObject
 {
 public:
 	GUISprite();
+	GUISprite(std::string tag, Vec2 halfSize, Camera* camera) : GUIObject(tag, halfSize, camera) {};
 	~GUISprite();
 
-	virtual void render();
+	void render();
 
 	void initialize(Vec2 pos);
 

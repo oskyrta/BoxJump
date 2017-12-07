@@ -17,6 +17,14 @@ GUISprite::GUISprite()
 	m_sprite->setTextureRect(sf::IntRect());
 }
 
+GUISprite::GUISprite(std::string tag, Vec2 halfSize, Camera* camera)
+{
+	// Initialize sprite
+	m_sprite = new sf::Sprite();
+	m_sprite->setTexture(*g_atlas00);
+	m_sprite->setTextureRect(sf::IntRect());
+}
+
 GUISprite::~GUISprite()
 {
 	if (m_sprite)
@@ -25,7 +33,7 @@ GUISprite::~GUISprite()
 
 void GUISprite::initialize(Vec2 pos)
 {
-	m_pos = pos;
+	
 }
 
 void GUISprite::render()
