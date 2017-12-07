@@ -14,10 +14,14 @@ class Camera;
 class GUIObject
 {
 public:
+	GUIObject();
+	GUIObject(std::string tag, Vec2 halfSize, Camera* camera);
 	virtual ~GUIObject() ;
 
 	virtual void render() = 0;
 	virtual void update();
+
+	virtual void initialize() {};
 
 	void setPosition(Vec2 pos) { m_pos = pos; };
 	void setPosition(float x, float y) { m_pos = Vec2(x, y); }

@@ -11,9 +11,22 @@ extern SettingsManager settingsManager;
 
 //////////////////////////////////////////////
 // Class GUIObject
+GUIObject::GUIObject()
+{
+	m_pos = Vec2();
+	m_halfSize = Vec2();
+	m_tag = "";
+	m_camera = 0;
+}
+
+GUIObject::GUIObject(std::string tag, Vec2 halfSize, Camera* camera)
+{
+
+}
 
 GUIObject::~GUIObject()
 {
+	//std::cout << m_tag + " " << m_pos.x << " " << m_pos.y << std::endl;
 	settingsManager.p_interfaceSettings->put(m_tag + ".x", m_pos.x);
 	settingsManager.p_interfaceSettings->put(m_tag + ".y", m_pos.y);
 }

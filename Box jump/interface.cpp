@@ -109,6 +109,7 @@ void Interface::initialize()
 	// Initialize customize menu
 	window = createWindow(MenuType_CustomizeMenu);
 	window->addButton("Main menu", Vec2(100, 8), "CM_Main", GameEvent_MainMenuButtonDown);
+	window->addSprite("ChestSprite", "CM_ChestSprite");
 
 	// Initialize pause menu
 	window = createWindow(MenuType_PauseMenu);
@@ -153,23 +154,6 @@ void Interface::update()
 
 	if (m_windowsList[activeWindowIndex]->getActive()) 
 		m_windowsList[activeWindowIndex]->update();
-
-	/*
-	if (m_eventController->getEventState(GameEvent_Start2pGameButtonDown)
-		||
-		m_eventController->getEventState(GameEvent_Start1pGameButtonDown))
-	{
-		changeWindow(InGameMenu);
-		winnerCongratulation->setString("");
-	}
-
-	if (m_eventController->getEventState(GameEvent_StartButtonDown))		changeWindow(InGameMenu);
-	if (m_eventController->getEventState(GameEvent_PauseButtonDown))		changeWindow(PauseMenu);
-	if (m_eventController->getEventState(GameEvent_MainMenuButtonDown))		changeWindow(MainMenu);
-	if (m_eventController->getEventState(GameEvent_GameEnd))				changeWindow(ScoreMenu);
-	if (m_eventController->getEventState(GameEvent_RestartButtonDown))		changeWindow(InGameMenu);
-	if (m_eventController->getEventState(GameEvent_StatisticButtonDown))	changeWindow(StatisticWindow);
-	// */
 }
 
 void Interface::render()

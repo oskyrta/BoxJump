@@ -9,6 +9,7 @@
 // Forvard declaration
 class Camera;
 class GUIObject;
+class GUISprite;
 class GUIText;
 class GUIButton;
 class EventController;
@@ -27,6 +28,7 @@ public:
 
 	GUIButton* addButton( std::string name, Vec2 size, std::string tag, GameEvents gameEvent, int characterSize = 16);
 	GUIText* addText(std::string name, Vec2 halfSize, std::string tag, int characterSize = 16);
+	GUISprite* addSprite(std::string spriteName, std::string tag);
 
 	void setActive(bool active) { m_isActive = active; };
 	bool getActive() { return m_isActive; };

@@ -23,6 +23,11 @@ GUISprite::~GUISprite()
 		delete m_sprite;
 }
 
+void GUISprite::initialize(Vec2 pos)
+{
+	m_pos = pos;
+}
+
 void GUISprite::render()
 {
 	if (m_rect.height != 0)

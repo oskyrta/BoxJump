@@ -17,6 +17,11 @@ GUIButton::GUIButton()
 	m_eventController = 0;
 }
 
+void GUIButton::initialize(std::string name , Vec2 pos, Vec2 halfSize, sf::Font* font, int characterSize)
+{
+	GUIText::initialize(name, pos, halfSize, font, characterSize);
+}
+
 void GUIButton::update()
 {
 	GUIObject::update();

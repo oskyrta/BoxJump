@@ -19,6 +19,8 @@ public:
 	virtual void render();
 	virtual void update();
 
+	void initialize(std::string ,Vec2 pos, Vec2 halfSize, sf::Font* font, int characterSize);
+
 	void setEvent(GameEvents gameEvent) { m_event = gameEvent; };
 	void setEventController(EventController* controller) { m_eventController = controller; };
 

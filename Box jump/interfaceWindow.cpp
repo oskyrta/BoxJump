@@ -5,6 +5,7 @@
 #include "guiButton.h"
 #include "guiText.h"
 #include "guiObject.h"
+#include "guiSprite.h"
 #include "eventController.h"
 #include "settingsManager.h"
 #include "utils.h"
@@ -94,6 +95,40 @@ GUIText* InterfaceWindow::addText(std::string name, Vec2 halfSize, std::string t
 	return text;
 }
 
+GUISprite* InterfaceWindow::addSprite(std::string spriteName, std::string tag)
+{
+	GUISprite* sprite = 0; 
+
+	// Found free space for sprite
+	for (int i = 0; i < 30; i++)
+	{
+		if (m_objectsList[i] == 0)
+		{
+			sprite = new GUISprite();
+			m_objectsList[i] = sprite;
+			break;
+		}
+	}
+	// Exit if free space not available
+	if (sprite == 0) return sprite;
+
+	// Initialize sprite
+	sf::IntRect rect;
+	rect.left = settingsManager.p_spriteParameters->get<int>(spriteName + ".x");
+	rect.top = settingsManager.p_spriteParameters->get<int>(spriteName + ".y");
+	rect.width = settingsManager.p_spriteParameters->get<int>(spriteName + ".width");
+	rect.height = settingsManager.p_spriteParameters->get<int>(spriteName + ".height");
+	int spriteSize = settingsManager.p_spriteParameters->get<int>(spriteName + ".size");
+
+	sprite->setCamera(m_camera);
+	sprite->setRect(rect);
+	sprite->setScale(spriteSize);
+	sprite->setTag(tag);
+	sprite->setHalfSize(Vec2(rect.width * spriteSize, rect.height * spriteSize));
+
+	sprite->setPosition(getPositionFromData(tag));
+}
+
 void InterfaceWindow::update()
 {
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(*m_camera->getRenderWindow());
@@ -112,7 +147,7 @@ void InterfaceWindow::update()
 			if (m_objectsList[i] != 0 && m_objectsList[i]->getMouseOnObject() && m_eventController->getEventState(GameEvent_LeftButtonStay) )
 			{
 				// Calculate cursor position on window
-				Vec2 windowCursorPosition = Vec2(worldPosition.x, worldPosition.y) - m_camera->getPosition();
+				Vec2 windowCursorPosition = Vec2(round(worldPosition.x), round(worldPosition.y)) + m_camera->getPosition();
 				m_objectsList[i]->setPosition(windowCursorPosition);
 
 				break;

@@ -16,6 +16,7 @@ SettingsManager::~SettingsManager()
 	// Save new interface settings before exit
 	writeData(SettingsFile_InterfaceSettings);
 	writeData(SettingsFile_Statistic);
+	//system("pause");
 }
 
 void SettingsManager::writeData(SettingsFile fileName)
