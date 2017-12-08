@@ -111,6 +111,12 @@ void Interface::initialize()
 	window->addButton("Main menu", Vec2(100, 8), "CM_Main", GameEvent_MainMenuButtonDown);
 	window->addSprite("ChestSprite", "CM_ChestSprite");
 
+	btn = window->addButton("", Vec2(16, 16), "CM_LeftArrow", GameEvent_None);
+	btn->setSprite("LeftArrowSprite"); 
+	
+	btn = window->addButton("", Vec2(16, 16), "CM_RightArrow", GameEvent_None);
+	btn->setSprite("RightArrowSprite");
+
 	// Initialize pause menu
 	window = createWindow(MenuType_PauseMenu);
 	window->addButton("Continue", Vec2(100, 8), "PM_Continue", GameEvent_StartButtonDown);

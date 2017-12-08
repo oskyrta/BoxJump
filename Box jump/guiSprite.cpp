@@ -11,10 +11,6 @@ extern SettingsManager settingsManager;
 
 ////////////////////////////////////////////////
 // Class GUISprite
-//GUISprite::GUISprite()
-
-
-
 GUISprite::~GUISprite()
 {
 	if (m_sprite)
@@ -31,6 +27,7 @@ void GUISprite::initialize(std::string spriteName)
 	rect.height = settingsManager.p_spriteParameters->get<int>(spriteName + ".height");
 	m_spriteSize = settingsManager.p_spriteParameters->get<int>(spriteName + ".size");
 
+	m_sprite->setTextureRect(rect);
 	m_rect = rect;
 	m_sprite->setScale(m_spriteSize, m_spriteSize);
 }

@@ -28,7 +28,7 @@ public:
 
 	void setRect(sf::IntRect rect) { m_rect = rect; m_sprite->setTextureRect(rect); };
 	void setScale(float scale) { m_sprite->setScale(scale, scale); };
-	void setHalfSizeAutomatically() { m_halfSize = Vec2(m_rect.width * m_spriteSize, m_rect.height * m_spriteSize); }
+	void setHalfSizeAutomatically() { m_halfSize = Vec2(m_rect.width * m_spriteSize, m_rect.height * m_spriteSize) / 2; }
 protected:
 	sf::Sprite* m_sprite;
 	sf::IntRect m_rect;
