@@ -2,28 +2,18 @@
 // Include
 #include "guiSprite.h"
 #include "camera.h"
+#include "settingsManager.h"
 
 ////////////////////////////////////////////////
 // Extern declaration
 extern sf::Texture* g_atlas00;
+extern SettingsManager settingsManager;
 
 ////////////////////////////////////////////////
 // Class GUISprite
-GUISprite::GUISprite()
-{
-	// Initialize sprite
-	m_sprite = new sf::Sprite();
-	m_sprite->setTexture(*g_atlas00);
-	m_sprite->setTextureRect(sf::IntRect());
-}
+//GUISprite::GUISprite()
 
-GUISprite::GUISprite(std::string tag, Vec2 halfSize, Camera* camera)
-{
-	// Initialize sprite
-	m_sprite = new sf::Sprite();
-	m_sprite->setTexture(*g_atlas00);
-	m_sprite->setTextureRect(sf::IntRect());
-}
+
 
 GUISprite::~GUISprite()
 {
@@ -31,9 +21,18 @@ GUISprite::~GUISprite()
 		delete m_sprite;
 }
 
-void GUISprite::initialize(Vec2 pos)
+void GUISprite::initialize(std::string spriteName)
 {
-	
+	// Get sprite parameters from data
+	sf::IntRect rect;
+	rect.left = settingsManager.p_spriteParameters->get<int>(spriteName + ".x");
+	rect.top = settingsManager.p_spriteParameters->get<int>(spriteName + ".y");
+	rect.width = settingsManager.p_spriteParameters->get<int>(spriteName + ".width");
+	rect.height = settingsManager.p_spriteParameters->get<int>(spriteName + ".height");
+	m_spriteSize = settingsManager.p_spriteParameters->get<int>(spriteName + ".size");
+
+	m_rect = rect;
+	m_sprite->setScale(m_spriteSize, m_spriteSize);
 }
 
 void GUISprite::render()

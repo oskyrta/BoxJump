@@ -10,8 +10,18 @@
 class GUIText : public virtual GUIObject
 {
 public:
-	GUIText();
-	GUIText(std::string tag, Vec2 halfSize, Camera* camera) : GUIObject(tag, halfSize, camera){};
+	GUIText(Camera* camera, std::string tag, Vec2 halfSize) 
+		: GUIObject(camera, tag, halfSize) 
+	{
+		m_font = 0;
+		m_intChangedValue = 0;
+		m_doubleChangedValue = 0;
+		m_characterSize = 8;
+
+		m_changedValuePosition = 0;
+
+		m_text = sf::Text();
+	};
 
 	virtual void render();
 

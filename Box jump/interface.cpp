@@ -104,7 +104,7 @@ void Interface::initialize()
 	txt->setChangedValue(m_game->getPointerToScore());
 
 	btn = window->addButton("", Vec2(7, 7), "GM_Pause", GameEvent_PauseButtonDown);
-	btn->setRect(kPauseButtonImage);
+	btn->setSprite("PauseButtonSprite");
 
 	// Initialize customize menu
 	window = createWindow(MenuType_CustomizeMenu);

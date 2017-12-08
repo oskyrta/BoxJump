@@ -20,7 +20,7 @@ GUIObject::GUIObject()
 	m_camera = 0;
 }
 
-GUIObject::GUIObject(std::string tag, Vec2 halfSize, Camera* camera)
+GUIObject::GUIObject(Camera* camera, std::string tag, Vec2 halfSize)
 {
 	m_pos = GetPositionByTag(tag);
 	m_halfSize = halfSize;

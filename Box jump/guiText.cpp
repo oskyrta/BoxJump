@@ -7,29 +7,7 @@
 
 ////////////////////////////////////////////////
 // Class GUIText
-GUIText::GUIText()
-{
-	m_font = 0;
-	m_intChangedValue = 0;
-	m_doubleChangedValue = 0;
-	m_characterSize = 8;
 
-	m_changedValuePosition = 0;
-
-	m_text = sf::Text();
-}
-
-GUIText::GUIText(std::string tag, Vec2 halfSize, Camera* camera)
-{
-	m_font = 0;
-	m_intChangedValue = 0;
-	m_doubleChangedValue = 0;
-	m_characterSize = 8;
-
-	m_changedValuePosition = 0;
-
-	m_text = sf::Text();
-}
 
 void GUIText::initialize(std::string string, sf::Font* font, int characterSize, sf::Color color)
 {

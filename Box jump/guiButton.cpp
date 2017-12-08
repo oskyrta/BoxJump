@@ -12,14 +12,10 @@ bool leftClick = false;
 
 /////////////////////////////////////////////////
 // Class GUIButton
-GUIButton::GUIButton()
+void GUIButton::initialize(EventController* eventController, GameEvents gameEvent)
 {
-	m_eventController = 0;
-}
-
-void GUIButton::initialize(std::string name, sf::Font* font, int characterSize)
-{
-	GUIText::initialize(name, font, characterSize);
+	m_eventController = eventController;
+	m_event = gameEvent;
 }
 
 void GUIButton::update()

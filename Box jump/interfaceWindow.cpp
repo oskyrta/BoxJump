@@ -50,7 +50,7 @@ GUIButton* InterfaceWindow::addButton(std::string name, Vec2 halfSize, std::stri
 	{
 		if (m_objectsList[i] == 0)
 		{
-			button = new GUIButton();
+			button = new GUIButton(m_camera, tag, halfSize);
 			m_objectsList[i] = button;
 			break;
 		}
@@ -60,11 +60,8 @@ GUIButton* InterfaceWindow::addButton(std::string name, Vec2 halfSize, std::stri
 	if (button == 0) return button;
 
 	// Initialize button
-	button->setCamera(m_camera);
-	button->initialize(name, getPositionFromData(tag), halfSize, g_font, characterSize);
-	button->setEvent(gameEvent);
-	button->setEventController(m_eventController);
-	button->setTag(tag);
+	button->initialize(m_eventController, gameEvent);
+	button->GUIText::initialize(name, g_font, characterSize);
 
 	return button;
 }
@@ -77,7 +74,7 @@ GUIText* InterfaceWindow::addText(std::string name, Vec2 halfSize, std::string t
 	{
 		if (m_objectsList[i] == 0)
 		{
-			text = new GUIText();
+			text = new GUIText(m_camera, tag, halfSize);
 			m_objectsList[i] = text;
 			break;
 		}
@@ -86,9 +83,7 @@ GUIText* InterfaceWindow::addText(std::string name, Vec2 halfSize, std::string t
 	if (text == 0) return text;
 
 	// Initialize text
-	text->setCamera(m_camera);
-	text->initialize(name, getPositionFromData(tag), halfSize, g_font, characterSize);
-	text->setTag(tag);
+	text->initialize(name, g_font, characterSize);
 
 	return text;
 }
@@ -102,29 +97,16 @@ GUISprite* InterfaceWindow::addSprite(std::string spriteName, std::string tag)
 	{
 		if (m_objectsList[i] == 0)
 		{
-			sprite = new GUISprite();
+			sprite = new GUISprite(m_camera, tag);
 			m_objectsList[i] = sprite;
 			break;
 		}
 	}
 	// Exit if free space not available
 	if (sprite == 0) return sprite;
-
-	// Initialize sprite
-	sf::IntRect rect;
-	rect.left = settingsManager.p_spriteParameters->get<int>(spriteName + ".x");
-	rect.top = settingsManager.p_spriteParameters->get<int>(spriteName + ".y");
-	rect.width = settingsManager.p_spriteParameters->get<int>(spriteName + ".width");
-	rect.height = settingsManager.p_spriteParameters->get<int>(spriteName + ".height");
-	int spriteSize = settingsManager.p_spriteParameters->get<int>(spriteName + ".size");
-
-	sprite->setCamera(m_camera);
-	sprite->setRect(rect);
-	sprite->setScale(spriteSize);
-	sprite->setTag(tag);
-	sprite->setHalfSize(Vec2(rect.width * spriteSize, rect.height * spriteSize));
-
-	sprite->setPosition(getPositionFromData(tag));
+	
+	sprite->initialize(spriteName);
+	sprite->setHalfSizeAutomatically();
 }
 
 void InterfaceWindow::update()

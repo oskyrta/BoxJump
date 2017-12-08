@@ -15,7 +15,7 @@ class GUIObject
 {
 public:
 	GUIObject();
-	GUIObject(std::string tag, Vec2 halfSize, Camera* camera);
+	GUIObject(Camera* camera, std::string tag, Vec2 halfSize);
 	virtual ~GUIObject() ;
 
 	virtual void render() {};
