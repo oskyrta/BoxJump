@@ -20,19 +20,19 @@ public:
 		, GUIObject(camera, tag, halfSize)
 	{
 		m_eventController = 0;
-		m_event = GameEvent_None;
+		m_event = "";
 	};
 
 	virtual void render();
 	virtual void update();
 
-	void initialize(EventController* eventController, GameEvents gameEvent);
+	void initialize(EventController* eventController, std::string gameEvent);
 
-	void setEvent(GameEvents gameEvent) { m_event = gameEvent; };
+	void setEvent(std::string gameEvent) { m_event = gameEvent; };
 	void setEventController(EventController* controller) { m_eventController = controller; };
 	void setSprite(std::string spriteName) { GUISprite::initialize(spriteName); GUISprite::setHalfSizeAutomatically(); };
 
 private:
-	GameEvents m_event;
+	std::string m_event;
 	EventController* m_eventController;
 };

@@ -42,7 +42,7 @@ InterfaceWindow::~InterfaceWindow()
 	}
 }
 
-GUIButton* InterfaceWindow::addButton(std::string name, Vec2 halfSize, std::string tag, GameEvents gameEvent, int characterSize)
+GUIButton* InterfaceWindow::addButton(std::string name, Vec2 halfSize, std::string tag, std::string gameEvent, int characterSize)
 {
 	GUIButton* button = 0;
 	//Found free space for button

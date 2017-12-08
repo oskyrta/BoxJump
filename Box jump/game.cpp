@@ -123,26 +123,47 @@ void Game::setupSystem()
 	m_minutesInGame = m_timeInGame / 60;
 	m_maxScore = settingsManager.p_statistic->get<int>("MaxScore", 0);
 
-	m_eventController->addListenerToEvent(this, GameEvent_Start1pGameButtonDown);
-	m_functions[GameEvent_Start1pGameButtonDown] = [](const EventListener* listener) { ((Game*)listener)->startNew1PGame(); };
+	m_eventController->addListenerToEvent(
+		this,
+		"OnStart1pGameButtonDown", 
+		[](const EventListener* listener) { ((Game*)listener)->startNew1PGame(); }
+	);
 
-	m_eventController->addListenerToEvent(this, GameEvent_Start2pGameButtonDown);
-	m_functions[GameEvent_Start2pGameButtonDown] = [](const EventListener* listener) { ((Game*)listener)->startNew2PGame(); };
+	m_eventController->addListenerToEvent(
+		this, 
+		"OnStart2pGameButtonDown",
+		[](const EventListener* listener) { ((Game*)listener)->startNew2PGame(); }
+	);
 
-	m_eventController->addListenerToEvent(this, GameEvent_StartButtonDown);
-	m_functions[GameEvent_StartButtonDown] = [](const EventListener* listener) { ((Game*)listener)->startGame(); };
+	m_eventController->addListenerToEvent(
+		this,
+		"OnStartButtonDown",
+		[](const EventListener* listener) { ((Game*)listener)->startGame(); }
+	);
 
-	m_eventController->addListenerToEvent(this, GameEvent_PauseButtonDown);
-	m_functions[GameEvent_PauseButtonDown] = [](const EventListener* listener) { ((Game*)listener)->pauseGame(); };
+	m_eventController->addListenerToEvent(
+		this,
+		"OnPauseButtonDown",
+		[](const EventListener* listener) { ((Game*)listener)->pauseGame(); }
+	);
 
-	m_eventController->addListenerToEvent(this, GameEvent_GameEnd);
-	m_functions[GameEvent_GameEnd] = [](const EventListener* listener) { ((Game*)listener)->pauseGame(); ((Game*)listener)->updateStatistic(); };
+	m_eventController->addListenerToEvent(
+		this, 
+		"OnGameEnd",
+		[](const EventListener* listener) { ((Game*)listener)->pauseGame(); ((Game*)listener)->updateStatistic(); }
+	);
 
-	m_eventController->addListenerToEvent(this, GameEvent_RestartButtonDown);
-	m_functions[GameEvent_RestartButtonDown] = [](const EventListener* listener) { ((Game*)listener)->restartGame(); };
+	m_eventController->addListenerToEvent(
+		this, 
+		"OnRestartButtonDown",
+		[](const EventListener* listener) { ((Game*)listener)->restartGame(); }
+	);
 
-	m_eventController->addListenerToEvent(this, GameEvent_ExitButtonDown);
-	m_functions[GameEvent_ExitButtonDown] = [](const EventListener* listener) { ((Game*)listener)->exitGame(); };
+	m_eventController->addListenerToEvent(
+		this, 
+		"OnExitButtonDown",
+		[](const EventListener* listener) { ((Game*)listener)->exitGame(); }
+	);
 }
 
 void Game::initialize(GameMode mode)
@@ -327,16 +348,16 @@ void Game::update(float dt)
 	{
 		if (m_currentGameMode == GameMode_TwoPlayers)
 		{
-			m_eventController->startEvent(GameEvent_SecondPlayerWin);
+			m_eventController->startEvent("OnSecondPlayerWin");
 		}
-		m_eventController->startEvent(GameEvent_GameEnd);
+		m_eventController->startEvent("OnGameEnd");
 		m_gameEnded = true;
 	}
 
 	if (m_player2 && m_player2->getPosition().y > m_mainCamera->getPosition().y + kPixlelsInRow / 2 + 16)
 	{
-		m_eventController->startEvent(GameEvent_FirstPlayerWin);
-		m_eventController->startEvent(GameEvent_GameEnd);
+		m_eventController->startEvent("OnFirstPlayerWin");
+		m_eventController->startEvent("OnGameEnd");
 		m_gameEnded = true;
 	}
 }

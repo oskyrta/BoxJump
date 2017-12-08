@@ -12,7 +12,7 @@ bool leftClick = false;
 
 /////////////////////////////////////////////////
 // Class GUIButton
-void GUIButton::initialize(EventController* eventController, GameEvents gameEvent)
+void GUIButton::initialize(EventController* eventController, std::string gameEvent)
 {
 	m_eventController = eventController;
 	m_event = gameEvent;

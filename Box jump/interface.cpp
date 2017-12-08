@@ -42,41 +42,71 @@ Interface::~Interface()
 
 void Interface::setupInterface()
 {
-	m_eventController->addListenerToEvent(this, GameEvent_Start1pGameButtonDown);
-	m_functions[GameEvent_Start1pGameButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; winnerCongratulation->setString(""); };
+	m_eventController->addListenerToEvent(	
+		this, 
+		"OnStart1pGameButtonDown",
+		[](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; winnerCongratulation->setString(""); }
+	);
+	
+	m_eventController->addListenerToEvent(
+		this, 
+		"OnStart2pGameButtonDown",
+		[](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; winnerCongratulation->setString(""); }
+	);
+	
+	m_eventController->addListenerToEvent(
+		this, 
+		"OnStartButtonDown",
+		[](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; }
+	);
 
-	m_eventController->addListenerToEvent(this, GameEvent_Start2pGameButtonDown);
-	m_functions[GameEvent_Start2pGameButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; winnerCongratulation->setString(""); };
+	m_eventController->addListenerToEvent(
+		this, 
+		"OnPauseButtonDown",
+		[](const EventListener* listener) { activeWindowIndex = MenuType_PauseMenu; }
+	);
 
-	m_eventController->addListenerToEvent(this, GameEvent_StartButtonDown);
-	m_functions[GameEvent_StartButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; };
+	m_eventController->addListenerToEvent(
+		this, 
+		"OnMainMenuButtonDown",
+		[](const EventListener* listener) { activeWindowIndex = MenuType_MainMenu; }
+	);
 
-	m_eventController->addListenerToEvent(this, GameEvent_PauseButtonDown);
-	m_functions[GameEvent_PauseButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_PauseMenu; };
+	m_eventController->addListenerToEvent(
+		this, 
+		"OnCustomizeButtonDown",
+		[](const EventListener* listener) {activeWindowIndex = MenuType_CustomizeMenu; }
+	);
 
-	m_eventController->addListenerToEvent(this, GameEvent_MainMenuButtonDown);
-	m_functions[GameEvent_MainMenuButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_MainMenu; };
+	m_eventController->addListenerToEvent(
+		this, 
+		"OnGameEnd",
+		[](const EventListener* listener) { activeWindowIndex = MenuType_ScoreMenu; }
+	);
 
-	m_eventController->addListenerToEvent(this, GameEvent_CustomizeButtonDown);
-	m_functions[GameEvent_CustomizeButtonDown] = [](const EventListener* listener) {activeWindowIndex = MenuType_CustomizeMenu; };
+	m_eventController->addListenerToEvent(
+		this, 
+		"OnRestartButtonDown",
+		[](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; }
+	);
 
-	m_eventController->addListenerToEvent(this, GameEvent_GameEnd);
-	m_functions[GameEvent_GameEnd] = [](const EventListener* listener) { activeWindowIndex = MenuType_ScoreMenu; };
+	m_eventController->addListenerToEvent(
+		this, 
+		"OnStatisticButtonDown",
+		[](const EventListener* listener) { activeWindowIndex = MenuType_StatisticWindow; }
+	);
 
-	m_eventController->addListenerToEvent(this, GameEvent_RestartButtonDown);
-	m_functions[GameEvent_RestartButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; };
+	m_eventController->addListenerToEvent(
+		this, 
+		"OnFirstPlayerWin",
+		[](const EventListener* listener) { winnerCongratulation->setString("First player won"); }
+	);
 
-	m_eventController->addListenerToEvent(this, GameEvent_StatisticButtonDown);
-	m_functions[GameEvent_StatisticButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_StatisticWindow; };
-
-	m_eventController->addListenerToEvent(this, GameEvent_StatisticButtonDown);
-	m_functions[GameEvent_StatisticButtonDown] = [](const EventListener* listener) { activeWindowIndex = MenuType_StatisticWindow; };
-
-	m_eventController->addListenerToEvent(this, GameEvent_FirstPlayerWin);
-	m_functions[GameEvent_FirstPlayerWin] = [](const EventListener* listener) { winnerCongratulation->setString("First player won"); };
-
-	m_eventController->addListenerToEvent(this, GameEvent_SecondPlayerWin);
-	m_functions[GameEvent_SecondPlayerWin] = [](const EventListener* listener) { winnerCongratulation->setString("Second player won"); };
+	m_eventController->addListenerToEvent(
+		this,
+		"OnSecondPlayerWin",
+		[](const EventListener* listener) { winnerCongratulation->setString("Second player won"); }
+	);
 }
 
 void Interface::initialize()
@@ -88,11 +118,11 @@ void Interface::initialize()
 
 	// Initialize Main menu window
 	window = createWindow(MenuType_MainMenu);
-	window->addButton("Start game", Vec2(100, 8), "MM_Start", GameEvent_Start1pGameButtonDown);
-	window->addButton("Start 2P game", Vec2(100, 8), "MM_2pStart", GameEvent_Start2pGameButtonDown);
-	window->addButton("Exit to desktop", Vec2(100, 8), "MM_Exit", GameEvent_ExitButtonDown);
-	window->addButton("Statistic", Vec2(100, 8), "MM_Statistic", GameEvent_StatisticButtonDown);
-	window->addButton("Customize", Vec2(100, 8), "MM_Customize", GameEvent_CustomizeButtonDown);
+	window->addButton("Start game", Vec2(100, 8), "MM_Start", "OnStart1pGameButtonDown");
+	window->addButton("Start 2P game", Vec2(100, 8), "MM_2pStart", "OnStart2pGameButtonDown");
+	window->addButton("Exit to desktop", Vec2(100, 8), "MM_Exit", "OnExitButtonDown");
+	window->addButton("Statistic", Vec2(100, 8), "MM_Statistic", "OnStatisticButtonDown");
+	window->addButton("Customize", Vec2(100, 8), "MM_Customize", "OnCustomizeButtonDown");
 	txt = window->addText("Box jump", Vec2(20, 20), "MM_Title", 32);
 
 	// Initialize in-game menu
@@ -103,24 +133,24 @@ void Interface::initialize()
 	txt = window->addText("Score: ^", Vec2(20, 20), "GM_Score");
 	txt->setChangedValue(m_game->getPointerToScore());
 
-	btn = window->addButton("", Vec2(7, 7), "GM_Pause", GameEvent_PauseButtonDown);
+	btn = window->addButton("", Vec2(7, 7), "GM_Pause", "OnPauseButtonDown");
 	btn->setSprite("PauseButtonSprite");
 
 	// Initialize customize menu
 	window = createWindow(MenuType_CustomizeMenu);
-	window->addButton("Main menu", Vec2(100, 8), "CM_Main", GameEvent_MainMenuButtonDown);
+	window->addButton("Main menu", Vec2(100, 8), "CM_Main", "OnMainMenuButtonDown");
 	window->addSprite("ChestSprite", "CM_ChestSprite");
 
-	btn = window->addButton("", Vec2(16, 16), "CM_LeftArrow", GameEvent_None);
+	btn = window->addButton("", Vec2(16, 16), "CM_LeftArrow", "OnLeftArrowSpDown");
 	btn->setSprite("LeftArrowSprite"); 
 	
-	btn = window->addButton("", Vec2(16, 16), "CM_RightArrow", GameEvent_None);
+	btn = window->addButton("", Vec2(16, 16), "CM_RightArrow", "OnRightArrowSpDown");
 	btn->setSprite("RightArrowSprite");
 
 	// Initialize pause menu
 	window = createWindow(MenuType_PauseMenu);
-	window->addButton("Continue", Vec2(100, 8), "PM_Continue", GameEvent_StartButtonDown);
-	window->addButton("Main menu", Vec2(100, 8), "PM_Main", GameEvent_MainMenuButtonDown);
+	window->addButton("Continue", Vec2(100, 8), "PM_Continue","OnStartButtonDown");
+	window->addButton("Main menu", Vec2(100, 8), "PM_Main", "OnMainMenuButtonDown");
 
 	txt = window->addText("Your score: ^", Vec2(20, 20), "PM_Score");
 	txt->setChangedValue(m_game->getPointerToScore());
@@ -131,8 +161,8 @@ void Interface::initialize()
 	txt->setChangedValue(m_game->getPointerToScore());
 	winnerCongratulation = window->addText("123", Vec2(20, 20), "SM_WinnCong", 32);
 
-	window->addButton("Try again", Vec2(100, 8), "SM_Restart", GameEvent_RestartButtonDown);
-	window->addButton("Main menu", Vec2(100, 8), "SM_Main", GameEvent_MainMenuButtonDown);
+	window->addButton("Try again", Vec2(100, 8), "SM_Restart", "OnRestartButtonDown");
+	window->addButton("Main menu", Vec2(100, 8), "SM_Main", "OnMainMenuButtonDown");
 
 	// Initislize statistic window
 	window = createWindow(MenuType_StatisticWindow);
@@ -144,7 +174,7 @@ void Interface::initialize()
 	txt = window->addText("Time in game: ^ minuts", Vec2(20, 20), "Stw_TimeInGame");
 	txt->setChangedValue(m_game->getPointerToTimeInGame());
 
-	window->addButton("Main menu", Vec2(100, 8), "StW_Main", GameEvent_MainMenuButtonDown);
+	window->addButton("Main menu", Vec2(100, 8), "StW_Main", "OnMainMenuButtonDown");
 }
 
 void Interface::changeWindow(MenuType windowType)

@@ -3,6 +3,7 @@
 // Include
 #include <iostream>
 #include <functional>
+#include <map>
 #include "eventController.h"
 
 //////////////////////////////////////////////////
@@ -13,8 +14,9 @@ public:
 	EventListener();
 	~EventListener();
 
-	void doOnEvent(GameEvents gameEvent) { if(m_functions[gameEvent]) m_functions[gameEvent](this); }
+	void doOnEvent(std::string eventName) { m_functions.find(eventName)->second(this); }
+	void setFunction(std::string eventName, std::function<void(const EventListener*)> func) { m_functions[eventName] = func; }
 
 protected:
-	std::function<void(const EventListener*)> m_functions[GameEvent_Count];
+	std::map<std::string, std::function<void(const EventListener*)>> m_functions;
 };

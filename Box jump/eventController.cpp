@@ -4,42 +4,25 @@
 #include "eventController.h"
 #include "eventListener.h"
 
+#include <list>
+
 ////////////////////////////////////////////////
 // Variable
 bool LB_DownInLastFrame = false;
-
-////////////////////////////////////////////////////
-// Struct ListenerListObject
-ListenerListObject::ListenerListObject()
-{
-	previousListener = 0;
-	nextListener = 0;
-	listener = 0;
-}
-
-void ListenerListObject::deleteList()
-{
-	if (previousListener != 0)
-		previousListener->deleteList();
-	delete this;
-}
 
 ////////////////////////////////////////////////
 // Class EventController
 EventController::EventController()
 {
-	for (int i = 0; i < GameEvent_Count; i++)
-	{
-		m_listenerList[i] = new ListenerListObject();
-	}
+
 }
+
+void clearList(std::pair<std::string, std::list<EventListener*>*> a) { a.second->clear(); }
 
 EventController::~EventController()
 {
-	for (int i = 0; i < GameEvent_Count; i++)
-	{
-		m_listenerList[i]->deleteList();
-	}
+	std::for_each(m_listenerList.begin(), m_listenerList.end(), clearList);
+	m_listenerList.clear();
 }
 
 void EventController::update()
@@ -56,44 +39,49 @@ void EventController::update()
 	}
 }
 
-void EventController::startEvent(GameEvents gameEvent)
+void EventController::startEvent(std::string eventName)
 {
-	ListenerListObject* tmp = m_listenerList[gameEvent];
-	do
+	ListenersMap::iterator it = m_listenerList.find(eventName);
+	if (it != m_listenerList.end())
 	{
-		if (tmp->listener)
-			tmp->listener->doOnEvent(gameEvent);
-		tmp = tmp->previousListener;
-	} 
-	while (tmp);
-}
-
-void EventController::addListenerToEvent(EventListener* listener, GameEvents gameEvent)
-{
-	ListenerListObject* tmp = new ListenerListObject();
-
-	tmp->listener = listener;
-	tmp->previousListener = m_listenerList[gameEvent];
-
-	m_listenerList[gameEvent]->nextListener = tmp;
-	m_listenerList[gameEvent] = tmp;
-}
-
-void EventController::deleteListenerFromEvent(EventListener* listener, GameEvents gameEvent)
-{
-	ListenerListObject* tmp = m_listenerList[gameEvent];
-	do
-	{
-		if (tmp->listener == listener)
+		for (ListenersList::iterator i = it->second->begin(); i != it->second->end(); ++i)
 		{
-			if (tmp->nextListener)
-				tmp->nextListener->previousListener = tmp->previousListener;
-
-			if (tmp->previousListener)
-				tmp->previousListener->nextListener = tmp->nextListener;
-			return;
+			(*i)->doOnEvent(eventName);
 		}
-		tmp = tmp->previousListener;
 	}
-	while (tmp);
 }
+
+void EventController::addListenerToEvent(EventListener* listener, std::string eventName, std::function<void(const EventListener*)> func)
+{
+	ListenersMap::iterator it = m_listenerList.find(eventName);
+	if (it != m_listenerList.end())
+	{
+		it->second->push_back(listener);
+	}
+	else
+	{
+		ListenersList *tmp = new ListenersList();
+		tmp->push_back(listener);
+		m_listenerList[eventName] = tmp;
+	}
+	listener->setFunction(eventName, func);
+}
+
+//void EventController::deleteListenerFromEvent(EventListener* listener, GameEvents gameEvent)
+//{
+//	ListenerListObject* tmp = m_listenerList_old[gameEvent];
+//	do
+//	{
+//		if (tmp->listener == listener)
+//		{
+//			if (tmp->nextListener)
+//				tmp->nextListener->previousListener = tmp->previousListener;
+//
+//			if (tmp->previousListener)
+//				tmp->previousListener->nextListener = tmp->nextListener;
+//			return;
+//		}
+//		tmp = tmp->previousListener;
+//	}
+//	while (tmp);
+//}
