@@ -107,6 +107,8 @@ GUISprite* InterfaceWindow::addSprite(std::string spriteName, std::string tag)
 	
 	sprite->initialize(spriteName);
 	sprite->setHalfSizeAutomatically();
+
+	return sprite;
 }
 
 void InterfaceWindow::update()

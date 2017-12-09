@@ -8,6 +8,9 @@
 class InterfaceWindow;
 class EventController;
 class Game;
+class GUISprite;
+
+enum HeroSkin;
 
 ////////////////////////////////////////////////
 // Enum
@@ -38,6 +41,7 @@ public:
 
 	void setGame(Game* game) { m_game = game; };
 	void setEventController(EventController* ec) { m_eventController = ec; };
+	void changeSprite(std::string name, int change);
 
 private:
 	InterfaceWindow* createWindow(MenuType type);
@@ -47,5 +51,11 @@ private:
 
 	EventController* m_eventController;
 
-	Game* m_game;
+	Game* m_game;	
+	
+	HeroSkin m_heroSkin;
+	HeroSkin m_player1Skin;
+	HeroSkin m_player2Skin;
+
+	GUISprite* m_heroSprite;
 };

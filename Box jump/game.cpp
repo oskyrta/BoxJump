@@ -92,6 +92,10 @@ Game::~Game()
 	if (g_font)
 		g_font = 0;
 
+	settingsManager.p_objectsSettings->put<int>("Hero.HeroSkin", (int)m_heroSkin);
+	settingsManager.p_objectsSettings->put<int>("Player1Skin", (int)m_player1Skin);
+	settingsManager.p_objectsSettings->put<int>("Player2Skin", (int)m_player2Skin);
+
 	updateStatistic();
 }
 
@@ -123,6 +127,11 @@ void Game::setupSystem()
 	m_minutesInGame = m_timeInGame / 60;
 	m_maxScore = settingsManager.p_statistic->get<int>("MaxScore", 0);
 
+	m_heroSkin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Hero.HeroSkin");
+	m_player1Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player1Skin");
+	m_player2Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player2Skin");
+
+	// Start listening events
 	m_eventController->addListenerToEvent(
 		this,
 		"OnStart1pGameButtonDown", 
@@ -164,6 +173,18 @@ void Game::setupSystem()
 		"OnExitButtonDown",
 		[](const EventListener* listener) { ((Game*)listener)->exitGame(); }
 	);
+
+	m_eventController->addListenerToEvent(
+		this,
+		"OnLeftArrowSpDown",
+		[](const EventListener* listener) { ((Game*)listener)->m_heroSkin = (HeroSkin)((((Game*)listener)->m_heroSkin + HeroSkin_Count - 1) % HeroSkin_Count);}
+	); 
+	
+	m_eventController->addListenerToEvent(
+		this,
+		"OnRightArrowSpDown",
+		[](const EventListener* listener) { ((Game*)listener)->m_heroSkin = (HeroSkin)((((Game*)listener)->m_heroSkin + 1) % HeroSkin_Count); }
+	);
 }
 
 void Game::initialize(GameMode mode)
@@ -192,7 +213,7 @@ void Game::initialize(GameMode mode)
 	// Create Hero
 	if (m_currentGameMode == GameMode_OnePlayer)
 	{
-		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 0, -100, 0, "ChestSprite");
+		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 0, -100, 0, getSpriteNameBySkin(m_heroSkin));
 		m_player1->setKeys(VK_LEFT, VK_RIGHT, VK_UP);
 		m_player1->setVelocity(Vec2(0, 0));
 		m_player1->setUseGravity(true);
@@ -206,13 +227,13 @@ void Game::initialize(GameMode mode)
 	
 	if (m_currentGameMode == GameMode_TwoPlayers)
 	{
-		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 100, 140, 0, "ChestSprite");
+		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 100, 140, 0, getSpriteNameBySkin(m_player1Skin));
 		m_player1->setKeys(VK_LEFT, VK_RIGHT, VK_UP);
 		m_player1->setVelocity(Vec2(0, 0));
 		m_player1->setUseGravity(true);
 		m_player1->setColliderVertex(4, ver);
 	
-		m_player2 = (Hero*)createGameObject(GameObjectType_Hero, -100, 140, 0, "ChestSprite");
+		m_player2 = (Hero*)createGameObject(GameObjectType_Hero, -100, 140, 0, getSpriteNameBySkin(m_player2Skin));
 		m_player2->setKeys('A', 'D', 'W');
 		m_player2->setVelocity(Vec2(0, 0));
 		m_player2->setUseGravity(true);

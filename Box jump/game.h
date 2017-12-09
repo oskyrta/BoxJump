@@ -19,6 +19,7 @@ class Pool;
 class Controller;
 class EventController;
 class PhysicsController;
+enum HeroSkin;
 
 /////////////////////////////////////////////////
 // Enum
@@ -105,4 +106,8 @@ private:
 	GameObject* m_objects[kMaxObjectsCount];
 	Hero* m_player1;
 	Hero* m_player2;
+
+	HeroSkin m_heroSkin;
+	HeroSkin m_player1Skin;
+	HeroSkin m_player2Skin;
 };

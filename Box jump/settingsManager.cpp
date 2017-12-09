@@ -13,9 +13,10 @@
 // Class SettingsManager
 SettingsManager::~SettingsManager()
 {
-	// Save new interface settings before exit
+	// Save new settings before exit
 	writeData(SettingsFile_InterfaceSettings);
 	writeData(SettingsFile_Statistic);
+	writeData(SettingsFile_ObjectsSettings);
 	//system("pause");
 }
 

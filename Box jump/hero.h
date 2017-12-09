@@ -9,7 +9,9 @@
 enum HeroSkin
 {
 	HeroSkin_Chest,
-	HeroSkin_Pallet
+	HeroSkin_Pallet,
+
+	HeroSkin_Count
 };
 
 /////////////////////////////////////////////////

@@ -6,7 +6,10 @@
 #include "eventController.h"
 #include "guiButton.h"
 #include "guiText.h"
+#include "guiSprite.h"
 #include "settingsManager.h"
+#include "utils.h"
+#include "hero.h"
 
 
 /////////////////////////////////////////////////
@@ -42,6 +45,11 @@ Interface::~Interface()
 
 void Interface::setupInterface()
 {
+	m_heroSkin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Hero.HeroSkin");
+	m_player1Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player1Skin");
+	m_player2Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player2Skin");
+
+	// Start listening events
 	m_eventController->addListenerToEvent(	
 		this, 
 		"OnStart1pGameButtonDown",
@@ -107,6 +115,18 @@ void Interface::setupInterface()
 		"OnSecondPlayerWin",
 		[](const EventListener* listener) { winnerCongratulation->setString("Second player won"); }
 	);
+
+	m_eventController->addListenerToEvent(
+		this,
+		"OnLeftArrowSpDown",
+		[](const EventListener* listener) { ((Interface*)listener)->changeSprite("Hero", -1); }
+	);
+
+	m_eventController->addListenerToEvent(
+		this,
+		"OnRightArrowSpDown",
+		[](const EventListener* listener) { ((Interface*)listener)->changeSprite("Hero", 1); }
+	);
 }
 
 void Interface::initialize()
@@ -139,11 +159,11 @@ void Interface::initialize()
 	// Initialize customize menu
 	window = createWindow(MenuType_CustomizeMenu);
 	window->addButton("Main menu", Vec2(100, 8), "CM_Main", "OnMainMenuButtonDown");
-	window->addSprite("ChestSprite", "CM_ChestSprite");
+	window->addText("Single", Vec2(20, 20), "CM_Single", 32);
+	m_heroSprite = window->addSprite(getSpriteNameBySkin(m_heroSkin), "CM_ChestSprite");
 
 	btn = window->addButton("", Vec2(16, 16), "CM_LeftArrow", "OnLeftArrowSpDown");
 	btn->setSprite("LeftArrowSprite"); 
-	
 	btn = window->addButton("", Vec2(16, 16), "CM_RightArrow", "OnRightArrowSpDown");
 	btn->setSprite("RightArrowSprite");
 
@@ -182,6 +202,15 @@ void Interface::changeWindow(MenuType windowType)
 	m_windowsList[activeWindowIndex]->setActive(false);
 	activeWindowIndex = windowType;
 	m_windowsList[activeWindowIndex]->setActive(true);
+}
+
+void Interface::changeSprite(std::string name, int change)
+{
+	if (name == "Hero")
+	{
+		m_heroSkin = (HeroSkin)((m_heroSkin + HeroSkin_Count + change) % HeroSkin_Count);
+		m_heroSprite->initialize(getSpriteNameBySkin(m_heroSkin));
+	}
 }
 
 void Interface::update()

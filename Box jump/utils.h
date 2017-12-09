@@ -6,6 +6,7 @@
 ////////////////////////////////////////////////
 // Forward declaration
 class Vec2;
+enum HeroSkin;
 
 /////////////////////////////////
 // Functions
@@ -18,3 +19,5 @@ float getSign(float num);
 Vec2 GetPositionByTag(std::string tag);
 
 template<class T> void swap(T &A, T &B);
+
+std::string getSpriteNameBySkin(HeroSkin skin);

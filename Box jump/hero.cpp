@@ -69,22 +69,17 @@ void Hero::update(float dt)
 
 void Hero::spriteUpdate()
 {
-	if (m_velocity.y < minSpeed / 4 * 3) m_sprite->setTextureRect(sf::IntRect(16, 21 + 24 * m_heroSkin, 16, 19));
-	else if (m_velocity.y < 20) m_sprite->setTextureRect(sf::IntRect(0, 21 + 24 * m_heroSkin, 16, 19));
-	else if (m_velocity.y < maxSpeed / 10) m_sprite->setTextureRect(sf::IntRect(32, 21 + 24 * m_heroSkin, 16, 19));
-	else if (m_velocity.y < maxSpeed / 5) m_sprite->setTextureRect(sf::IntRect(48, 21 + 24 * m_heroSkin, 16, 19));
-	else m_sprite->setTextureRect(sf::IntRect(64, 21 + 24 * m_heroSkin, 16, 19));
+	sf::IntRect rect = m_sprite->getTextureRect();
 
-	if ( m_velocity.y - m_heroAverageSpeed < -35 && m_heroAverageSpeed > 0) m_sprite->setTextureRect(sf::IntRect(80, 21 + 24 * m_heroSkin, 16, 19));
+	if (m_velocity.y < minSpeed / 4 * 3) rect.left = 16;
+	else if (m_velocity.y < 20) rect.left = 0;
+	else if (m_velocity.y < maxSpeed / 10) rect.left = 32;
+	else if (m_velocity.y < maxSpeed / 5) rect.left = 48;
+	else rect.left = 64;
 
-	/*
-	t++;
-	if (t > 25)
-	{
-		t -= 25;
-		std::cout << maxSpeed << "\t" << minSpeed << "\n";
-	}
-	// */
+	if ( m_velocity.y - m_heroAverageSpeed < -35 && m_heroAverageSpeed > 0) rect.left = 80;
+
+	m_sprite->setTextureRect(rect);
 
 	m_heroAverageSpeed = (m_heroAverageSpeed * 9/10 + m_velocity.y / 10);
 }

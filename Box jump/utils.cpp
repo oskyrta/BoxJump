@@ -1,6 +1,7 @@
 ////////////////////////////////////////////
 // Include
 #include "utils.h"
+#include "hero.h"
 #include "vec2.h"
 #include "settingsManager.h"
 #include <Windows.h>
@@ -43,4 +44,14 @@ void swap(T &A, T &B)
 	T tmp = A;
 	A = B;
 	B = tmp;
+}
+
+std::string getSpriteNameBySkin(HeroSkin skin)
+{
+	switch (skin)
+	{
+	case HeroSkin_Chest:	return "ChestSprite";
+	case HeroSkin_Pallet:	return "PalletSprite";
+	default:				return "ChestSprite";
+	}
 }
