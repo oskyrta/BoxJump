@@ -370,7 +370,10 @@ void Game::update(float dt)
 	// Move camera 
 	if(m_mainCamera->getPosition().y > m_requiredCameraYPosition)
 	{
-		m_mainCamera->setPosition( m_mainCamera->getRealPosition() + Vec2(0, (kCameraSpeed + m_player1->getVelocity().y)/2 * dt ));
+		float vel = 0;
+		if (m_currentGameMode == GameMode_OnePlayer) vel = (kCameraSpeed + m_player1->getVelocity().y) / 2;
+		else if(m_currentGameMode == GameMode_TwoPlayers) vel = (kCameraSpeed + m_player1->getVelocity().y + m_player2->getVelocity().y) / 3;
+		m_mainCamera->setPosition( m_mainCamera->getRealPosition() + Vec2(0, vel * dt ));
 	}
 
 	// Calculate traveled distance
