@@ -49,63 +49,67 @@ void Interface::setupInterface()
 	m_player1Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player1.Skin");
 	m_player2Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player2.Skin");
 
-	// Start listening events
-	m_eventController->addListenerToEvent(	
-		this, 
+	startListeningEvents();
+}
+
+void Interface::startListeningEvents()
+{
+	m_eventController->addListenerToEvent(
+		this,
 		"OnStart1pGameButtonDown",
 		[](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; winnerCongratulation->setString(""); }
 	);
-	
+
 	m_eventController->addListenerToEvent(
-		this, 
+		this,
 		"OnStart2pGameButtonDown",
 		[](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; winnerCongratulation->setString(""); }
 	);
-	
+
 	m_eventController->addListenerToEvent(
-		this, 
+		this,
 		"OnStartButtonDown",
 		[](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; }
 	);
 
 	m_eventController->addListenerToEvent(
-		this, 
+		this,
 		"OnPauseButtonDown",
 		[](const EventListener* listener) { activeWindowIndex = MenuType_PauseMenu; }
 	);
 
 	m_eventController->addListenerToEvent(
-		this, 
+		this,
 		"OnMainMenuButtonDown",
 		[](const EventListener* listener) { activeWindowIndex = MenuType_MainMenu; }
 	);
 
 	m_eventController->addListenerToEvent(
-		this, 
+		this,
 		"OnCustomizeButtonDown",
 		[](const EventListener* listener) {activeWindowIndex = MenuType_CustomizeMenu; }
 	);
 
 	m_eventController->addListenerToEvent(
-		this, 
+		this,
 		"OnGameEnd",
 		[](const EventListener* listener) { activeWindowIndex = MenuType_ScoreMenu; }
 	);
 
 	m_eventController->addListenerToEvent(
-		this, 
+		this,
 		"OnRestartButtonDown",
 		[](const EventListener* listener) { activeWindowIndex = MenuType_InGameMenu; }
 	);
 
 	m_eventController->addListenerToEvent(
-		this, 
+		this,
 		"OnStatisticButtonDown",
 		[](const EventListener* listener) { activeWindowIndex = MenuType_StatisticWindow; }
 	);
 
 	m_eventController->addListenerToEvent(
-		this, 
+		this,
 		"OnFirstPlayerWin",
 		[](const EventListener* listener) { winnerCongratulation->setString("First player won"); }
 	);
@@ -126,8 +130,8 @@ void Interface::setupInterface()
 		this,
 		"OnRightArrowSpDown",
 		[](const EventListener* listener) { ((Interface*)listener)->changeSprite("Hero", 1); }
-	); 
-	
+	);
+
 	m_eventController->addListenerToEvent(
 		this,
 		"OnLeftArrowP1Down",
@@ -138,8 +142,8 @@ void Interface::setupInterface()
 		this,
 		"OnRightArrowP1Down",
 		[](const EventListener* listener) { ((Interface*)listener)->changeSprite("Player1", 1); }
-	); 
-	
+	);
+
 	m_eventController->addListenerToEvent(
 		this,
 		"OnLeftArrowP2Down",
@@ -151,6 +155,7 @@ void Interface::setupInterface()
 		"OnRightArrowP2Down",
 		[](const EventListener* listener) { ((Interface*)listener)->changeSprite("Player2", 1); }
 	);
+
 }
 
 void Interface::initialize()

@@ -74,6 +74,7 @@ private:
 	void render(float alpha);
 
 	void updateStatistic();
+	void startListeningEvents();
 	void sortGameObjectByDepth();
 
 private:

@@ -47,6 +47,9 @@ private:
 	InterfaceWindow* createWindow(MenuType type);
 	void changeWindow(MenuType windowType);
 
+	void startListeningEvents();
+
+private:
 	InterfaceWindow* m_windowsList[10];
 
 	EventController* m_eventController;

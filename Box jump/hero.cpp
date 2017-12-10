@@ -86,6 +86,7 @@ void Hero::spriteUpdate()
 
 void Hero::physicsUpdate(float dt)
 {
+	// Move camera if hero hero is above the screen
 	if ((m_position - m_camera->getPosition()).y < 175) m_game->setRequiredCameraPos(m_position.y + 175);
 
 	if (IsKeyDown(m_jumpKey))

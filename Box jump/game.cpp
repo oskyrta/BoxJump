@@ -131,15 +131,19 @@ void Game::setupSystem()
 	m_player1Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player1.Skin");
 	m_player2Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player2.Skin");
 
-	// Start listening events
+	startListeningEvents();
+}
+
+void Game::startListeningEvents()
+{	
 	m_eventController->addListenerToEvent(
 		this,
-		"OnStart1pGameButtonDown", 
+		"OnStart1pGameButtonDown",
 		[](const EventListener* listener) { ((Game*)listener)->startNew1PGame(); }
 	);
 
 	m_eventController->addListenerToEvent(
-		this, 
+		this,
 		"OnStart2pGameButtonDown",
 		[](const EventListener* listener) { ((Game*)listener)->startNew2PGame(); }
 	);
@@ -157,19 +161,19 @@ void Game::setupSystem()
 	);
 
 	m_eventController->addListenerToEvent(
-		this, 
+		this,
 		"OnGameEnd",
 		[](const EventListener* listener) { ((Game*)listener)->pauseGame(); ((Game*)listener)->updateStatistic(); }
 	);
 
 	m_eventController->addListenerToEvent(
-		this, 
+		this,
 		"OnRestartButtonDown",
 		[](const EventListener* listener) { ((Game*)listener)->restartGame(); }
 	);
 
 	m_eventController->addListenerToEvent(
-		this, 
+		this,
 		"OnExitButtonDown",
 		[](const EventListener* listener) { ((Game*)listener)->exitGame(); }
 	);
@@ -177,15 +181,15 @@ void Game::setupSystem()
 	m_eventController->addListenerToEvent(
 		this,
 		"OnLeftArrowSpDown",
-		[](const EventListener* listener) { ((Game*)listener)->m_heroSkin = (HeroSkin)((((Game*)listener)->m_heroSkin + HeroSkin_Count - 1) % HeroSkin_Count);}
-	); 
-	
+		[](const EventListener* listener) { ((Game*)listener)->m_heroSkin = (HeroSkin)((((Game*)listener)->m_heroSkin + HeroSkin_Count - 1) % HeroSkin_Count); }
+	);
+
 	m_eventController->addListenerToEvent(
 		this,
 		"OnRightArrowSpDown",
 		[](const EventListener* listener) { ((Game*)listener)->m_heroSkin = (HeroSkin)((((Game*)listener)->m_heroSkin + 1) % HeroSkin_Count); }
-	);	
-	
+	);
+
 	m_eventController->addListenerToEvent(
 		this,
 		"OnLeftArrowP1Down",
@@ -209,6 +213,7 @@ void Game::setupSystem()
 		"OnRightArrowP2Down",
 		[](const EventListener* listener) { ((Game*)listener)->m_player2Skin = (HeroSkin)((((Game*)listener)->m_player2Skin + 1) % HeroSkin_Count); }
 	);
+
 }
 
 void Game::initialize(GameMode mode)
@@ -363,14 +368,9 @@ void Game::update(float dt)
 	m_controller->update(dt);
 
 	// Move camera 
-	/*if (m_mainCamera->getPosition().y < m_requiredCameraYPosition)
-	{
-		m_mainCamera->setPosition(Vec2(0, m_requiredCameraYPosition));
-	}
-	else */
 	if(m_mainCamera->getPosition().y > m_requiredCameraYPosition)
 	{
-		m_mainCamera->setPosition( m_mainCamera->getRealPosition() + Vec2(0, kCameraSpeed * dt ));
+		m_mainCamera->setPosition( m_mainCamera->getRealPosition() + Vec2(0, (kCameraSpeed + m_player1->getVelocity().y)/2 * dt ));
 	}
 
 	// Calculate traveled distance

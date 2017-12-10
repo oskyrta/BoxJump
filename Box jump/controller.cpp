@@ -36,6 +36,7 @@ void Controller::initialize(Game* game, Pool* pool, Camera* camera)
 
 void Controller::loadLevel()
 {
+	// Create platforms under the players
 	if(m_game->getGameMode() == GameMode_OnePlayer)
 	{
 		m_platformList[0] = (Platform*)m_pool->getNewObject();
@@ -86,8 +87,9 @@ void Controller::createNextPlatforms(Vec2 currentPlatformPos)
 	int p = 0, t = GetRandomInt(0, 10);
 	Vec2 maxPosition = Vec2(0, 250);
 
-	if (t > 7) p = 3;
-	else p = 2;
+	if (t > 8) p = 3;
+	else if(t > 4) p = 2;
+	else p = 1;
 
 	float magnitude = 240;
 	
