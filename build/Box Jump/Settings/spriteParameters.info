@@ -43,3 +43,20 @@ PauseButtonSprite
 	size 1
 }
 
+LeftArrowSprite
+{
+	x 64
+	y 0
+	width 16
+	height 16
+	size 2
+}
+
+RightArrowSprite
+{
+	x 80
+	y 0
+	width 16
+	height 16
+	size 2
+}

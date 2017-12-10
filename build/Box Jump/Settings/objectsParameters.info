@@ -1,20 +1,23 @@
 Wood
 {
-	Density 0.3  
-	Restitution 0.2
-	StaticFriction 0.22
-	DynamicFriction 0.15
+    Density 0.3
+    Restitution 0.2
+    StaticFriction 0.22
+    DynamicFriction 0.15
 }
 Platform
 {
-	Density 0.0  
-	Restitution 0.4
-	StaticFriction 0.25
-	DynamicFriction 0.17
+    Density 0.0
+    Restitution 0.4
+    StaticFriction 0.25
+    DynamicFriction 0.17
 }
 Hero
 {
-	JumpForse 2500.0
-	MoveForse 150000.0
-	MaxSpeed 200.0
+    JumpForse 2500.0
+    MoveForse 150000.0
+    MaxSpeed 200.0
+    HeroSkin 1
 }
+Player1Skin 0
+Player2Skin 0

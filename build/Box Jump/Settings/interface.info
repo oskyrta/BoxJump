@@ -56,12 +56,12 @@ SM_Main
 MM_Exit
 {
     x -83
-    y 29
+    y 50
 }
 MM_Statistic
 {
     x -83
-    y 10
+    y 30
 }
 StW_Title
 {
@@ -75,13 +75,13 @@ Stw_HS
 }
 StW_Main
 {
-    x 0
-    y 0
+    x -166
+    y 149
 }
 Stw_TimeInGame
 {
     x -249
-    y -120
+    y -118
 }
 MM_2pStart
 {
@@ -92,4 +92,34 @@ SM_WinnCong
 {
     x -176
     y -117
+}
+MM_Customize
+{
+    x -83
+    y 10
+}
+CM_Main
+{
+    x -151
+    y 157
+}
+CM_ChestSprite
+{
+    x -25
+    y -113
+}
+CM_LeftArrow
+{
+    x -142
+    y -107
+}
+CM_RightArrow
+{
+    x 89
+    y -108
+}
+CM_Single
+{
+    x -53
+    y -172
 }
