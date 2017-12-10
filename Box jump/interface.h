@@ -58,4 +58,6 @@ private:
 	HeroSkin m_player2Skin;
 
 	GUISprite* m_heroSprite;
+	GUISprite* m_player1Sprite;
+	GUISprite* m_player2Sprite;
 };

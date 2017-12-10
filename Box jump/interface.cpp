@@ -45,9 +45,9 @@ Interface::~Interface()
 
 void Interface::setupInterface()
 {
-	m_heroSkin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Hero.HeroSkin");
-	m_player1Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player1Skin");
-	m_player2Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player2Skin");
+	m_heroSkin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Hero.Skin");
+	m_player1Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player1.Skin");
+	m_player2Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player2.Skin");
 
 	// Start listening events
 	m_eventController->addListenerToEvent(	
@@ -126,6 +126,30 @@ void Interface::setupInterface()
 		this,
 		"OnRightArrowSpDown",
 		[](const EventListener* listener) { ((Interface*)listener)->changeSprite("Hero", 1); }
+	); 
+	
+	m_eventController->addListenerToEvent(
+		this,
+		"OnLeftArrowP1Down",
+		[](const EventListener* listener) { ((Interface*)listener)->changeSprite("Player1", -1); }
+	);
+
+	m_eventController->addListenerToEvent(
+		this,
+		"OnRightArrowP1Down",
+		[](const EventListener* listener) { ((Interface*)listener)->changeSprite("Player1", 1); }
+	); 
+	
+	m_eventController->addListenerToEvent(
+		this,
+		"OnLeftArrowP2Down",
+		[](const EventListener* listener) { ((Interface*)listener)->changeSprite("Player2", -1); }
+	);
+
+	m_eventController->addListenerToEvent(
+		this,
+		"OnRightArrowP2Down",
+		[](const EventListener* listener) { ((Interface*)listener)->changeSprite("Player2", 1); }
 	);
 }
 
@@ -160,11 +184,26 @@ void Interface::initialize()
 	window = createWindow(MenuType_CustomizeMenu);
 	window->addButton("Main menu", Vec2(100, 8), "CM_Main", "OnMainMenuButtonDown");
 	window->addText("Single", Vec2(20, 20), "CM_Single", 32);
-	m_heroSprite = window->addSprite(getSpriteNameBySkin(m_heroSkin), "CM_ChestSprite");
+	m_heroSprite = window->addSprite(getSpriteNameBySkin(m_heroSkin), "CM_HeroSprite");
 
 	btn = window->addButton("", Vec2(16, 16), "CM_LeftArrow", "OnLeftArrowSpDown");
 	btn->setSprite("LeftArrowSprite"); 
 	btn = window->addButton("", Vec2(16, 16), "CM_RightArrow", "OnRightArrowSpDown");
+	btn->setSprite("RightArrowSprite");
+
+	window->addText("Coop", Vec2(20, 20), "CM_Coop", 32);
+	window->addText("Player1", Vec2(20, 20), "CM_Player1Name", 16);
+	m_player1Sprite = window->addSprite(getSpriteNameBySkin(m_player1Skin), "CM_Player1Sprite");
+	btn = window->addButton("", Vec2(16, 16), "CM_LeftArrowP1", "OnLeftArrowP1Down");
+	btn->setSprite("LeftArrowSprite");
+	btn = window->addButton("", Vec2(16, 16), "CM_RightArrowP1", "OnRightArrowP1Down");
+	btn->setSprite("RightArrowSprite");
+
+	window->addText("Player2", Vec2(20, 20), "Player2Name", 16);
+	m_player2Sprite = window->addSprite(getSpriteNameBySkin(m_player2Skin), "CM_Plauer2Sprite");
+	btn = window->addButton("", Vec2(16, 16), "CM_LeftArrowP2", "OnLeftArrowP2Down");
+	btn->setSprite("LeftArrowSprite");
+	btn = window->addButton("", Vec2(16, 16), "CM_RightArrowP2", "OnRightArrowP2Down");
 	btn->setSprite("RightArrowSprite");
 
 	// Initialize pause menu
@@ -210,6 +249,18 @@ void Interface::changeSprite(std::string name, int change)
 	{
 		m_heroSkin = (HeroSkin)((m_heroSkin + HeroSkin_Count + change) % HeroSkin_Count);
 		m_heroSprite->initialize(getSpriteNameBySkin(m_heroSkin));
+	}
+
+	if (name == "Player1")
+	{
+		m_player1Skin = (HeroSkin)((m_player1Skin + HeroSkin_Count + change) % HeroSkin_Count);
+		m_player1Sprite->initialize(getSpriteNameBySkin(m_player1Skin));
+	}
+
+	if (name == "Player2")
+	{
+		m_player2Skin = (HeroSkin)((m_player2Skin + HeroSkin_Count + change) % HeroSkin_Count);
+		m_player2Sprite->initialize(getSpriteNameBySkin(m_player2Skin));
 	}
 }
 

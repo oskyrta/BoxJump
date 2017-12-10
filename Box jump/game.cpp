@@ -93,8 +93,8 @@ Game::~Game()
 		g_font = 0;
 
 	settingsManager.p_objectsSettings->put<int>("Hero.HeroSkin", (int)m_heroSkin);
-	settingsManager.p_objectsSettings->put<int>("Player1Skin", (int)m_player1Skin);
-	settingsManager.p_objectsSettings->put<int>("Player2Skin", (int)m_player2Skin);
+	settingsManager.p_objectsSettings->put<int>("Player1.Skin", (int)m_player1Skin);
+	settingsManager.p_objectsSettings->put<int>("Player2.Skin", (int)m_player2Skin);
 
 	updateStatistic();
 }
@@ -127,9 +127,9 @@ void Game::setupSystem()
 	m_minutesInGame = m_timeInGame / 60;
 	m_maxScore = settingsManager.p_statistic->get<int>("MaxScore", 0);
 
-	m_heroSkin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Hero.HeroSkin");
-	m_player1Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player1Skin");
-	m_player2Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player2Skin");
+	m_heroSkin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Hero.Skin");
+	m_player1Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player1.Skin");
+	m_player2Skin = (HeroSkin)settingsManager.p_objectsSettings->get<int>("Player2.Skin");
 
 	// Start listening events
 	m_eventController->addListenerToEvent(
@@ -184,6 +184,30 @@ void Game::setupSystem()
 		this,
 		"OnRightArrowSpDown",
 		[](const EventListener* listener) { ((Game*)listener)->m_heroSkin = (HeroSkin)((((Game*)listener)->m_heroSkin + 1) % HeroSkin_Count); }
+	);	
+	
+	m_eventController->addListenerToEvent(
+		this,
+		"OnLeftArrowP1Down",
+		[](const EventListener* listener) { ((Game*)listener)->m_player1Skin = (HeroSkin)((((Game*)listener)->m_player1Skin + HeroSkin_Count - 1) % HeroSkin_Count); }
+	);
+
+	m_eventController->addListenerToEvent(
+		this,
+		"OnRightArrowP1Down",
+		[](const EventListener* listener) { ((Game*)listener)->m_player1Skin = (HeroSkin)((((Game*)listener)->m_player1Skin + 1) % HeroSkin_Count); }
+	);
+
+	m_eventController->addListenerToEvent(
+		this,
+		"OnLeftArrowP2Down",
+		[](const EventListener* listener) { ((Game*)listener)->m_player2Skin = (HeroSkin)((((Game*)listener)->m_player2Skin + HeroSkin_Count - 1) % HeroSkin_Count); }
+	);
+
+	m_eventController->addListenerToEvent(
+		this,
+		"OnRightArrowP2Down",
+		[](const EventListener* listener) { ((Game*)listener)->m_player2Skin = (HeroSkin)((((Game*)listener)->m_player2Skin + 1) % HeroSkin_Count); }
 	);
 }
 
