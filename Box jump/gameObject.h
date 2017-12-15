@@ -68,7 +68,7 @@ public:
 
 	void setScale(float scale) { m_sprite->setScale(scale, scale); };
 
-	void setMass(float mass) { m_massData.mass = mass; m_massData.inv_mass = (mass > 0) ? 1.0/mass : 0; };
+	void setMass(float mass) { m_massData.mass = mass; m_massData.inv_mass = (mass > 0) ? 1.0f/mass : 0; };
 	MassData getMass() { return m_massData; };
 
 	void setMaterial(float density, float restitution) { m_material.density = density; m_material.restitution = restitution; };
@@ -92,6 +92,7 @@ public:
 	GameObjectType getType() { return m_type; };
 
 	void setTextureRect(sf::IntRect rect) { m_sprite->setTextureRect(rect); };
+	sf::IntRect getTextureRect() { return m_sprite->getTextureRect(); }
 
 	void setName(char name[]) { sprintf_s(m_name, 32, name); };
 	const char* getName() { return m_name; };

@@ -28,6 +28,7 @@
 
 #include "hero.h"
 #include "platform.h"
+#include "cloud.h"
 
 ////////////////////////////////////////////////
 // Global
@@ -92,7 +93,7 @@ Game::~Game()
 	if (g_font)
 		g_font = 0;
 
-	settingsManager.p_objectsSettings->put<int>("Hero.HeroSkin", (int)m_heroSkin);
+	settingsManager.p_objectsSettings->put<int>("Hero.Skin", (int)m_heroSkin);
 	settingsManager.p_objectsSettings->put<int>("Player1.Skin", (int)m_player1Skin);
 	settingsManager.p_objectsSettings->put<int>("Player2.Skin", (int)m_player2Skin);
 
@@ -109,6 +110,7 @@ void Game::setupSystem()
 
 	// Initialize pool
 	m_platformPool = new Pool();
+	m_cloudPool = new Pool();
 
 	// Initialize level controller
 	m_controller = new Controller();
@@ -273,8 +275,9 @@ void Game::initialize(GameMode mode)
 	}
 
 	m_platformPool->setup(this, GameObjectType_Platform, 10);
+	m_cloudPool->setup(this, GameObjectType_Cloud, 5);
 
-	m_controller->initialize(this, m_platformPool, m_mainCamera);
+	m_controller->initialize(this, m_platformPool, m_cloudPool, m_mainCamera);
 }
 
 void Game::updateStatistic()
@@ -307,7 +310,7 @@ bool Game::frame()
 
 	if (t >= 0.5)
 	{
-		m_fps = std::floor( (frames / t) + 0.5);
+		m_fps = (int)std::floor( (frames / t) + 0.5);
 		t -= 0.5;
 		frames = 0;
 	}
@@ -469,6 +472,7 @@ GameObject* Game::createGameObject(GameObjectType type, float x, float y, float 
 			{
 				case GameObjectType_Hero:		object = new Hero(); break;
 				case GameObjectType_Platform:	object = new Platform(); break;
+				case GameObjectType_Cloud:		object = new Cloud(); break;
 			}
 
 			if (object == 0)
@@ -512,8 +516,9 @@ std::string getSpriteNameByType(GameObjectType type)
 {
 	switch (type)
 	{
-	case GameObjectType_Hero:		return "ChestSprite";
-	case GameObjectType_Platform:	return "PlatformSprite";
+		case GameObjectType_Hero:		return "ChestSprite";
+		case GameObjectType_Platform:	return "PlatformSprite";
+		case GameObjectType_Cloud:		return "CloudSprite";
 	}
 
 	return "None";

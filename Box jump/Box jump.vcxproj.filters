@@ -90,6 +90,9 @@
     <ClCompile Include="guiSprite.cpp">
       <Filter>Source Files\Game Interface</Filter>
     </ClCompile>
+    <ClCompile Include="cloud.cpp">
+      <Filter>Source Files\Game Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="guiSprite.h">
       <Filter>Header Files\Game Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="cloud.h">
+      <Filter>Header Files\Game Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

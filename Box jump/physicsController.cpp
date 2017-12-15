@@ -235,14 +235,14 @@ void PhysicsController::checkCollisions()
 	for (int obj1 = 0; obj1 < kMaxObjectsCount; obj1++)
 	{
 		// Go to next object if this object not exist or not active 
-		if (m_objects[obj1] == 0 || !m_objects[obj1]->getActive())
+		if (m_objects[obj1] == 0 || !m_objects[obj1]->getActive() || !m_objects[obj1]->getRigid())
 			continue;
 
 
 		for (int obj2 = obj1 + 1; obj2 < kMaxObjectsCount; obj2++)
 		{
 			// Go to next object if this object not exist or not active 
-			if (m_objects[obj2] == 0 || !m_objects[obj2]->getActive())
+			if (m_objects[obj2] == 0 || !m_objects[obj2]->getActive() || !m_objects[obj2]->getRigid())
 				continue;
 
 			

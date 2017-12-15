@@ -17,14 +17,18 @@ class Controller
 public:
 	Controller();
 
-	void initialize(Game* game, Pool* platformPool, Camera* camera);
+	void initialize(Game* game, Pool* platformPool, Pool* cloudPool, Camera* camera);
 	void loadLevel();
 	void update(float dt);
 
-	void createNextPlatforms(Vec2 currentPlatformPos);
 private:
-	Platform* m_platformList[kMaxObjectsCount];
+	void createNextPlatforms(Vec2 currentPlatformPos);
+	void createNextCloud(Vec2 cloudPos);
+
+private:
+	GameObject* m_objectsList[kMaxObjectsCount];
 	Game* m_game;
-	Pool* m_pool;
+	Pool* m_platformPool;
+	Pool* m_cloudPool;
 	Camera* m_camera;
 };

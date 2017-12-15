@@ -102,6 +102,7 @@ private:
 	sf::RenderWindow* m_renderWindow;
 
 	Pool* m_platformPool;
+	Pool* m_cloudPool;
 	Controller* m_controller;
 
 	GameObject* m_objects[kMaxObjectsCount];
