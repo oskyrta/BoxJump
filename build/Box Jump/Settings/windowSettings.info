@@ -10,9 +10,9 @@ MainCamera
 	
 	bgColor
 	{
-		r 245
-		g 245
-		b 245
+		r 190
+		g 216
+		b 227
 	}
 }
 Framerate 120 ; set zero to not use

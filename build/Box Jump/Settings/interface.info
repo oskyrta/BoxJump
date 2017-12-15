@@ -103,23 +103,68 @@ CM_Main
     x -151
     y 157
 }
-CM_ChestSprite
+CM_Single
 {
-    x -25
-    y -113
+    x -200
+    y -128
 }
 CM_LeftArrow
 {
-    x -142
-    y -107
+    x -243
+    y -73
+}
+CM_HeroSprite
+{
+    x -174
+    y -80
 }
 CM_RightArrow
 {
-    x 89
-    y -108
+    x -106
+    y -73
 }
-CM_Single
+CM_Coop
 {
-    x -53
-    y -172
+    x 130
+    y -128
+}
+CM_Player1Name
+{
+    x 146
+    y -80
+}
+CM_Player1Sprite
+{
+    x 152
+    y -65
+}
+CM_LeftArrowP1
+{
+    x 95
+    y -57
+}
+CM_RightArrowP1
+{
+    x 209
+    y -57
+}
+Player2Name
+{
+    x 146
+    y 2
+}
+CM_Plauer2Sprite
+{
+    x 152
+    y 29
+}
+CM_LeftArrowP2
+{
+    x 95
+    y 37
+}
+CM_RightArrowP2
+{
+    x 209
+    y 37
 }

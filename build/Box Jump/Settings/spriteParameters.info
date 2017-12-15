@@ -16,6 +16,15 @@ PalletSprite
 	size 2
 }
 
+CloudSprite
+{
+	x 96
+	y 0
+	width 48
+	height 16
+	size 2
+}
+
 PlatformSprite
 {
 	x 16

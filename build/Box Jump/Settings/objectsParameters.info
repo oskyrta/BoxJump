@@ -12,12 +12,27 @@ Platform
     StaticFriction 0.25
     DynamicFriction 0.17
 }
+Cloud
+{
+    Density 0.0
+    Restitution 0.0
+    StaticFriction 0.0
+    DynamicFriction 0.0
+    CloudSpeed 50
+}
 Hero
 {
     JumpForse 2500.0
     MoveForse 150000.0
     MaxSpeed 200.0
-    HeroSkin 1
+    Skin 1
+    HeroSkin 0
 }
-Player1Skin 0
-Player2Skin 0
+Player1
+{
+    Skin 0
+}
+Player2
+{
+    Skin 0
+}
