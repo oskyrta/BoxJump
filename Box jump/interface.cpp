@@ -196,7 +196,7 @@ void Interface::initialize()
 	btn = window->addButton("", Vec2(16, 16), "CM_RightArrow", "OnRightArrowSpDown");
 	btn->setSprite("RightArrowSprite");
 
-	window->addText("Coop", Vec2(20, 20), "CM_Coop", 32);
+	window->addText("Co-op", Vec2(20, 20), "CM_Coop", 32);
 	window->addText("Player1", Vec2(20, 20), "CM_Player1Name", 16);
 	m_player1Sprite = window->addSprite(getSpriteNameBySkin(m_player1Skin), "CM_Player1Sprite");
 	btn = window->addButton("", Vec2(16, 16), "CM_LeftArrowP1", "OnLeftArrowP1Down");
@@ -232,10 +232,10 @@ void Interface::initialize()
 	window = createWindow(MenuType_StatisticWindow);
 	window->addText("Statistic", Vec2(20, 20), "StW_Title");
 
-	txt = window->addText("Hight score: ^ points", Vec2(20, 20), "Stw_HS");
+	txt = window->addText("High score: ^ points", Vec2(20, 20), "Stw_HS");
 	txt->setChangedValue(m_game->getPointerToMaxScore());
 
-	txt = window->addText("Time in game: ^ minuts", Vec2(20, 20), "Stw_TimeInGame");
+	txt = window->addText("Time in game: ^ minutes", Vec2(20, 20), "Stw_TimeInGame");
 	txt->setChangedValue(m_game->getPointerToTimeInGame());
 
 	window->addButton("Main menu", Vec2(100, 8), "StW_Main", "OnMainMenuButtonDown");
