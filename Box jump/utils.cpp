@@ -52,6 +52,7 @@ std::string getSpriteNameBySkin(HeroSkin skin)
 	{
 	case HeroSkin_Chest:	return "ChestSprite";
 	case HeroSkin_Pallet:	return "PalletSprite";
+	case HeroSkin_Present:	return "PresentSprite";
 	default:				return "ChestSprite";
 	}
 }
