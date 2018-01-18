@@ -61,7 +61,7 @@ void Controller::loadLevel()
 	}
 
 	m_objectsList[2] = m_cloudPool->getNewObject();
-	m_objectsList[2]->setPosition(Vec2(-200, 0));
+	m_objectsList[2]->setPosition(Vec2(-200, 2));
 	m_objectsList[2]->setActive(true);
 }
 

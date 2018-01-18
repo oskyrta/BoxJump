@@ -1,12 +1,12 @@
 MM_Start
 {
-    x -83
-    y -30
+    x -84
+    y -27
 }
 MM_Title
 {
-    x -180
-    y -74
+    x -174
+    y -99
 }
 GM_FPS
 {
@@ -55,13 +55,13 @@ SM_Main
 }
 MM_Exit
 {
-    x -83
+    x -84
     y 50
 }
 MM_Statistic
 {
-    x -83
-    y 30
+    x -84
+    y 11
 }
 StW_Title
 {
@@ -85,8 +85,8 @@ Stw_TimeInGame
 }
 MM_2pStart
 {
-    x -83
-    y -10
+    x -84
+    y -8
 }
 SM_WinnCong
 {
@@ -95,8 +95,8 @@ SM_WinnCong
 }
 MM_Customize
 {
-    x -83
-    y 10
+    x -84
+    y 30
 }
 CM_Main
 {
@@ -167,4 +167,9 @@ CM_RightArrowP2
 {
     x 209
     y 37
+}
+MM_Spc
+{
+    x -146
+    y -65
 }

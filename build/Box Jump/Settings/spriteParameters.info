@@ -16,6 +16,15 @@ PalletSprite
 	size 2
 }
 
+PresentSprite
+{
+	x 0
+	y 69
+	width 16
+	height 19
+	size 2
+}
+
 CloudSprite
 {
 	x 96

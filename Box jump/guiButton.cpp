@@ -25,8 +25,11 @@ void GUIButton::update()
 	leftClick = false;
 	if (m_eventController->getEventState(GameEvent_LeftButtonDown)) leftClick = true;
 
-	if (m_mouseOnObject && !IsKeyDown(0x70)) m_textOffset.x = 8;
-	else m_textOffset.x = 0;
+	if (m_mouseOnObject && !IsKeyDown(0x70)) m_textOffset.x += 2;
+	else m_textOffset.x -= 2;
+
+	if (m_textOffset.x < 0) m_textOffset.x = 0;
+	if (m_textOffset.x > 8) m_textOffset.x = 8;
 
 	if (leftClick && m_mouseOnObject && !IsKeyDown(0x70))
 	{
