@@ -173,7 +173,6 @@ void Interface::initialize()
 	window->addButton("Statistic", Vec2(100, 8), "MM_Statistic", "OnStatisticButtonDown");
 	window->addButton("Customize", Vec2(100, 8), "MM_Customize", "OnCustomizeButtonDown");
 	txt = window->addText("Box jump", Vec2(20, 20), "MM_Title", 32);
-	txt = window->addText("Special for Vitek update", Vec2(20, 20), "MM_Spc", 24);
 
 	// Initialize in-game menu
 	window = createWindow(MenuType_InGameMenu);
