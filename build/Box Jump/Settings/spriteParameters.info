@@ -1,80 +1,84 @@
-ChestSprite
+atlas00
 {
-	x 0
-	y 21
-	width 16
-	height 19
-	size 2
+	PlatformSprite
+	{
+		x 16
+		y 0
+		width 32
+		height 8
+		size 1
+	}
+
+	BrokenPlatformSprite
+	{
+		x 16
+		y 8
+		width 32
+		height 8
+		size 1
+	}
+
+	PauseButtonSprite
+	{
+		x 48
+		y 0
+		width 14
+		height 14
+		size 1
+	}
+
+	LeftArrowSprite
+	{
+		x 64
+		y 0
+		width 16
+		height 16
+		size 1
+	}
+
+	RightArrowSprite
+	{
+		x 80
+		y 0
+		width 16
+		height 16
+		size 1
+	}
+	
+	CloudSprite
+	{
+		x 96
+		y 0
+		width 48
+		height 16
+		size 1
+	}
+	
+	ChestSprite
+	{
+		x 0
+		y 22
+		width 16
+		height 18
+		size 1
+	}
+	
+	PalletSprite
+	{
+		x 0
+		y 46
+		width 16
+		height 18
+		size 1
+	}
+	
+	PresentSprite
+	{
+		x 0
+		y 70
+		width 16
+		height 18
+		size 1
+	}
 }
 
-PalletSprite
-{
-	x 0
-	y 45
-	width 16
-	height 19
-	size 2
-}
-
-PresentSprite
-{
-	x 0
-	y 69
-	width 16
-	height 19
-	size 2
-}
-
-CloudSprite
-{
-	x 96
-	y 0
-	width 48
-	height 16
-	size 2
-}
-
-PlatformSprite
-{
-	x 16
-	y 0
-	width 32
-	height 8
-	size 2
-}
-
-BrokenPlatformSprite
-{
-	x 16
-	y 0
-	width 32
-	height 8
-	size 2
-}
-
-PauseButtonSprite
-{
-	x 48
-	y 0
-	width 14
-	height 14
-	size 1
-}
-
-LeftArrowSprite
-{
-	x 64
-	y 0
-	width 16
-	height 16
-	size 2
-}
-
-RightArrowSprite
-{
-	x 80
-	y 0
-	width 16
-	height 16
-	size 2
-}

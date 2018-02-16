@@ -18,6 +18,59 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Sourse code\controller.cpp" />
+    <ClCompile Include="Sourse code\dataManager\dataManager.cpp" />
+    <ClCompile Include="Sourse code\EventSystem\eventController.cpp" />
+    <ClCompile Include="Sourse code\EventSystem\eventListener.cpp" />
+    <ClCompile Include="Sourse code\game.cpp" />
+    <ClCompile Include="Sourse code\GameObject\cloud.cpp" />
+    <ClCompile Include="Sourse code\GameObject\gameObject.cpp" />
+    <ClCompile Include="Sourse code\GameObject\hero.cpp" />
+    <ClCompile Include="Sourse code\GameObject\platform.cpp" />
+    <ClCompile Include="Sourse code\inputController.cpp" />
+    <ClCompile Include="Sourse code\Interface\interface.cpp" />
+    <ClCompile Include="Sourse code\Interface\interfaceWindow.cpp" />
+    <ClCompile Include="Sourse code\Interface\uiButton.cpp" />
+    <ClCompile Include="Sourse code\Interface\uiObject.cpp" />
+    <ClCompile Include="Sourse code\Interface\uiSprite.cpp" />
+    <ClCompile Include="Sourse code\Interface\uiText.cpp" />
+    <ClCompile Include="Sourse code\main.cpp" />
+    <ClCompile Include="Sourse code\Physics\collision.cpp" />
+    <ClCompile Include="Sourse code\Physics\physicsController.cpp" />
+    <ClCompile Include="Sourse code\render\camera.cpp" />
+    <ClCompile Include="Sourse code\render\render.cpp" />
+    <ClCompile Include="Sourse code\tools\pool.cpp" />
+    <ClCompile Include="Sourse code\tools\utils.cpp" />
+    <ClCompile Include="Sourse code\tools\vec2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sourse code\controller.h" />
+    <ClInclude Include="Sourse code\dataManager\dataManager.h" />
+    <ClInclude Include="Sourse code\DataManager\levelSettings.h" />
+    <ClInclude Include="Sourse code\EventSystem\eventController.h" />
+    <ClInclude Include="Sourse code\EventSystem\eventListener.h" />
+    <ClInclude Include="Sourse code\game.h" />
+    <ClInclude Include="Sourse code\GameObject\cloud.h" />
+    <ClInclude Include="Sourse code\GameObject\gameObject.h" />
+    <ClInclude Include="Sourse code\GameObject\gameObjectType.h" />
+    <ClInclude Include="Sourse code\GameObject\hero.h" />
+    <ClInclude Include="Sourse code\GameObject\platform.h" />
+    <ClInclude Include="Sourse code\inputController.h" />
+    <ClInclude Include="Sourse code\Interface\interface.h" />
+    <ClInclude Include="Sourse code\Interface\interfaceWindow.h" />
+    <ClInclude Include="Sourse code\Interface\uiButton.h" />
+    <ClInclude Include="Sourse code\Interface\uiObject.h" />
+    <ClInclude Include="Sourse code\Interface\uiSprite.h" />
+    <ClInclude Include="Sourse code\Interface\uiText.h" />
+    <ClInclude Include="Sourse code\Physics\collision.h" />
+    <ClInclude Include="Sourse code\Physics\physicsController.h" />
+    <ClInclude Include="Sourse code\render\camera.h" />
+    <ClInclude Include="Sourse code\render\render.h" />
+    <ClInclude Include="Sourse code\tools\pool.h" />
+    <ClInclude Include="Sourse code\tools\utils.h" />
+    <ClInclude Include="Sourse code\tools\vec2.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{E7C864EA-A027-4326-BC2F-AFC4575C185D}</ProjectGuid>
@@ -76,7 +129,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../../external/boost_1_65_1;../../external/SFML-2.4.2/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\skyrt\Documents\gamedev\Box jump\Box jump\Sourse code;../../external/boost_1_65_1;../../external/SFML-2.4.2/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -98,7 +151,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../../external/boost_1_65_1;../../external/SFML-2.4.2/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\skyrt\Documents\gamedev\Box jump\Box jump\Sourse code;../../external/boost_1_65_1;../../external/SFML-2.4.2/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -121,55 +174,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="camera.cpp" />
-    <ClCompile Include="cloud.cpp" />
-    <ClCompile Include="collision.cpp" />
-    <ClCompile Include="controller.cpp" />
-    <ClCompile Include="eventController.cpp" />
-    <ClCompile Include="eventListener.cpp" />
-    <ClCompile Include="game.cpp" />
-    <ClCompile Include="gameObject.cpp" />
-    <ClCompile Include="guiButton.cpp" />
-    <ClCompile Include="guiObject.cpp" />
-    <ClCompile Include="guiSprite.cpp" />
-    <ClCompile Include="guiText.cpp" />
-    <ClCompile Include="hero.cpp" />
-    <ClCompile Include="interface.cpp" />
-    <ClCompile Include="interfaceWindow.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="physicsController.cpp" />
-    <ClCompile Include="platform.cpp" />
-    <ClCompile Include="pool.cpp" />
-    <ClCompile Include="settingsManager.cpp" />
-    <ClCompile Include="utils.cpp" />
-    <ClCompile Include="vec2.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="cloud.h" />
-    <ClInclude Include="collision.h" />
-    <ClInclude Include="controller.h" />
-    <ClInclude Include="eventController.h" />
-    <ClInclude Include="eventListener.h" />
-    <ClInclude Include="game.h" />
-    <ClInclude Include="gameObject.h" />
-    <ClInclude Include="gameObjectType.h" />
-    <ClInclude Include="guiButton.h" />
-    <ClInclude Include="guiObject.h" />
-    <ClInclude Include="guiSprite.h" />
-    <ClInclude Include="guiText.h" />
-    <ClInclude Include="hero.h" />
-    <ClInclude Include="interface.h" />
-    <ClInclude Include="interfaceWindow.h" />
-    <ClInclude Include="levelSettings.h" />
-    <ClInclude Include="physicsController.h" />
-    <ClInclude Include="platform.h" />
-    <ClInclude Include="pool.h" />
-    <ClInclude Include="settingsManager.h" />
-    <ClInclude Include="utils.h" />
-    <ClInclude Include="vec2.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

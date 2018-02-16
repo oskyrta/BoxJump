@@ -1,18 +1,13 @@
-MainCamera
+width 640
+height 400
+
+name "Box Jump"
+scale 2
+
+bgColor
 {
-	size
-	{
-		x 640
-		y 400
-	}
-	name "Box Jump"
-	pixelSize 2
-	
-	bgColor
-	{
-		r 190
-		g 216
-		b 227
-	}
+	r 190
+	g 216
+	b 227
 }
-Framerate 120 ; set zero to not use
+Framerate 240 ; set zero to not use

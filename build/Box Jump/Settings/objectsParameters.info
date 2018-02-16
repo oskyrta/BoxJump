@@ -1,6 +1,6 @@
 Wood
 {
-    Density 0.3
+    Density 0.2
     Restitution 0.2
     StaticFriction 0.22
     DynamicFriction 0.15
@@ -18,15 +18,14 @@ Cloud
     Restitution 0.0
     StaticFriction 0.0
     DynamicFriction 0.0
-    CloudSpeed 50
+    CloudSpeed 35
 }
 Hero
 {
-    JumpForse 2500.0
-    MoveForse 150000.0
+    JumpForse 400.0
+    MoveForse 17000.0
     MaxSpeed 200.0
-    Skin 2
-    HeroSkin 0
+    Skin 0
 }
 Player1
 {
@@ -34,5 +33,5 @@ Player1
 }
 Player2
 {
-    Skin 0
+    Skin 2
 }

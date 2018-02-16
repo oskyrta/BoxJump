@@ -1,175 +1,553 @@
-MM_Start
+Main
 {
-    x -84
-    y -27
+    Buttons
+    {
+        Start1P
+        {
+            x -0.1
+            y -0.2
+            width 100
+            height 8
+            String "Start game"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Left
+            HAlign Middle
+            Event OnStart1pGameButtonDown
+            SpriteName ""
+        }
+        Start2P
+        {
+            x -0.1
+            y -0.1
+            width 100
+            height 8
+            String "Start 2P game"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Left
+            HAlign Middle
+            Event OnStart2pGameButtonDown
+            SpriteName ""
+        }
+        Statistic
+        {
+            x -0.1
+            y 0.0
+            width 100
+            height 8
+            String Statistic
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Left
+            HAlign Middle
+            Event OnStatisticButtonDown
+            SpriteName ""
+        }
+        Customize
+        {
+            x -0.1
+            y 0.1
+            width 100
+            height 8
+            String Customize
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Left
+            HAlign Middle
+            Event OnCustomizeButtonDown
+            SpriteName ""
+        }
+        Exit
+        {
+            x -0.1
+            y 0.22
+            width 100
+            height 8
+            String "Exit to desktop"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Left
+            HAlign Middle
+            Event OnExitButtonDown
+            SpriteName ""
+        }
+    }
+    Texts
+    {
+        Title
+        {
+            x -0.2
+            y -0.35
+            String "Box jump"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 16
+            VAlign Center
+            HAlign Middle
+        }
+    }
 }
-MM_Title
+In-GameMenu
 {
-    x -174
-    y -99
+    Buttons
+    {
+        Pause
+        {
+            x -0.918749988
+            y -0.860000014
+            width 8
+            height 8
+            String ""
+            Event OnPauseButtonDown
+            SpriteName PauseButtonSprite
+            scale 1
+        }
+    }
+    Texts
+    {
+        FPS
+        {
+            x -1.824999988
+            y -0.899999976
+            String ^
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Center
+            HAlign Middle
+        }
+        Score
+        {
+            x 0.643750012
+            y -0.879999995
+            String "Score: ^"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Center
+            HAlign Middle
+        }
+    }
 }
-GM_FPS
+CustomizeMenu
 {
-    x -280
-    y -191
+    Buttons
+    {
+        MainMenu
+        {
+            x -0.53125
+            y 0.75
+            width 60
+            height 10
+            String "Main Menu"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Center
+            HAlign Middle
+            Event OnMainMenuButtonDown
+            SpriteName ""
+        }
+        LeftArrowHero
+        {
+            x -0.650000012
+            y -0.0900000036
+            width 16
+            height 16
+            String ""
+            Event OnLeftArrowSpDown
+            SpriteName LeftArrowSprite
+        }
+        RightArrowHero
+        {
+            x -0.250000006
+            y -0.0900000036
+            width 16
+            height 16
+            String ""
+            Event OnRightArrowSpDown
+            SpriteName RightArrowSprite
+        }
+        LeftArrowP1
+        {
+            x 0.25
+            y -0.0900000036
+            width 16
+            height 16
+            String ""
+            Event OnLeftArrowP1Down
+            SpriteName LeftArrowSprite
+        }
+        RightArrowP1
+        {
+            x 0.65
+            y -0.0900000036
+            width 16
+            height 16
+            String ""
+            Event OnRightArrowP1Down
+            SpriteName RightArrowSprite
+        }
+        LeftArrowP2
+        {
+            x 0.25
+            y 0.319999999
+            width 16
+            height 16
+            String ""
+            Event OnLeftArrowP2Down
+            SpriteName LeftArrowSprite
+        }
+        RightArrowP2
+        {
+            x 0.65
+            y 0.319999999
+            width 16
+            height 16
+            String ""
+            Event OnRightArrowP2Down
+            SpriteName RightArrowSprite
+        }
+    }
+    Texts
+    {
+        Single
+        {
+            x -0.45
+            y -0.5
+            String Single
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 16
+            VAlign Center
+            HAlign Middle
+        }
+        Coop
+        {
+            x 0.45
+            y -0.5
+            String Co-op
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 16
+            VAlign Center
+            HAlign Middle
+        }
+        Player1Name
+        {
+            x 0.45
+            y -0.280000001
+            String Player1
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Center
+            HAlign Middle
+        }
+        Player2Name
+        {
+            x 0.45
+            y 0.1
+            String Player2
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Center
+            HAlign Middle
+        }
+    }
+    Images
+    {
+        HeroSprite
+        {
+            SpriteName ChestSprite
+            x -0.45
+            y -0.109999999
+            scale 1
+        }
+        P1Sprite
+        {
+            SpriteName PalletSprite
+            x 0.45
+            y -0.12
+            scale 1
+        }
+        P2Sprite
+        {
+            SpriteName PresentSprite
+            x 0.45
+            y 0.3
+            scale 1
+        }
+    }
 }
-GM_Score
+PauseMenu
 {
-    x 203
-    y -191
+    Buttons
+    {
+        Continue
+        {
+            x -0.175
+            y -0.10
+            width 50
+            height 9
+            String Continue
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Left
+            HAlign Middle
+            Event OnStartButtonDown
+            SpriteName ""
+        }
+        MainMenu
+        {
+            x -0.175
+            y -0.0
+            width 50
+            height 8
+            String "Main menu"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Left
+            HAlign Middle
+            Event OnMainMenuButtonDown
+            SpriteName ""
+        }
+    }
+    Texts
+    {
+        Score
+        {
+            x -0.2
+            y -0.35
+            String "Your score: ^"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 16
+            VAlign Center
+            HAlign Middle
+        }
+    }
 }
-GM_Pause
+ScoreMenu
 {
-    x -310
-    y -190
+    Buttons
+    {
+        Restart
+        {
+            x -0.175
+            y -0.1
+            width 50
+            height 9
+            String "Try again"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Left
+            HAlign Middle
+            Event OnRestartButtonDown
+            SpriteName ""
+        }
+        MainMenu
+        {
+            x -0.175
+            y 0.0
+            width 50
+            height 9
+            String "Main menu"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Center
+            HAlign Middle
+            Event OnMainMenuButtonDown
+            SpriteName ""
+        }
+    }
+    Texts
+    {
+        Score
+        {
+            x -0.2
+            y -0.35
+            String "Your score: ^"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 16
+            VAlign Center
+            HAlign Middle
+        }
+        WinnerCongratulation
+        {
+            x -0.456250012
+            y -0.57
+            String 123
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 16
+            VAlign Center
+            HAlign Middle
+        }
+    }
 }
-PM_Continue
+Statistic
 {
-    x -87
-    y -64
-}
-PM_Main
-{
-    x -87
-    y -43
-}
-PM_Score
-{
-    x -183
-    y -92
-}
-SM_Score
-{
-    x -175
-    y -68
-}
-SM_Restart
-{
-    x -64
-    y -20
-}
-SM_Main
-{
-    x -64
-    y 1
-}
-MM_Exit
-{
-    x -84
-    y 50
-}
-MM_Statistic
-{
-    x -84
-    y 11
-}
-StW_Title
-{
-    x -12
-    y -172
-}
-Stw_HS
-{
-    x -249
-    y -143
-}
-StW_Main
-{
-    x -166
-    y 149
-}
-Stw_TimeInGame
-{
-    x -249
-    y -118
-}
-MM_2pStart
-{
-    x -84
-    y -8
-}
-SM_WinnCong
-{
-    x -176
-    y -117
-}
-MM_Customize
-{
-    x -84
-    y 30
-}
-CM_Main
-{
-    x -151
-    y 157
-}
-CM_Single
-{
-    x -200
-    y -128
-}
-CM_LeftArrow
-{
-    x -243
-    y -73
-}
-CM_HeroSprite
-{
-    x -174
-    y -80
-}
-CM_RightArrow
-{
-    x -106
-    y -73
-}
-CM_Coop
-{
-    x 130
-    y -128
-}
-CM_Player1Name
-{
-    x 146
-    y -80
-}
-CM_Player1Sprite
-{
-    x 152
-    y -65
-}
-CM_LeftArrowP1
-{
-    x 95
-    y -57
-}
-CM_RightArrowP1
-{
-    x 209
-    y -57
-}
-Player2Name
-{
-    x 146
-    y 2
-}
-CM_Plauer2Sprite
-{
-    x 152
-    y 29
-}
-CM_LeftArrowP2
-{
-    x 95
-    y 37
-}
-CM_RightArrowP2
-{
-    x 209
-    y 37
-}
-MM_Spc
-{
-    x -146
-    y -65
+    Buttons
+    {
+        MainMenu
+        {
+            x -0.53125
+            y 0.790000021
+            width 60
+            height 10
+            String "Main menu"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Center
+            HAlign Middle
+            Event OnMainMenuButtonDown
+            SpriteName ""
+        }
+    }
+    Texts
+    {
+        StatisticTitle
+        {
+            x 0
+            y -0.620000005
+            String Statistic
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 16
+            VAlign Center
+            HAlign Middle
+        }
+        HihgScore
+        {
+            x -0.668749988
+            y -0.419999987
+            String "High score: ^ points"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Left
+            HAlign Middle
+        }
+        TimeInGame
+        {
+            x -0.668749988
+            y -0.300000012
+            String "Time in game: ^ minutes"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Left
+            HAlign Middle
+        }
+    }
 }
