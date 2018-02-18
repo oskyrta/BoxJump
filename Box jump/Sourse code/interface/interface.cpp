@@ -9,6 +9,7 @@
 #include "game.h"
 #include "render/render.h"
 #include "dataManager\dataManager.h"
+#include "dataManager\levelSettings.h"
 #include "eventSystem\eventController.h"
 #include "inputController.h"
 
@@ -19,6 +20,8 @@
 /////////////////////////////////////////////////
 // Variables
 static MenuType activeWindowIndex = MenuType_MainMenu;
+static float cloudSpeed;
+static float deltaTime;
 UIText* winnerCongratulation = 0;
 
 /////////////////////////////////////////////////
@@ -69,6 +72,9 @@ void Interface::setupInterface()
 	{
 		m_menuList[i] = 0;
 	}
+
+	deltaTime = 1. / m_dataManager->getWindowSettings()->get<int>("Framerate", 60);
+	cloudSpeed = m_dataManager->getObjectsSettgins()->get<float>("Cloud.CloudSpeed");
 }
 
 void Interface::startListeningEvents() {
@@ -223,6 +229,18 @@ void Interface::update() {
 	changeWindow(activeWindowIndex);
 
 	m_menuList[activeWindowIndex]->update();
+
+	if (activeWindowIndex == MenuType_MainMenu) {
+		m_cloudSprite->addToPosition(cloudSpeed*deltaTime, 0);
+
+		if (m_cloudSprite->getPosition().x > kScreenWidth / 1.8f) {
+			m_cloudSprite->setPosition(-kScreenWidth / 2 - GetRandomFloat(32, 85), GetRandomInt(-kScreenHeight / 3, kScreenHeight / 3));
+
+			sf::IntRect rect = m_dataManager->getSpriteContainer("CloudSprite")->rect;
+			rect.top += GetRandomInt(0, 2) * 16;
+			m_cloudSprite->setRect(rect);
+		}
+	}
 }
 
 void Interface::render() {

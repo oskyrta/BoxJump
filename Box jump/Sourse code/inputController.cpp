@@ -57,7 +57,10 @@ void Bind::setState(bool isPressed) {
 
 ////////////////////////////////////////
 // Finctions
-Binds GetBindByName(std::string name) {
+BindType GetBindByName(const std::string & name) {
+	if (name == "Enter")	return Bind_Enter;
+	if (name == "Esc")		return Bind_Esc;
+
 	if (name == "P1Left")	return Bind_P1Left;
 	if (name == "P1Right")	return Bind_P1Right;
 	if (name == "P1Jump")	return Bind_P1Jump;
@@ -103,10 +106,20 @@ void InputController::update() {
 		m_binds[i]->setState(IsKeyDown(m_binds[i]->firstKey) || IsKeyDown(m_binds[i]->secondKey));
 }
 
-short InputController::getBindState(Binds bind) {
+short InputController::getBindState(int bind) {
 	 return m_binds[bind]->state; 
 }
 
+bool InputController::isKeyDown(int bind) {
+	return (m_binds[bind]->state & KeyState_Down);
+}
+
+bool InputController::isKeyUp(int bind) {
+	return m_binds[bind]->state & KeyState_Up;
+}
+bool InputController::isKeyPressed(int bind) {
+	return m_binds[bind]->state & KeyState_Pressed;
+}
 Vec2 InputController::getMousePosition() {
 	return m_mousePosition / m_windowScale;
 }

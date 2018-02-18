@@ -5,6 +5,7 @@
 #include "dataManager/levelSettings.h"
 #include "dataManager\dataManager.h"
 #include "gameObject\platform.h"
+#include "inputController.h"
 
 #include <iostream>
 #include <Windows.h>
@@ -29,6 +30,8 @@ Hero::Hero()
 
 	m_averageSpeed = 0;
 
+	m_inputController = InputController::instance();
+
 	DataManager* dataManager = DataManager::instance();
 	m_material.density = dataManager->getObjectsSettgins()->get<float>("Wood.Density");
 	m_material.restitution = dataManager->getObjectsSettgins()->get<float>("Wood.Restitution");
@@ -45,21 +48,21 @@ Hero::Hero()
 void Hero::update(float dt)
 {
 	// Hero move
-	if (IsKeyDown(m_leftKey))
+	if (m_inputController->isKeyPressed(m_leftKey))
 	{
 		m_currentSpeed = -m_moveForse;
 	}
 
-	if (IsKeyDown(m_rightKey))
+	if (m_inputController->isKeyPressed(m_rightKey))
 	{
 		m_currentSpeed = m_moveForse;
 	}
 
-	if (IsKeyDown(m_rightKey) == IsKeyDown(m_leftKey))
+	if (m_inputController->isKeyPressed(m_rightKey) == m_inputController->isKeyPressed(m_leftKey))
 		m_currentSpeed = 0;
 
 
-	if (!IsKeyDown(m_jumpKey)) m_jump_key_was_pressed = false;
+	if (!m_inputController->isKeyPressed(m_jumpKey)) m_jump_key_was_pressed = false;
 
 	GameObject::update(dt);
 }
@@ -86,7 +89,7 @@ void Hero::physicsUpdate(float dt)
 	// Move camera if hero hero is above the screen
 	if ((m_position - m_camera->getCenterPosition()).y < -24) m_game->setRequiredCameraPos(m_position.y - 24);
 
-	if (IsKeyDown(m_jumpKey))
+	if (m_inputController->isKeyPressed(m_jumpKey))
 		m_jump_key_was_pressed = true;
 
 	if (m_velocity.y < -maxSpeed * 1.2f)
@@ -133,7 +136,7 @@ void Hero::intersect(Collision* collision)
 		// Check conditions for jump
 		if(	((collision->getState() == CollisionState_Stay && !m_jump_key_was_pressed) || collision->getState() == CollisionState_Start)
 			&& 
-			!m_isJump && IsKeyDown(m_jumpKey)
+			!m_isJump && m_inputController->isKeyPressed(m_jumpKey)
 		)
 		{
 			m_isJump = true;
@@ -173,4 +176,11 @@ void Hero::setKeys(int leftKey, int rightKey, int fireKey)
 	m_leftKey = leftKey;
 	m_rightKey = rightKey;
 	m_jumpKey = fireKey;
+}
+
+void Hero::setKeys(std::string leftKey, std::string rightKey, std::string fireKey)
+{
+	m_leftKey = GetBindByName(leftKey);
+	m_rightKey = GetBindByName(rightKey);
+	m_jumpKey = GetBindByName(fireKey);
 }

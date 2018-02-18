@@ -15,6 +15,8 @@ enum HeroSkin
 	HeroSkin_Count
 };
 
+class InputController;
+
 /////////////////////////////////////////////////
 // Class Hero
 class Hero : public GameObject
@@ -31,6 +33,7 @@ public:
 	virtual void collisionExit(Collision* collision);
 
 	void setKeys(int leftKey, int rightKey, int jumpKey);
+	void setKeys(std::string leftKey, std::string rightKey, std::string fireKey);
 
 private:
 	void spriteUpdate();
@@ -51,4 +54,6 @@ private:
 
 	float m_averageSpeed;
 	float m_currentSpeed;
+
+	InputController* m_inputController;
 };

@@ -19,7 +19,7 @@ enum KeyState
 	KeyState_Up = 1 << 2
 };
 
-enum Binds
+enum BindType
 {
 	Bind_None,
 	Bind_LeftButton,
@@ -36,6 +36,7 @@ enum Binds
 	Bind_Count
 };
 
+BindType GetBindByName(const std::string & name);
 
 //////////////////////////////
 // Class InputController
@@ -50,7 +51,11 @@ public:
 		return instance_;
 	};
 
-	short getBindState(Binds bind);
+	short getBindState(int bind);
+	bool isKeyDown(int bind);
+	bool isKeyUp(int bind);
+	bool isKeyPressed(int bind);
+
 	Vec2 getMousePosition();
 	Vec2 getMousePositionC();
 	bool mouseOnWindow();
