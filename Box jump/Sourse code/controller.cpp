@@ -6,7 +6,7 @@
 #include "tools\utils.h"
 #include "gameObject\platform.h"
 #include "gameObject\cloud.h"
-#include <iostream>
+#include "dataManager\dataManager.h"
 
 /////////////////////////////////////////////////
 // Variables
@@ -124,13 +124,13 @@ void Controller::createNextCloud(Vec2 cloudPos)
 	int i = 0;
 	while (m_objectsList[i] != 0) i++;
 
-	cloudPos = Vec2(-m_camera->getSize().x / 1.7 - GetRandomFloat(30, 100), cloudPos.y - GetRandomInt(50, 175));
+	cloudPos = Vec2(-GetRandomFloat(30, 100), cloudPos.y - GetRandomInt(50, 175));
 
 	m_objectsList[i] = m_cloudPool->getNewObject();
 	m_objectsList[i]->setPosition(cloudPos);
 
-	sf::IntRect rect = m_objectsList[i]->getTextureRect();
-	rect.top = GetRandomInt(0, 2) * 16;
+	sf::IntRect rect = DataManager::instance()->getSpriteContainer("CloudSprite")->rect;
+	rect.top += GetRandomInt(0, 2) * 16;
 	m_objectsList[i]->setTextureRect(rect);
 
 	if (m_objectsList[i]->getDepth() != 2) m_objectsList[i]->setDepth(2);
@@ -150,15 +150,15 @@ void Controller::createNextPlatforms(Vec2 currentPlatformPos)
 	int p = 0, t = GetRandomInt(0, 10);
 	Vec2 maxPosition = Vec2(0, 250);
 
-	if (t > 8) p = 3;
-	else if(t > 4) p = 2;
+	/*if (t > 9) p = 3;
+	else */if(t > 6) p = 2;
 	else p = 1;
 
-	float magnitude = 100;
+	float magnitude = 90;
 	
 	for (int j = 0; j < p; j++)
 	{
-		offset.y = -GetRandomFloat(magnitude / 3, magnitude);
+		offset.y = -GetRandomInt(magnitude / 2.5f, magnitude);
 		offset.x = GetRandomFloat( -magnitude + 2*magnitude/p * j, - magnitude + 2*magnitude/p * (j+1) );
 
 		offset = offset.magnitude(magnitude);

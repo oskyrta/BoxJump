@@ -29,6 +29,8 @@ public:
 	void setPosition(float x, float y) { m_pos = Vec2(x, y); }
 	Vec2 getPosition() { return m_pos; };
 
+	void addToPosition(float x, float y) { m_pos += Vec2(x, y); }
+
 	void setSize(Vec2 size) { m_size = size; };
 	void setSize(float width, float height) { m_size = Vec2(width, height); }
 	Vec2 getSize() { return m_size; };

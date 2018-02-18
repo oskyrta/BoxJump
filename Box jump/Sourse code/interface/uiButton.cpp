@@ -34,6 +34,7 @@ void UIButton::initialize(PropertyTree* tree)
 	m_size.y = m_tree->get<int>("height");
 
 	m_event = m_tree->get<std::string>("Event");
+	m_bind = GetBindByName(m_tree->get<std::string>("Bind", ""));
 
 	m_string = m_tree->get<std::string>("String", "");
 	if (m_string != "")
@@ -76,13 +77,16 @@ void UIButton::update() {
 		else {
 			m_offset.x = 4;
 		}
-
-		if (!IsKeyDown(0x70) && InputController::instance()->getBindState(Bind_LeftButton) & KeyState_Down) {
-			m_eventController->startEvent(m_event);
-		}
 	}
 	else if (m_offset.x > 0) {
 		m_offset.x -= .22f;
+	}
+
+
+	if ((m_mouseOnObject && !IsKeyDown(0x70) && InputController::instance()->getBindState(Bind_LeftButton) & KeyState_Down) ||
+		InputController::instance()->getBindState((BindType)m_bind) & KeyState_Down)
+	{
+		m_eventController->startEvent(m_event);
 	}
 }
 

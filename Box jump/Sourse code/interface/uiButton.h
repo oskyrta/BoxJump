@@ -38,6 +38,7 @@ private:
 
 	////////  Sprite  /////////
 	std::string m_spriteName;
+	int m_bind;
 
 	SpriteContainer* m_spriteContainer;
 	sf::Sprite* m_sprite;

@@ -226,7 +226,7 @@ void Game::initialize(GameMode mode)
 	if (m_currentGameMode == GameMode_OnePlayer)
 	{
 		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 0, 140, 0, getSpriteNameBySkin(m_heroSkin));
-		m_player1->setKeys(VK_LEFT, VK_RIGHT, VK_UP);
+		m_player1->setKeys("P1Left", "P1Right", "P1Jump");
 		m_player1->setVelocity(Vec2(0, 0));
 		m_player1->setUseGravity(true);
 
@@ -240,13 +240,13 @@ void Game::initialize(GameMode mode)
 	if (m_currentGameMode == GameMode_TwoPlayers)
 	{
 		m_player1 = (Hero*)createGameObject(GameObjectType_Hero, 100, 140, 0, getSpriteNameBySkin(m_player1Skin));
-		m_player1->setKeys(VK_LEFT, VK_RIGHT, VK_UP);
+		m_player1->setKeys("P1Left", "P1Right", "P1Jump");
 		m_player1->setVelocity(Vec2(0, 0));
 		m_player1->setUseGravity(true);
 		m_player1->setColliderVertex(4, ver);
 	
 		m_player2 = (Hero*)createGameObject(GameObjectType_Hero, -100, 140, 0, getSpriteNameBySkin(m_player2Skin));
-		m_player2->setKeys('A', 'D', 'W');
+		m_player2->setKeys("P2Left", "P2Right", "P2Jump");
 		m_player2->setVelocity(Vec2(0, 0));
 		m_player2->setUseGravity(true);
 		m_player2->setColliderVertex(4, ver);
