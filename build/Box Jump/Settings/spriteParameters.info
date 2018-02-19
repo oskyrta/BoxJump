@@ -45,15 +45,6 @@ atlas00
 		size 1
 	}
 	
-	CloudSprite
-	{
-		x 96
-		y 0
-		width 48
-		height 16
-		size 1
-	}
-	
 	ChestSprite
 	{
 		x 0
@@ -82,3 +73,14 @@ atlas00
 	}
 }
 
+CloudSprite
+{	
+	CloudSprite
+	{
+		x 0
+		y 0
+		width 48
+		height 16
+		size 1
+	}
+}

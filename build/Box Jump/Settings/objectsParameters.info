@@ -18,12 +18,12 @@ Cloud
     Restitution 0.0
     StaticFriction 0.0
     DynamicFriction 0.0
-    CloudSpeed 35
+    CloudSpeed 25
 }
 Hero
 {
     JumpForse 400.0
-    MoveForse 17000.0
+    MoveForse 20000.0
     MaxSpeed 200.0
     Skin 0
 }

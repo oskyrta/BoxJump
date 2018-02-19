@@ -17,5 +17,8 @@ public:
 	void setFunction(std::string eventName, std::function<void(const EventListener*)> func) { m_functions[eventName] = func; }
 
 protected:
+	void startListeningEvents();
+
+protected:
 	std::map<std::string, std::function<void(const EventListener*)>> m_functions;
 };

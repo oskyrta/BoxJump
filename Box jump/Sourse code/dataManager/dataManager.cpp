@@ -39,6 +39,7 @@ DataManager::~DataManager()
 	//writeData(SettingsFile_InterfaceSettings);
 	writeData(SettingsFile_Statistic);
 	writeData(SettingsFile_ObjectsSettings);
+	writeData(SettingsFile_WindowSettings);
 }
 
 sf::Font* DataManager::getFont() { return m_font; }

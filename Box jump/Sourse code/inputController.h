@@ -69,6 +69,7 @@ private:
 	boost::property_tree::ptree* m_tree;
 
 	Vec2 m_mousePosition;
+	Vec2 m_cameraTopLeft;
 
 	int m_windowScale;
 

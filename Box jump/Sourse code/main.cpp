@@ -32,20 +32,7 @@ void setup() {
 
 	boost::property_tree::ptree* windowSettings = dataManager->getWindowSettings();
 
-	renderSystem->setup(
-		windowSettings->get<int>("width"), 
-		windowSettings->get<int>("height"), 
-		"Box jump", 
-		windowSettings->get<int>("scale"),
-		windowSettings->get<int>("Framerate", 0)
-	);
-
-	sf::Color color;
-	color.r = windowSettings->get<int>("bgColor.r");
-	color.g = windowSettings->get<int>("bgColor.g");
-	color.b = windowSettings->get<int>("bgColor.b");
-
-	renderSystem->setupCamera(CameraType_Main, 320, 200, color);
+	renderSystem->setup();
 
 	gameInterface->setupInterface();
 	game->setupSystem();

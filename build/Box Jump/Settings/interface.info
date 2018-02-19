@@ -78,10 +78,29 @@ Main
             Event OnCustomizeButtonDown
             SpriteName ""
         }
-        Exit
+        Settings
         {
             x -0.1
             y 0.22
+            width 100
+            height 8
+            String "Settings"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Left
+            HAlign Middle
+            Event OnSettingsButtonDown
+            SpriteName ""
+        }
+        Exit
+        {
+            x -0.1
+            y 0.33
             width 100
             height 8
             String "Exit to desktop"
@@ -116,6 +135,16 @@ Main
             HAlign Middle
         }
     }
+	Images
+	{
+		Cloud
+		{
+            SpriteName CloudSprite
+            x 1.2
+            y 0
+            scale 1
+		}
+	}
 }
 In-GameMenu
 {
@@ -131,13 +160,14 @@ In-GameMenu
             Event OnPauseButtonDown
             SpriteName PauseButtonSprite
             scale 1
+			Bind "Esc"
         }
     }
     Texts
     {
         FPS
         {
-            x -1.824999988
+            x -0.824999988
             y -0.899999976
             String ^
             Color
@@ -189,6 +219,7 @@ CustomizeMenu
             HAlign Middle
             Event OnMainMenuButtonDown
             SpriteName ""
+			Bind "Esc"
         }
         LeftArrowHero
         {
@@ -361,6 +392,7 @@ PauseMenu
             HAlign Middle
             Event OnStartButtonDown
             SpriteName ""
+			Bind "Esc"
         }
         MainMenu
         {
@@ -423,6 +455,7 @@ ScoreMenu
             HAlign Middle
             Event OnRestartButtonDown
             SpriteName ""
+			Bind "Enter"
         }
         MainMenu
         {
@@ -442,6 +475,7 @@ ScoreMenu
             HAlign Middle
             Event OnMainMenuButtonDown
             SpriteName ""
+			Bind "Esc"
         }
     }
     Texts
@@ -500,6 +534,7 @@ Statistic
             HAlign Middle
             Event OnMainMenuButtonDown
             SpriteName ""
+			Bind "Esc"
         }
     }
     Texts
@@ -550,4 +585,71 @@ Statistic
             HAlign Middle
         }
     }
+}
+
+Settings
+{
+    Buttons
+    {
+        Resolution
+        {
+            x -0.1
+            y -0.25
+            width 60
+            height 10
+            String "320x200"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Left
+            HAlign Middle
+            Event "OnChangeRosolutionButtonDown"
+            SpriteName ""
+        }
+        MainMenu
+        {
+            x -0.53125
+            y 0.790000021
+            width 60
+            height 10
+            String "Main menu"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Center
+            HAlign Middle
+            Event OnMainMenuButtonDown
+            SpriteName ""
+			Bind "Esc"
+        }
+    }
+	Texts
+	{
+        ResolutionText
+        {
+            x -0.5
+            y -0.25
+            String "Resolution:"
+            Color
+            {
+                r 45
+                g 45
+                b 45
+            }
+            CharacterSize 8
+            VAlign Center
+            HAlign Middle
+        }
+	}
+	Images
+	{
+	}
 }

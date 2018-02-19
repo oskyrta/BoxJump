@@ -100,10 +100,12 @@ void InputController::setup() {
 void InputController::update() {
 	windowSize = (sf::Vector2f)m_render->getSize();
 	m_windowScale = m_render->getScale();
-	m_mousePosition = m_render->getRenderWindow()->mapPixelToCoords( sf::Mouse::getPosition(*m_render->getRenderWindow()) );
+	m_cameraTopLeft = m_render->getTopLeftCameraPos(CameraType_Main);
+	m_mousePosition = Vec2( m_render->getRenderWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_render->getRenderWindow())) ) - m_cameraTopLeft;
 
 	for (int i = 0; i < Bind_Count; i++)
 		m_binds[i]->setState(IsKeyDown(m_binds[i]->firstKey) || IsKeyDown(m_binds[i]->secondKey));
+
 }
 
 short InputController::getBindState(int bind) {

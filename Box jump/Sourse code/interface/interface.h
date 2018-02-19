@@ -11,6 +11,7 @@ class DataManager;
 class Render;
 class Game;
 class UISprite;
+class UIText;
 enum HeroSkin;
 
 ////////////////////////////////////////////////
@@ -23,6 +24,7 @@ enum MenuType
 	MenuType_CustomizeMenu,
 	MenuType_ScoreMenu,
 	MenuType_StatisticWindow,
+	MenuType_Settings,
 
 	MenuTypeCount
 };
@@ -45,6 +47,8 @@ public:
 	void initialize();
 	void update();
 	void render();
+
+	void changeToNextResolution();
 
 	InterfaceWindow* getInterfaceWindow(MenuType type) { return m_menuList[type]; }
 
@@ -71,4 +75,5 @@ private:
 	UISprite* m_player1Sprite;
 	UISprite* m_player2Sprite;
 	UISprite* m_cloudSprite;
+	UIText* m_resolution;
 };

@@ -2,6 +2,7 @@
 // Include
 #include "render/camera.h"
 #include "tools\vec2.h"
+#include <assert.h>
 
 ////////////////////////////////////////////////
 // Class Camera
@@ -15,18 +16,24 @@ Camera::Camera()
 	m_view = sf::View();
 }
 
-Camera::Camera(int width, int height, sf::Color color)
+void Camera::init(int width, int height, sf::Color color)
 {
-	m_renderTexture = new sf::RenderTexture();
-	m_renderTexture->create(width, height);
+	if (!m_renderTexture) {
+		m_renderTexture = new sf::RenderTexture();
+	}
+	else {
+		m_renderTexture->clear();
+	}
+	assert( m_renderTexture->create(width, height) );
 
 	m_size = Vec2(width, height);
 	m_halfSize = m_size / 2;
 	m_view = sf::View(sf::FloatRect(0, 0, width, height));
 	m_position = Vec2();
-	m_onScreenPosition = Vec2();
+	m_onScreenPosition = Vec2((float)width , (float)height);
 
-	//m_sprite.setOrigin((float)width / 2, (float)height / 2);
+	m_sprite.setPosition(m_onScreenPosition.getSFVector());
+	m_sprite.setOrigin((float)width / 2, (float)height / 2);
 
 	m_backgoundColor = color;
 }

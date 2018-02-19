@@ -51,7 +51,7 @@ float Vec2Dot(Vec2 a, Vec2 axis);
 float t = 0;
 int frames = 0;
 float distance = 0;
-float lastYpos = 0;
+float lastYpos = 140;
 
 ////////////////////////////////////////////////
 // Class Game
@@ -213,7 +213,7 @@ void Game::initialize(GameMode mode)
 
 	m_score = 0;
 	distance = 0;
-	lastYpos = -100;
+	lastYpos = 0;
 
 	m_mainCamera->setPosition(Vec2());
 	m_requiredCameraYPosition = 0;

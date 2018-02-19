@@ -1,13 +1,18 @@
 width 640
 height 400
-
 name "Box Jump"
 scale 2
-
-bgColor
+Framerate 240
+Main
 {
-	r 190
-	g 216
-	b 227
+    x .5
+    y .5
+    width 320
+    height 200
+    bgColor
+    {
+        r 190
+        g 216
+        b 227
+    }
 }
-Framerate 240 ; set zero to not use

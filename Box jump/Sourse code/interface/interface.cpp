@@ -22,7 +22,8 @@
 static MenuType activeWindowIndex = MenuType_MainMenu;
 static float cloudSpeed;
 static float deltaTime;
-UIText* winnerCongratulation = 0;
+static UIText* winnerCongratulation = 0;
+static int scale = 0;
 
 /////////////////////////////////////////////////
 // Functions
@@ -35,6 +36,7 @@ std::string getMenuNameByType(MenuType type)
 		case MenuType_CustomizeMenu:	return "CustomizeMenu";
 		case MenuType_ScoreMenu:		return "ScoreMenu";
 		case MenuType_StatisticWindow:	return "Statistic";
+		case MenuType_Settings:			return "Settings";
 	}
 
 	return "";
@@ -134,6 +136,12 @@ void Interface::startListeningEvents() {
 
 	m_eventController->addListenerToEvent(
 		this,
+		"OnSettingsButtonDown",
+		[](const EventListener* listener) { activeWindowIndex = MenuType_Settings; }
+	);
+
+	m_eventController->addListenerToEvent(
+		this,
 		"OnFirstPlayerWin",
 		[](const EventListener* listener) { winnerCongratulation->setString("First player won"); }
 	);
@@ -180,6 +188,21 @@ void Interface::startListeningEvents() {
 		[](const EventListener* listener) { ((Interface*)listener)->changeSprite("Player2", 1); }
 	);
 
+	m_eventController->addListenerToEvent(
+		this,
+		"OnChangeRosolutionButtonDown",
+		[](const EventListener* listener) {((Interface*)listener)->changeToNextResolution(); }
+	);
+}
+
+void Interface::changeToNextResolution() {
+	scale = (scale + 1) % Resolution_Count;
+	if (scale == 0) scale++;
+
+	int width, height; 
+	getResolution((Resolutions)scale, width, height);
+
+	m_resolution->setString("" + std::to_string(width) + "x" + std::to_string(height));
 }
 
 void Interface::changeSprite(std::string name, int change){
@@ -208,15 +231,20 @@ void Interface::initialize() {
 		m_menuList[i]->initialize(menuName);
 	}
 
+	scale = m_render->getScale() - 1;
+
+	m_resolution		 =  (UIText*) m_menuList[MenuType_Settings]->getObject("Resolution");
 	winnerCongratulation =  (UIText*) m_menuList[MenuType_ScoreMenu]->getObject("WinnerCongratulation");
-	m_heroSprite =		   (UISprite*)m_menuList[MenuType_CustomizeMenu]->getObject("HeroSprite");
-	m_player1Sprite =	   (UISprite*)m_menuList[MenuType_CustomizeMenu]->getObject("P1Sprite");
-	m_player2Sprite =	   (UISprite*)m_menuList[MenuType_CustomizeMenu]->getObject("P2Sprite");
-	m_cloudSprite =		   (UISprite*)m_menuList[MenuType_MainMenu]->getObject("Cloud");
+	m_heroSprite		 = (UISprite*)m_menuList[MenuType_CustomizeMenu]->getObject("HeroSprite");
+	m_player1Sprite		 = (UISprite*)m_menuList[MenuType_CustomizeMenu]->getObject("P1Sprite");
+	m_player2Sprite		 = (UISprite*)m_menuList[MenuType_CustomizeMenu]->getObject("P2Sprite");
+	m_cloudSprite		 = (UISprite*)m_menuList[MenuType_MainMenu]->getObject("Cloud");
 
 	m_heroSprite->resetSprite(getSpriteNameBySkin(m_heroSkin));
 	m_player1Sprite->resetSprite(getSpriteNameBySkin(m_player1Skin));
 	m_player2Sprite->resetSprite(getSpriteNameBySkin(m_player2Skin));
+
+	changeToNextResolution();
 }
 
 void Interface::changeWindow(MenuType windowType) {

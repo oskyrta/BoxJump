@@ -10,8 +10,9 @@
 class Camera {
 public:
 	Camera();
-	Camera(int width, int height, sf::Color color);
 	~Camera();
+
+	void init(int width, int height, sf::Color color);
 
 	void setPosition(Vec2 position);
 	Vec2 getPosition() { return m_position; };
@@ -26,6 +27,8 @@ public:
 
 	void setScale(int scale) { m_sprite.setScale(scale, scale); };
 	int getScale() { return m_sprite.getScale().x; }
+
+	sf::FloatRect getSpriteGlobalBounds() { return m_sprite.getGlobalBounds(); }
 
 	sf::Sprite& getSprite();
 
