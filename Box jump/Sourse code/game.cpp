@@ -36,9 +36,8 @@
 #include "gameObject\cloud.h"
 
 ////////////////////////////////////////////////
-// Global
-Vec2 zeroVec = Vec2();
-extern UIText* winnerCongratulation;
+// Const
+const Vec2 zeroVec = Vec2();
 
 ////////////////////////////////////////////////
 // Function declaration
@@ -97,11 +96,10 @@ void Game::setupSystem()
 	// Set start clock
 	m_lastClock = clock();
 
-	// Initialize pool
+	// Initialize pools
 	m_platformPool = new Pool();
 	m_cloudPool = new Pool();
 
-	// Initialize level controller
 	m_controller = new Controller();
 
 	m_physicsController = new PhysicsController();
@@ -140,8 +138,11 @@ void Game::startListeningEvents()
 		[](const EventListener* listener) { ((Game*)listener)->startGame(); }
 	);
 
-	m_eventController->addListenerToEvent(this,
-		"OnPauseButtonDown", [](const EventListener* listener) { ((Game*)listener)->pauseGame(); } );
+	m_eventController->addListenerToEvent(
+		this,
+		"OnPauseButtonDown", 
+		[](const EventListener* listener) { ((Game*)listener)->pauseGame(); } 
+	);
 
 	m_eventController->addListenerToEvent(
 		this,
@@ -213,7 +214,7 @@ void Game::initialize(GameMode mode)
 
 	m_score = 0;
 	distance = 0;
-	lastYpos = 0;
+	lastYpos = 140;
 
 	m_mainCamera->setPosition(Vec2());
 	m_requiredCameraYPosition = 0;

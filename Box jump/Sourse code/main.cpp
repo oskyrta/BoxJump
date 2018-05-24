@@ -30,8 +30,6 @@ void setup() {
 	dataManager->loadData();
 	inputController->setup();
 
-	boost::property_tree::ptree* windowSettings = dataManager->getWindowSettings();
-
 	renderSystem->setup();
 
 	gameInterface->setupInterface();

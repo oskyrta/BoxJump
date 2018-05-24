@@ -139,13 +139,13 @@ void PhysicsController::resolveCollision(Collision* coll)
 	// Correction floating point error
 	PositionalCorrection(coll);
 
-	// Get relative velocity after applyng impulse
+	// Get relative velocity after applying impulse
 	rv = B->getVelocity() - A->getVelocity();
 
 	// Find tangent vector
 	Vec2 tangent = Vec2(coll->getNormal().y, -coll->getNormal().x);
 
-	// Velosity along tangent vector
+	// Velocity along tangent vector
 	float vat = Vec2Dot(rv, tangent);
 	if (vat == 0) return;
 

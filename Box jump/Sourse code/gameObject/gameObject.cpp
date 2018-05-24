@@ -9,7 +9,7 @@
 
 ////////////////////////////////////////////////
 // Variables
-static int screenWidth, screenHeight;
+static const int screenWidth = 320, screenHeight = 200;
 
 ////////////////////////////////////////////////
 // Class GameObject
@@ -37,9 +37,6 @@ GameObject::GameObject() {
 	m_material.restitution = 0;
 	m_material.staticFriction = 0;
 	m_material.dynamicFriction = 0;
-
-	screenHeight = 200;
-	screenWidth = 320;
 
 	for (int i = 0; i < 32; i++)
 	{
@@ -103,10 +100,12 @@ void GameObject::render(float alpha) {
 }
 
 void GameObject::update(float dt) {
-	if (m_newPosition.x - m_size.x / 2 > screenWidth / 2) 
-		m_newPosition.x = -screenWidth / 2 - m_size.x / 2;
-	if (m_newPosition.x + m_size.x / 2 < -screenWidth / 2) 
-		m_newPosition.x = screenWidth / 2 + m_size.x / 2;
+	if (m_newPosition.x - m_size.x / 1.9f > screenWidth / 2) {
+		m_newPosition.x = -screenWidth / 2 - m_size.x / 1.9f;
+	}
+	else if (m_newPosition.x + m_size.x / 1.9f < -screenWidth / 2) {
+		m_newPosition.x = screenWidth / 2 + m_size.x / 1.9f;
+	}
 }
 
 void GameObject::physicsUpdate(float dt) {
