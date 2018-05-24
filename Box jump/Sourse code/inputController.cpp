@@ -83,6 +83,8 @@ void InputController::setup() {
 	m_render = Render::instance();
 	m_tree = m_dataManager->getBinds();
 
+	m_windowInFocus = true;
+
 	for (int i = 0; i < Bind_Count; i++)
 		m_binds[i] = new Bind();
 
@@ -103,9 +105,9 @@ void InputController::update() {
 	m_cameraTopLeft = m_render->getTopLeftCameraPos(CameraType_Main);
 	m_mousePosition = Vec2( m_render->getRenderWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_render->getRenderWindow())) ) - m_cameraTopLeft;
 
-	for (int i = 0; i < Bind_Count; i++)
-		m_binds[i]->setState(IsKeyDown(m_binds[i]->firstKey) || IsKeyDown(m_binds[i]->secondKey));
-
+	for (int i = 0; i < Bind_Count; i++) {
+		m_binds[i]->setState( (m_windowInFocus) ? (IsKeyDown(m_binds[i]->firstKey) || IsKeyDown(m_binds[i]->secondKey)) : false );
+	}
 }
 
 short InputController::getBindState(int bind) {

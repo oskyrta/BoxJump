@@ -3,7 +3,7 @@
 #include "render/render.h"
 #include "render/camera.h"
 #include "dataManager\dataManager.h"
-
+#include "inputController.h"
 
 
 CameraType GetCameraTypeByName(std::string name)
@@ -77,6 +77,7 @@ void Render::chageResolution() {
 void Render::setup() {
 	m_dataManager = DataManager::instance();
 	m_eventController = EventController::instance();
+	m_inputController = InputController::instance();
 
 	startListeningEvents();
 
@@ -145,8 +146,16 @@ bool Render::frame()
 	sf::Event event;
 	while (m_renderWindow->pollEvent(event))
 	{
-		if (event.type == sf::Event::Closed)
+		if (event.type == sf::Event::Closed) {
 			m_renderWindow->close();
+		}
+		if (event.type == sf::Event::GainedFocus) {
+			m_inputController->setWindowFocus(true);
+		}
+
+		if (event.type == sf::Event::LostFocus) {
+			m_inputController->setWindowFocus(false);
+		}
 	}
 
 	return true;

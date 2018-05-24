@@ -51,6 +51,9 @@ public:
 		return instance_;
 	};
 
+	void setWindowFocus(bool focus) { m_windowInFocus = focus; }
+	bool getWindowFocus() { return m_windowInFocus; }
+
 	short getBindState(int bind);
 	bool isKeyDown(int bind);
 	bool isKeyUp(int bind);
@@ -72,6 +75,8 @@ private:
 	Vec2 m_cameraTopLeft;
 
 	int m_windowScale;
+
+	bool m_windowInFocus;
 
 	Bind* m_binds[Bind_Count];
 };

@@ -29,6 +29,7 @@ void getResolution(Resolutions resolution, int & width, int & height);
 class Camera;
 class DataManager;
 class EventController;
+class InputController;
 
 ////////////////////////
 // Class Render
@@ -72,4 +73,5 @@ private:
 	sf::RenderWindow * m_renderWindow; 
 	DataManager * m_dataManager;
 	EventController * m_eventController;
+	InputController* m_inputController;
 };
